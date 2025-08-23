@@ -37,7 +37,6 @@ function Home() {
       
 
       
-
       <section className="text-center py-5" style={{ backgroundColor: '#e9f7ef' }}>
         <div className="container">
           <h2 className="fw-bold text-success">BD কৃষি দিবানিশি</h2>
@@ -262,6 +261,70 @@ function Home() {
           <a href="/resources" className="btn btn-primary">রিসোর্স দেখুন / Explore Resources</a>
           <a href="/community" className="btn btn-outline-success">কমিউনিটিতে যোগ দিন / Join Community</a>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{/* Personalized Dashboard Section */}
+<div className="text-center mt-5 mb-5">
+  <h3 className="fw-bold mb-2">ব্যক্তিগত ড্যাশবোর্ড</h3>
+  <p className="text-muted mb-4">Personalized Dashboard</p>
+  <p className="text-muted">কৃষি ইকোসিস্টেমে ‌আপনার ভূমিকার উপর ভিত্তি করে বিশেষ টুলস এবং তথ্য</p>
+
+  {/* Role Selection Buttons */}
+  <div className="d-flex justify-content-center mt-3 mb-4">
+    <div className="btn-group" role="group" aria-label="Role selection">
+      <button type="button" className="btn btn-outline-secondary active">কৃষক</button>
+      <button type="button" className="btn btn-outline-secondary">বিশেষজ্ঞ</button>
+      <button type="button" className="btn btn-outline-secondary">সমন্বয়কারী</button>
+      <button type="button" className="btn btn-outline-secondary">উদ্যোক্তা</button>
+      <button type="button" className="btn btn-outline-secondary">সরবরাহকারী</button>
+    </div>
+  </div>
+
+  {/* Dashboard Cards */}
+  <div className="row justify-content-center mt-4">
+    {/* Card 1: Farm Status */}
+    <div className="col-md-3">
+      <div className="card h-100 p-3 text-start shadow-sm">
+        <h6 className="fw-bold text-success">🌱 আমার খামারের অবস্থা</h6>
+        <p className="text-muted small mb-1">বর্তমান ফসল ও জমির অবস্থা / Current crop and field conditions</p>
+        <ul className="list-unstyled small">
+        <li>
+  🌾 আমন ধান
+  <span className="badge bg-secondary ms-2">বর্ধনশীল</span>
+</li>
+
+          <li>🟢 মাটির আর্দ্রতা: <span className="text-success fw-bold">উপযুক্ত</span></li>    
+          <li>📆 পরবর্তী সেট: <span className="fw-bold">২ দিন</span></li>
+        </ul>
+        <p className="text-muted small">📍 ঢাকা, সাভার</p>
+      </div>
+    </div>
+
+    {/* Card 2: Expert Advice */}
+    <div className="col-md-3">
+      <div className="card h-100 p-3 text-start shadow-sm">
+        <h6 className="fw-bold text-primary">💬 বিশেষজ্ঞ পরামর্শ</h6>
+        <p className="text-muted small">কৃষি বিশেষজ্ঞদের কাছ থেকে পরামর্শ নিন</p>
+        <input type="text" className="form-control mb-2" placeholder="প্রশ্ন করুন" />
+        <p className="text-muted small">৩টি অমীমাংসিত প্রশ্ন<br />শেষ পরামর্শ: ২ দিন আগে</p>
+      </div>
+    </div>
+
+    {/* Card 3: Market Prices */}
+    <div className="col-md-3">
+      <div className="card h-100 p-3 text-start shadow-sm">
+        <h6 className="fw-bold text-danger">📈 বাজার দাম</h6>
+        <p className="text-muted small mb-1">সর্বশেষ পণ্যের দাম / Latest commodity prices</p>
+        <ul className="list-unstyled small">
+          <li>ধান: <span className="text-success fw-bold">৩৫ টাকা ⬆</span></li>
+          <li>গম: <span className="text-danger fw-bold">৩২ টাকা ⬇</span></li>
+          <li>শুঁটকি: <span className="fw-bold">৮০ টাকা →</span></li>
+        </ul>
+        <p className="text-muted small">📍 কাওরান বাজার, ঢাকা</p>
       </div>
     </div>
   </div>
