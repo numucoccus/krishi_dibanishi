@@ -12,7 +12,7 @@ export default function RoleSelector() {
 
   return (
     <div className="card card-custom p-4">
-      <h5 className="fw-bold mb-2">আপনার ভূমিকা   নির্ধারণ করুন</h5>
+      <h5 className="fw-bold mb-2">আপনার ভূমিকা নির্ধারণ করুন</h5>
       <p className="text-muted small mb-3">
         Select your role in the agricultural ecosystem
       </p>
