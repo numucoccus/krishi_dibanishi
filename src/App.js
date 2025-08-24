@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import LoginForm from './LoginForm';
 import RoleSelector from './RoleSelector';
+import Home from './components/Home';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           
           <RoleSelector />
             <LoginForm />
+              <Home />
 
         </div>
       </div>
