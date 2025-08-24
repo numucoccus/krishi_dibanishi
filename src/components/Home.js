@@ -325,14 +325,14 @@ function Home() {
           <li>শুঁটকি: <span className="fw-bold">৮০ টাকা →</span></li>
         </ul>
         <p className="text-muted small">📍 কাওরান বাজার, ঢাকা</p>
+        </div>
+       </div>
       </div>
-    </div>
-  </div>
+  
 </div>
 
-
-
       </section>
+       
     </>
   );
 }
