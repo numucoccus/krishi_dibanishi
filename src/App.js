@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from './LoginForm';
 import RoleSelector from './RoleSelector';
 import Home from './components/Home';
-import Dashboard from './components/Dashboard'; // ✅ Newly added
+import Dashboard from './components/Dashboard'; 
 
 function App() {
   return (
