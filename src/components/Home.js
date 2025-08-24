@@ -37,7 +37,6 @@ function Home() {
       
 
       
-
       <section className="text-center py-5" style={{ backgroundColor: '#e9f7ef' }}>
         <div className="container">
           <h2 className="fw-bold text-success">BD কৃষি দিবানিশি</h2>
@@ -270,6 +269,7 @@ function Home() {
 
 
       </section>
+       
     </>
   );
 }
