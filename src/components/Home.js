@@ -1,13 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { Link } from 'react-router-dom';
+
+
 function Home() {
   return (
     <>
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div className="container">
-          <a className="navbar-brand fw-bold text-success" href="/home">BD <span className="text-dark">কৃষি দিবানিশি</span></a>
+          <Link className="navbar-brand fw-bold text-success" to="/home">BD <span className="text-dark">কৃষি দিবানিশি</span></Link>
 
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span className="navbar-toggler-icon"></span>
@@ -16,16 +19,17 @@ function Home() {
 
           <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-  <li className="nav-item"><a className="nav-link" href="/home">হোম</a></li>
-  <li className="nav-item"><a className="nav-link" href="/dashboard">ড্যাশবোর্ড</a></li>
-  <li className="nav-item"><a className="nav-link" href="/community">কমিউনিটি</a></li>
-  <li className="nav-item"><a className="nav-link" href="/resources">রিসোর্স</a></li>
-  <li className="nav-item"><a className="nav-link" href="/market">বাজার</a></li>
+  <li className="nav-item"><Link className="nav-link" to="/home">হোম</Link></li>
+  <li className="nav-item"><Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link></li>
+  <li className="nav-item"><Link className="nav-link" to="/community">কমিউনিটি</Link></li>
+  <li className="nav-item"><Link className="nav-link" to="/resources">রিসোর্স</Link></li>
+  <li className="nav-item"><Link className="nav-link" to="/market">বাজার</Link></li>
 </ul>
 
             <div className="d-flex">
               <button className="btn btn-success me-2">কৃষক</button>
-              <button className="btn btn-outline-danger">লগইন/রেজিস্টার</button>
+              <Link to="/login" className="btn btn-outline-danger">লগইন/রেজিস্টার</Link>
+
             </div>
           </div>
         </div>
@@ -42,7 +46,9 @@ function Home() {
             Krishi Dibanishi - Bangladesh's Integrated Agriculture, Fisheries & Livestock Platform<br />
             বাংলাদেশের কৃষক, মৎস্যজীবী ও খামারিদের জন্য আধুনিক ডিজিটাল সমাধান। বিশেষজ্ঞ পরামর্শ, প্রযুক্তিগত সহায়তা এবং একটি প্রাণবন্ত কমিউনিটি।
           </p>
-           <a href="/join" className="btn btn-success btn-lg">আজই যোগ দিন / Join Today</a>
+           <Link to="/join" className="btn btn-success btn-lg">আজই যোগ দিন / Join Today</Link>
+
+           
            {/* Stats Section */}
 <div className="row mt-5 justify-content-center">
   <div className="col-md-10">
@@ -75,12 +81,19 @@ function Home() {
 
         </div>
 
+
+
+
         {/* Service Areas Section */}
 <div className="text-center mt-5">
   <h3 className="fw-bold mb-2">আমাদের সেবা ক্ষেত্র</h3>
   <p className="text-muted mb-4">Our Service Areas</p>
   <div className="row g-4 justify-content-center">
+
+
+
     {/* Card 1 */}
+
     <div className="col-md-3">
       <div className="card p-3 h-100 shadow-sm">
         <div className="fs-1 mb-2">🌾</div>
@@ -96,6 +109,8 @@ function Home() {
         </div>
       </div>
     </div>
+
+
 
     {/* Card 2 */}
     <div className="col-md-3">
@@ -113,6 +128,8 @@ function Home() {
         </div>
       </div>
     </div>
+
+
 
     {/* Card 3 */}
     <div className="col-md-3">
@@ -149,12 +166,16 @@ function Home() {
 </div>
 
 
+
 {/* Community Partners Section */}
+
 <div className="text-center mt-5">
   <h3 className="fw-bold mb-2">আমাদের কমিউনিটি অংশীদার</h3>
   <p className="text-muted mb-4">Our Community Partners</p>
 
   <div className="row g-4 justify-content-center">
+
+
     {/* Agricultural Experts */}
     <div className="col-md-4">
       <div className="card h-100 p-3 border-start border-3 border-primary bg-light-subtle shadow-sm">
@@ -164,6 +185,8 @@ function Home() {
         <p className="mt-2 text-muted fst-italic">Expert guidance in crops, fisheries, livestock, best practices & analysis</p>
       </div>
     </div>
+
+
 
     {/* Local Coordinators */}
     <div className="col-md-4">
@@ -175,6 +198,9 @@ function Home() {
       </div>
     </div>
 
+
+
+
     {/* Startup Innovators */}
     <div className="col-md-4">
       <div className="card h-100 p-3 border-start border-3 border-dark bg-light-subtle shadow-sm">
@@ -185,6 +211,9 @@ function Home() {
       </div>
     </div>
 
+
+
+
     {/* Supply Chain Partners */}
     <div className="col-md-4">
       <div className="card h-100 p-3 border-start border-3 border-warning bg-light-subtle shadow-sm">
@@ -194,6 +223,9 @@ function Home() {
         <p className="mt-2 text-muted fst-italic">Seeds, fertilizers, fish feed, animal feed, medicines & equipment</p>
       </div>
     </div>
+
+
+
 
     {/* Investors & Sponsors */}
     <div className="col-md-4">
@@ -206,6 +238,8 @@ function Home() {
     </div>
   </div>
 </div>
+
+
 
 
 

@@ -33,6 +33,10 @@ function App() {
         {/* Home page */}
         <Route path="/home" element={<Home />} />
 
+        <Route path="/login" element={<LoginForm />} />
+
+
+
         {/* Catch-all route: redirect unknown paths to login */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
