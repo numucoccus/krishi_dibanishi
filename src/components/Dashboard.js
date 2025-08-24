@@ -139,7 +139,7 @@ const renderEntrepreneurDashboard = () => (
       {/* প্রযুক্তি প্রদর্শনী */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-primary"><i className="bi bi-phone"></i> প্রযুক্তি প্রদর্শনী</h6>
+          <h6 className="text-primary"><i className="bi bi-phone"></i>💡 প্রযুক্তি প্রদর্শনী</h6>
           <p className="text-muted small">আপনার উদ্ভাবন শেয়ার করুন</p>
           <button className="btn btn-dark w-100 mb-2">নতুন প্রযুক্তি প্রদর্শন</button>
           <button className="btn btn-outline-dark w-100">উপস্থাপনা নির্ধারণ</button>
@@ -150,7 +150,7 @@ const renderEntrepreneurDashboard = () => (
       {/* পাইলট প্রকল্প */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-primary"><i className="bi bi-people"></i> পাইলট প্রকল্প</h6>
+          <h6 className="text-primary"><i className="bi bi-people"></i>🚀 পাইলট প্রকল্প</h6>
           <p className="text-muted small">সহযোগিতামূলক পরীক্ষা কর্মসূচি</p>
           <div className="bg-light p-2 rounded mb-2">
             <p className="mb-1 fw-bold">স্মার্ট সেচ ব্যবস্থা</p>
@@ -164,7 +164,7 @@ const renderEntrepreneurDashboard = () => (
       {/* প্রভাব মেট্রিক্স */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-success"><i className="bi bi-graph-up"></i> প্রভাব মেট্রিক্স</h6>
+          <h6 className="text-success"><i className="bi bi-graph-up"></i>📈 প্রভাব মেট্রিক্স</h6>
           <p className="text-muted small">প্রযুক্তি গ্রহণের হার</p>
           <p><strong>পৌঁছানো কৃষক:</strong> ২৩৮জন</p>
           <p><strong>প্রযুক্তি গ্রহণ:</strong> ৮৯%</p>
@@ -181,7 +181,7 @@ const renderEntrepreneurDashboard = () => (
       {/* পণ্য ক্যাটালগ */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-success"><i className="bi bi-currency-dollar"></i> পণ্য ক্যাটালগ</h6>
+          <h6 className="text-success"><i className="bi bi-currency-dollar"></i>🏷️ পণ্য ক্যাটালগ</h6>
           <p className="text-muted small">আপনার পণ্য ব্যবস্থাপনা</p>
           <button className="btn btn-dark w-100 mb-2">নতুন পণ্য যোগ</button>
           <button className="btn btn-outline-secondary w-100 mb-2">ইনভেন্টরি আপডেট</button>
@@ -192,7 +192,7 @@ const renderEntrepreneurDashboard = () => (
       {/* বিতরণকারী নেটওয়ার্ক */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-primary"><i className="bi bi-people"></i> বিতরণকারী নেটওয়ার্ক</h6>
+          <h6 className="text-primary"><i className="bi bi-people"></i>👥 বিতরণকারী নেটওয়ার্ক</h6>
           <p className="text-muted small">অংশীদার সংযোগ</p>
           <ul className="list-unstyled mb-2">
             <li>সক্রিয় বিতরণকারী: <strong>৩৪জন</strong></li>
@@ -205,11 +205,11 @@ const renderEntrepreneurDashboard = () => (
       {/* বিক্রয় বিশ্লেষণ */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-purple"><i className="bi bi-graph-up"></i> বিক্রয় বিশ্লেষণ</h6>
+          <h6 className="text-purple"><i className="bi bi-graph-up"></i>📊 বিক্রয় বিশ্লেষণ</h6>
           <p className="text-muted small">কার্যক্রম পরিসংখ্যান</p>
           <ul className="list-unstyled">
             <li>মাসিক বিক্রয়: <span className="text-success">৪.৮ লক্ষ ↑</span></li>
-            <li>জনপ্রিয় পণ্য: <em>টেজব সার</em></li>
+            <li>জনপ্রিয় পণ্য: <em>জৈব সার</em></li>
             <li>গ্রাহক সন্তুষ্টি: <span className="text-success">৪.৭/৫</span></li>
           </ul>
         </div>
