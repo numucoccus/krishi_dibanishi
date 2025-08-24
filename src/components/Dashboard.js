@@ -218,7 +218,19 @@ const renderEntrepreneurDashboard = () => (
   );
 
 
-  return (
+ return (
+  <>
+    {/* Back Button */}
+    <div className="container py-2">
+      <button
+        onClick={() => window.history.back()}
+        className="btn btn-outline-dark mb-3"
+      >
+        ← ফিরে যান
+      </button>
+    </div>
+
+    {/* Main Dashboard Content */}
     <div className="container py-5">
       {/* Title */}
       <div className="text-center mb-4">
@@ -263,15 +275,16 @@ const renderEntrepreneurDashboard = () => (
         </div>
       </div>
 
-
       {/* Conditional Dashboard Rendering */}
       {selectedRole === 'farmer' && renderFarmerDashboard()}
       {selectedRole === 'expert' && renderExpertDashboard()}
       {selectedRole === 'coordinator' && renderCoordinatorDashboard()}
-       {selectedRole === 'entrepreneur' && renderEntrepreneurDashboard()}
-       {selectedRole === 'supplier' && renderSupplierDashboard()}
+      {selectedRole === 'entrepreneur' && renderEntrepreneurDashboard()}
+      {selectedRole === 'supplier' && renderSupplierDashboard()}
     </div>
-  );
+  </>
+);
+
 }
 
 export default Dashboard;
