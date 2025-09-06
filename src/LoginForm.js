@@ -15,7 +15,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="card p-4 shadow-sm">
+    <div className="card p-4 shadow-sm h-100">
       <h5 className="fw-bold text-center mb-3">লগইন করুন / <span className="text-muted">Login</span></h5>
       <p className="text-muted small text-center mb-4">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
 

@@ -17,18 +17,24 @@ function App() {
       <Routes>
         {/* Login + Role Selector page (root path) */}
         <Route
-          path="/"
-          element={
-            <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
-              <div className="row w-100 justify-content-center">
-                <div className="col-md-6 col-lg-4">
-                  <RoleSelector />
-                  <LoginForm />
-                </div>
-              </div>
-            </div>
-          }
-        />
+  path="/"
+  element={
+    <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
+      <div className="row w-100 justify-content-center align-items-center">
+        {/* RoleSelector on the left */}
+        <div className="col-12 col-md-4 mb-3 mb-md-0">
+          <RoleSelector />
+        </div>
+
+        {/* LoginForm on the right */}
+        <div className="col-12 col-md-4">
+          <LoginForm />
+        </div>
+      </div>
+    </div>
+  }
+/>
+
 
         {/* Registration page */}
         <Route 
