@@ -28,7 +28,7 @@ function Home() {
 
             <div className="d-flex">
               <button className="btn btn-success me-2">কৃষক</button>
-              <Link to="/login" className="btn btn-outline-danger">লগইন/রেজিস্টার</Link>
+              
 
             </div>
           </div>

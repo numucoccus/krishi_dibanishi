@@ -7,7 +7,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from './LoginForm';
 import RoleSelector from './RoleSelector';
 import Home from './components/Home';
-import Dashboard from './components/Dashboard'; 
+import Dashboard from './components/Dashboard';
+import RegistrationForm from './components/Registration/RegistrationForm'; // Make sure this path is correct
+import RegistrationSuccess from './components/Registration/RegistrationSuccess';
 
 function App() {
   return (
@@ -15,18 +17,39 @@ function App() {
       <Routes>
         {/* Login + Role Selector page (root path) */}
         <Route
-          path="/"
+  path="/"
+  element={
+    <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
+      <div className="row w-100 justify-content-center align-items-center">
+        {/* RoleSelector on the left */}
+        <div className="col-12 col-md-4 mb-3 mb-md-0">
+          <RoleSelector />
+        </div>
+
+        {/* LoginForm on the right */}
+        <div className="col-12 col-md-4">
+          <LoginForm />
+        </div>
+      </div>
+    </div>
+  }
+/>
+
+
+        {/* Registration page */}
+        <Route 
+          path="/register" 
           element={
             <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
               <div className="row w-100 justify-content-center">
-                <div className="col-md-6 col-lg-4">
-                  <RoleSelector />
-                  <LoginForm />
+                <div className="col-md-10 col-lg-8">
+                  <RegistrationForm />
                 </div>
               </div>
             </div>
-          }
+          } 
         />
+        <Route path="/success" element={<RegistrationSuccess />} />
 
         {/* Home page */}
         <Route path="/home" element={<Home />} />
