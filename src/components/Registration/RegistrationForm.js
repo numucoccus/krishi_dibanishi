@@ -10,6 +10,14 @@ export default function RegistrationForm() {
     navigate("/login");
   };
 
+  const handleSubmit = () => {
+
+  // 👉 Here you would normally call your backend API to save registration data
+
+  // ✅ After success, redirect to success page
+  navigate("/success");
+};
+
   return (
     <div className="container my-4">
       <div className="text-center">
@@ -210,7 +218,10 @@ export default function RegistrationForm() {
 
             {/* Buttons */}
             <div className="d-grid gap-2">
-              <button type="submit" className="btn btn-success">
+              <button type="submit" 
+                      className="btn btn-success"
+                      onClick={handleSubmit}
+              >
                 অ্যাকাউন্ট তৈরি করুন / Create Account
               </button>
               <button

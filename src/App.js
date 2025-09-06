@@ -9,6 +9,7 @@ import RoleSelector from './RoleSelector';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import RegistrationForm from './components/Registration/RegistrationForm'; // Make sure this path is correct
+import RegistrationSuccess from './components/Registration/RegistrationSuccess';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             </div>
           } 
         />
+        <Route path="/success" element={<RegistrationSuccess />} />
 
         {/* Home page */}
         <Route path="/home" element={<Home />} />
