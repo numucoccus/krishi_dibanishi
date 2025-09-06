@@ -1,4 +1,3 @@
-// LoginForm.js
 import React from "react";
 import './App.css';
 import { useNavigate } from "react-router-dom";
@@ -9,6 +8,10 @@ export default function LoginForm() {
   const handleLogin = (e) => {
     e.preventDefault();
     navigate("/home");
+  };
+
+  const handleRegister = () => {
+    navigate("/register");
   };
 
   return (
@@ -39,13 +42,19 @@ export default function LoginForm() {
           />
         </div>
 
-        <button type="submit" className="btn btn-success w-100">লগইন করুন / Login</button>
+        <button type="submit" className="btn btn-success w-100 mb-3">লগইন করুন / Login</button>
+        
+        <div className="text-center">
+          <p className="small mb-2">অ্যাকাউন্ট নেই?</p>
+          <button 
+            type="button" 
+            className="btn btn-outline-primary w-100"
+            onClick={handleRegister}
+          >
+            রেজিস্টার করুন / Register
+          </button>
+        </div>
       </form>
-
-      <div className="text-center mt-3">
-        <p className="small mb-1">অ্যাকাউন্ট নেই?</p>
-        <button className="btn btn-outline-success w-100">নতুন অ্যাকাউন্ট তৈরি করুন / Register</button>
-      </div>
     </div>
   );
 }

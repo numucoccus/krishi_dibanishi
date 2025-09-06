@@ -7,7 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from './LoginForm';
 import RoleSelector from './RoleSelector';
 import Home from './components/Home';
-import Dashboard from './components/Dashboard'; 
+import Dashboard from './components/Dashboard';
+import RegistrationForm from './components/Registration/RegistrationForm'; // Make sure this path is correct
 
 function App() {
   return (
@@ -26,6 +27,20 @@ function App() {
               </div>
             </div>
           }
+        />
+
+        {/* Registration page */}
+        <Route 
+          path="/register" 
+          element={
+            <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
+              <div className="row w-100 justify-content-center">
+                <div className="col-md-10 col-lg-8">
+                  <RegistrationForm />
+                </div>
+              </div>
+            </div>
+          } 
         />
 
         {/* Home page */}
