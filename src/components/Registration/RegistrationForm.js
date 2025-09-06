@@ -3,6 +3,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
 export default function RegistrationForm() {
+
+    const districts = [
+  "Bagerhat", "Bandarban", "Barguna", "Barishal", "Bhola", "Bogra", "Brahmanbaria",
+  "Chandpur", "Chattogram", "Chuadanga", "Cox's Bazar", "Dhaka", "Dinajpur",
+  "Faridpur", "Feni", "Gaibandha", "Gazipur", "Gopalganj", "Habiganj", "Jamalpur",
+  "Jashore", "Jhalokathi", "Jhenaidah", "Joypurhat", "Kishoreganj", "Kurigram",
+  "Kushtia", "Lakshmipur", "Lalmonirhat", "Madaripur", "Magura", "Manikganj",
+  "Meherpur", "Moulvibazar", "Munshiganj", "Mymensingh", "Naogaon", "Narail",
+  "Narsingdi", "Natore", "Netrokona", "Nilphamari", "Noakhali", "Pabna", "Panchagarh",
+  "Patuakhali", "Pirojpur", "Rajbari", "Rajshahi", "Rangamati", "Rangpur", "Satkhira",
+  "Shariatpur", "Sherpur", "Sirajganj", "Sunamganj", "Sylhet", "Tangail", "Thakurgaon",
+  "Joydebpur", "Madaripur", "Shariatpur", "Netrokona", "Khulna", "Faridganj", "Comilla"
+];
+
+
   const navigate = useNavigate();
   const [role, setRole] = useState("Farmer"); // default role
 
@@ -62,11 +77,14 @@ export default function RegistrationForm() {
                 <input type="text" className="form-control" placeholder="আপনার পূর্ণ নাম" />
               </div>
               <div className="col-md-6 mb-3">
-                <label className="form-label">জেলা / District *</label>
-                <select className="form-select">
-                  <option>আপনার জেলা নির্বাচন করুন</option>
-                </select>
-              </div>
+  <label className="form-label">জেলা / District *</label>
+  <select className="form-select">
+    <option value="">আপনার জেলা নির্বাচন করুন</option>
+    {districts.map((district, i) => (
+      <option key={i} value={district}>{district}</option>
+    ))}
+  </select>
+</div>
             </div>
 
             <div className="row">
