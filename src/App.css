@@ -53,6 +53,7 @@ body {
 .discussion-section {
   flex: 3;
   min-width: 300px;
+  overflow: visible; /* Ensure Load More button shows */
 }
 
 .sidebar {
@@ -67,6 +68,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
 }
 
 .new-btn {
@@ -77,6 +79,7 @@ body {
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  transition: background 0.3s ease;
 }
 
 .new-btn:hover {
@@ -97,8 +100,8 @@ body {
 }
 
 .discussion-card:hover {
-  border: 1px solid #2b7a0b;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  border-color: #2b7a0b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card-top {
@@ -247,4 +250,27 @@ body {
 .categories .count {
   font-size: 13px;
   color: #666;
+}
+
+/* =========================
+   Load More Button
+========================= */
+.load-more-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.load-more-btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background: #218838;
 }

@@ -12,10 +12,10 @@ export default function Community() {
       subtitle: "Effective ways to prevent diseases in shrimp farming",
       author: "মোঃ ফারুক উদ্দিন",
       role: "মৎস্যচাষী - কক্সবাজার",
-      comments: 28,
-      likes: 67,
-      views: 234,
-      time: "২ ঘণ্টা আগে"
+      comments:"💬28",
+      likes:"👍67",
+      views:"👁️234",
+      time: "⌚২ ঘণ্টা আগে"
     },
     {
       id: 2,
@@ -24,10 +24,10 @@ export default function Community() {
       subtitle: "My experience in increasing cow milk production",
       author: "ফাতেমা খাতুন",
       role: "খামারি - পাবনা",
-      comments: 19,
-      likes: 45,
-      views: 189,
-      time: "৪ ঘণ্টা আগে"
+      comments:"💬19",
+      likes:"👍45",
+      views: "👁️189",
+      time: "⌚৪ ঘণ্টা আগে"
     },
     {
       id: 3,
@@ -36,10 +36,10 @@ export default function Community() {
       subtitle: "Experimental cultivation with new Aman rice variety",
       author: "ড. আব্দুর রহমান",
       role: "কৃষি বিশেষজ্ঞ - রংপুর",
-      comments: 42,
-      likes: 89,
-      views: 356,
-      time: "৬ ঘণ্টা আগে"
+      comments:"💬42",
+      likes:"👍89",
+      views:"👁️356",
+      time: "⌚৬ ঘণ্টা আগে"
     },
     {
       id: 4,
@@ -48,10 +48,33 @@ export default function Community() {
       subtitle: "Broiler chicken diet and nutrition management",
       author: "রাকিবুল ইসলাম",
       role: "পোল্ট্রি খামারি - সাভার",
-      comments: 15,
-      likes: 32,
-      views: 145,
-      time: "৬ ঘণ্টা আগে"
+      comments:"💬15",
+      likes:"👍32",
+      views:"👁️145",
+      time: "⌚৬ ঘণ্টা আগে"
+    },
+    {
+      id: 5,
+      category: "জৈব চাষ",
+      title: "জৈব পদ্ধতিতে টমেটো চাষে সফলতার গল্প",
+      subtitle: "Success story of organic tomato cultivation",
+      author: "সালমা বেগম",
+      role: "কৃষক - যশোর",
+      comments:"💬22",
+      likes:"👍5",
+      views:"👁️120",
+      time: "⌚১ দিন আগে"
+    },{
+       id: 6,
+      category: "মৎস্য চাষ",
+      title: "পুকুরে মাছের খাবার তৈরির সহজ পদ্ধতি",
+      subtitle: "Simple method of making fish feed for ponds",
+      author: "নজরুল ইসলাম",
+      role: "মৎস্যচাষী - ময়মনসিংহ",
+      comments:"💬12",
+      likes:"👍30",
+      views:"👁️98",
+      time: "⌚১ দিন আগে"
     }
   ];
 
@@ -71,9 +94,14 @@ export default function Community() {
           </div>
           {discussions.map(d => (
             <DiscussionCard key={d.id} {...d} />
+             
           ))}
-        </div>
 
+   {/* ✅ Load More Button */}
+          <div className="load-more-container">
+            <button className="load-more-btn">আরও আলোচনা লোড করুন</button>
+          </div>
+        </div>
         {/* Right: Sidebar */}
         <Sidebar />
       </div>
