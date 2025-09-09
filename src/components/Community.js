@@ -20,7 +20,7 @@ export default function Community() {
     {
       id: 2,
       category: "প্রাণিসম্পদ",
-      title: "গাভীর দুধ উৎপাদন বৃদ্ধির জন্য আমার অভিজ্ঞতা",
+      title: "গাভীর দুধ উৎপাদন বৃদ্ধির জন্য আমার অভিজ্ঞতা ",
       subtitle: "My experience in increasing cow milk production",
       author: "ফাতেমা খাতুন",
       role: "খামারি - পাবনা",
