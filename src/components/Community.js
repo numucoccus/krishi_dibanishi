@@ -9,7 +9,7 @@ export default function Community() {
       id: 1,
       category: "মৎস্য চাষ",
       title: "চিংড়ি চাষে রোগ প্রতিরোধের কার্যকর উপায়",
-      subtitle: "Effective ways to prevent diseases in shrimp farming",
+      subtitle: "Effective ways to prevent diseases in shrimp farming ",
       author: "মোঃ ফারুক উদ্দিন",
       role: "মৎস্যচাষী - কক্সবাজার",
       comments: 28,
