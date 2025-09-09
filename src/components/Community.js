@@ -96,13 +96,12 @@ export default function Community() {
             <DiscussionCard key={d.id} {...d} />
              
           ))}
-{/* ✅ Load More Button at the end */}
+
+   {/* ✅ Load More Button */}
           <div className="load-more-container">
             <button className="load-more-btn">আরও আলোচনা লোড করুন</button>
           </div>
-
         </div>
-
         {/* Right: Sidebar */}
         <Sidebar />
       </div>
