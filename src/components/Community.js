@@ -51,7 +51,7 @@ export default function Community() {
       comments: 15,
       likes: 32,
       views: 145,
-      time: "৬ ঘণ্টা আগে"
+      time: "⌚৬ ঘণ্টা আগে"
     },{
            id: 5,
       category: "জৈব চাষ",
