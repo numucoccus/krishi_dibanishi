@@ -1,5 +1,5 @@
-import React from "react";
 
+import React from "react";
 import "../App.css";
 
 export default function Sidebar() {
@@ -51,6 +51,16 @@ export default function Sidebar() {
           <li>রাকিবুল ইসলাম – 756</li>
           <li>সালমা বেগম – 643</li>
         </ol>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="widget">
+        <h3>দ্রুত কার্যক্রম</h3>
+        <ul>
+          <li>❓ প্রশ্ন করুন</li>
+          <li>📘 জ্ঞান শেয়ার করুন</li>
+          <li>👨‍🌾 বিশেষজ্ঞ খুঁজুন</li>
+        </ul>
       </div>
     </div>
   );
