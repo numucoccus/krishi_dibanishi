@@ -258,8 +258,8 @@ function Home() {
           Educational Materials on Agriculture, Fisheries & Livestock: Video Tutorials, Best Practices, Technology Guides & Community Experiences
         </p>
         <div className="mt-4 d-flex justify-content-center gap-3">
-          <a href="/resources" className="btn btn-primary">রিসোর্স দেখুন / Explore Resources</a>
-          <a href="/community" className="btn btn-outline-success">কমিউনিটিতে যোগ দিন / Join Community</a>
+          <Link to="/resources" className="btn btn-primary">রিসোর্স দেখুন / Explore Resources</Link>
+          <Link to="/community" className="btn btn-outline-success">কমিউনিটিতে যোগ দিন / Join Community</Link>
         </div>
       </div>
     </div>
