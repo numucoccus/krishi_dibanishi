@@ -39,7 +39,7 @@ export default function Community() {
       comments: 42,
       likes: 89,
       views: 356,
-      time: "৬ ঘণ্টা আগে"
+      time: "⌚৬ ঘণ্টা আগে"
     },
     {
       id: 4,
