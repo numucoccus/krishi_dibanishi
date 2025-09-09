@@ -1,6 +1,6 @@
-
 import React from "react";
-import { FaLeaf, FaFish, FaCow } from "react-icons/fa"; // icons
+import { FaLeaf, FaFish } from "react-icons/fa"; // Font Awesome icons
+import { GiCow } from "react-icons/gi"; // Game Icons set (has a cow)
 
 export default function Sidebar() {
   return (
@@ -28,7 +28,7 @@ export default function Sidebar() {
             <FaFish className="icon" /> মৎস্য চাষ <span className="count">189</span>
           </li>
           <li>
-            <FaCow className="icon" /> প্রাণিসম্পদ <span className="count">156</span>
+            <GiCow className="icon" /> প্রাণিসম্পদ <span className="count">156</span>
           </li>
         </ul>
       </div>
