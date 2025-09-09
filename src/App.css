@@ -193,3 +193,21 @@ body {
     order: 1;
   }
 }
+/* Categories inside sidebar */
+.categories li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.categories .icon {
+  margin-right: 8px;
+  color: #16a34a;
+}
+
+.categories .count {
+  font-size: 13px;
+  color: #666;
+}

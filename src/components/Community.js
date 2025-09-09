@@ -9,7 +9,7 @@ export default function Community() {
       id: 1,
       category: "মৎস্য চাষ",
       title: "চিংড়ি চাষে রোগ প্রতিরোধের কার্যকর উপায়",
-      subtitle: "Effective ways to prevent diseases in shrimp farming ",
+      subtitle: "Effective ways to prevent diseases in shrimp farming",
       author: "মোঃ ফারুক উদ্দিন",
       role: "মৎস্যচাষী - কক্সবাজার",
       comments: 28,
@@ -28,22 +28,53 @@ export default function Community() {
       likes: 45,
       views: 189,
       time: "৪ ঘণ্টা আগে"
+    },
+    {
+      id: 3,
+      category: "ফসল চাষ",
+      title: "আমান ধানের নতুন জাত নিয়ে পরীক্ষামূলক চাষাবাদ",
+      subtitle: "Experimental cultivation with new Aman rice variety",
+      author: "ড. আব্দুর রহমান",
+      role: "কৃষি বিশেষজ্ঞ - রংপুর",
+      comments: 42,
+      likes: 89,
+      views: 356,
+      time: "৬ ঘণ্টা আগে"
+    },
+    {
+      id: 4,
+      category: "পোল্ট্রি",
+      title: "ব্রয়লার মুরগির খাদ্য তালিকা ও পুষ্টি ব্যবস্থাপনা",
+      subtitle: "Broiler chicken diet and nutrition management",
+      author: "রাকিবুল ইসলাম",
+      role: "পোল্ট্রি খামারি - সাভার",
+      comments: 15,
+      likes: 32,
+      views: 145,
+      time: "৬ ঘণ্টা আগে"
     }
   ];
 
   return (
-    <div className="container">
-      <h1 className="header">কৃষি দিবানিশি কমিউনিটি</h1>
-      <p className="subheader">
+    <div className="community-container">
+      <h1 className="community-header">কৃষি দিবানিশি কমিউনিটি</h1>
+      <p className="community-subheader">
         সহ-কৃষক, বিশেষজ্ঞ ও উদ্যোক্তাদের সাথে জ্ঞান ভাগাভাগি ও সহযোগিতা নিন
       </p>
-      <div className="main">
-        <div className="content">
-          <h2>সাম্প্রতিক আলোচনা</h2>
+
+      <div className="main-layout">
+        {/* Left: Discussions */}
+        <div className="discussion-section">
+          <div className="discussion-header">
+            <h2>সাম্প্রতিক আলোচনা</h2>
+            <button className="new-btn">নতুন আলোচনা শুরু করুন</button>
+          </div>
           {discussions.map(d => (
             <DiscussionCard key={d.id} {...d} />
           ))}
         </div>
+
+        {/* Right: Sidebar */}
         <Sidebar />
       </div>
     </div>
