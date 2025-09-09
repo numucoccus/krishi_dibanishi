@@ -15,7 +15,7 @@ export default function Community() {
       comments: 28,
       likes: 67,
       views: 234,
-      time: "২ ঘণ্টা আগে"
+      time: "⌚২ ঘণ্টা আগে"
     },
     {
       id: 2,
@@ -62,7 +62,7 @@ export default function Community() {
       comments: 22,
       likes: 5,
       views: 120,
-      time: "১ দিন আগে"
+      time: "⌚১ দিন আগে"
     }
   ];
 
