@@ -52,6 +52,17 @@ export default function Community() {
       likes: 32,
       views: 145,
       time: "৬ ঘণ্টা আগে"
+    },{
+           id: 5,
+      category: "জৈব চাষ",
+      title: "জৈব পদ্ধতিতে টমেটো চাষে সফলতার গল্প",
+      subtitle: "Success story of organic tomato cultivation",
+      author: "সালমা বেগম",
+      role: "কৃষক - যশোর",
+      comments: 22,
+      likes: 5,
+      views: 120,
+      time: "১ দিন আগে"
     }
   ];
 
