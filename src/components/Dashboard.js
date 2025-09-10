@@ -1,6 +1,9 @@
 // Dashboard.js
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+
+
 
 function Dashboard() {
   const [selectedRole, setSelectedRole] = useState('farmer');
@@ -220,15 +223,43 @@ const renderEntrepreneurDashboard = () => (
 
  return (
   <>
-    {/* Back Button */}
-    <div className="container py-2">
-      <button
-        onClick={() => window.history.back()}
-        className="btn btn-outline-dark mb-3"
-      >
-        ← ফিরে যান
-      </button>
+     {/* Dashboard Navbar (Edited to match Home Page Navbar) */}
+<nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div className="container">
+    <Link className="navbar-brand fw-bold text-success" to="/home">
+      BD <span className="text-dark">কৃষি দিবানিশি</span>
+    </Link>
+
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNavbar">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+
+    <div className="collapse navbar-collapse justify-content-between" id="dashboardNavbar">
+      <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <Link className="nav-link" to="/home">হোম</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/community">কমিউনিটি</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/resources">রিসোর্স</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/market">বাজার</Link>
+        </li>
+      </ul>
+
+      <div className="d-flex">
+        <button className="btn btn-success me-2">কৃষক</button>
+      </div>
     </div>
+  </div>
+</nav>
+
 
     {/* Main Dashboard Content */}
     <div className="container py-5">
