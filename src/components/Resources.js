@@ -245,18 +245,214 @@ function Resources() {
         )}
 
         {activeTab === 'experts' && (
-          <>
-            <h4 className="fw-bold">বিশেষজ্ঞ পরিচিতি</h4>
-            <p>এই সেকশনে বিশেষজ্ঞদের বিস্তারিত তথ্য এবং যোগাযোগ থাকবে।</p>
-          </>
-        )}
+  <>
+    <h4 className="fw-bold mb-4">আমাদের বিশেষজ্ঞ প্রশিক্ষকবৃন্দ</h4>
+    <Row className="g-4">
+      {/* Expert 1 */}
+      <Col md={6}>
+        <Card className="p-3 h-100 shadow-sm">
+          <div className="d-flex align-items-start gap-3">
+            <div
+              className="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold"
+              style={{ width: '50px', height: '50px', backgroundColor: '#C0EFC0' }}
+            >
+              ম
+            </div>
+            <div>
+              <h6 className="fw-bold">ড. মোহাম্মদ আলী</h6>
+              <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>
+                ধান ও গম গবেষণা <br />
+                বাংলাদেশ কৃষি গবেষণা ইনস্টিটিউট
+              </p>
+              <div className="d-flex flex-wrap gap-3 text-muted" style={{ fontSize: '0.85rem' }}>
+                <span>অভিজ্ঞতা: ১৮ বছর</span>
+                <span>কোর্স: ১২টি</span>
+                <span>শিক্ষার্থী: 4560+</span>
+              </div>
+              <div className="d-flex align-items-center mt-1">
+                <span className="text-warning me-1">★</span> 4.9
+              </div>
+              <Button variant="outline-secondary" size="sm" className="mt-2">ফসল বিভাগ</Button>
+            </div>
+          </div>
+          <Form.Control
+            type="text"
+            className="mt-3"
+            placeholder="প্রোফাইল দেখুন"
+            readOnly
+          />
+        </Card>
+      </Col>
 
-        {activeTab === 'webinars' && (
-          <>
-            <h4 className="fw-bold">ওয়েবিনার</h4>
-            <p>ওয়েবিনার শিডিউল ও রেকর্ডিং এখানে দেখানো হবে।</p>
-          </>
-        )}
+      {/* Expert 2 */}
+      <Col md={6}>
+        <Card className="p-3 h-100 shadow-sm">
+          <div className="d-flex align-items-start gap-3">
+            <div
+              className="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold"
+              style={{ width: '50px', height: '50px', backgroundColor: '#C0EFC0' }}
+            >
+              স
+            </div>
+            <div>
+              <h6 className="fw-bold">প্রফেসর সালামা খাতুন</h6>
+              <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>
+                মৎস্য উৎপাদন ও চাষ <br />
+                বাংলাদেশ কৃষি বিশ্ববিদ্যালয়
+              </p>
+              <div className="d-flex flex-wrap gap-3 text-muted" style={{ fontSize: '0.85rem' }}>
+                <span>অভিজ্ঞতা: ২২ বছর</span>
+                <span>কোর্স: ৮টি</span>
+                <span>শিক্ষার্থী: 3240+</span>
+              </div>
+              <div className="d-flex align-items-center mt-1">
+                <span className="text-warning me-1">★</span> 4.8
+              </div>
+              <Button variant="outline-secondary" size="sm" className="mt-2">মাছ চাষ</Button>
+            </div>
+          </div>
+          <Form.Control
+            type="text"
+            className="mt-3"
+            placeholder="প্রোফাইল দেখুন"
+            readOnly
+          />
+        </Card>
+      </Col>
+
+      {/* Expert 3 */}
+      <Col md={6}>
+        <Card className="p-3 h-100 shadow-sm">
+          <div className="d-flex align-items-start gap-3">
+            <div
+              className="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold"
+              style={{ width: '50px', height: '50px', backgroundColor: '#C0EFC0' }}
+            >
+              র
+            </div>
+            <div>
+              <h6 className="fw-bold">ডা. রবিউল ইসলাম</h6>
+              <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>
+                গবাদিপশু চিকিৎসা ও পুষ্টি <br />
+                চট্টগ্রাম ভেটেরিনারি কলেজ
+              </p>
+              <div className="d-flex flex-wrap gap-3 text-muted" style={{ fontSize: '0.85rem' }}>
+                <span>অভিজ্ঞতা: ১৫ বছর</span>
+                <span>কোর্স: ৬টি</span>
+                <span>শিক্ষার্থী: 2180+</span>
+              </div>
+              <div className="d-flex align-items-center mt-1">
+                <span className="text-warning me-1">★</span> 4.7
+              </div>
+              <Button variant="outline-secondary" size="sm" className="mt-2">পশু বিভাগ</Button>
+            </div>
+          </div>
+          <Form.Control
+            type="text"
+            className="mt-3"
+            placeholder="প্রোফাইল দেখুন"
+            readOnly
+          />
+        </Card>
+      </Col>
+
+      {/* Expert 4 */}
+      <Col md={6}>
+        <Card className="p-3 h-100 shadow-sm">
+          <div className="d-flex align-items-start gap-3">
+            <div
+              className="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold"
+              style={{ width: '50px', height: '50px', backgroundColor: '#C0EFC0' }}
+            >
+              শ
+            </div>
+            <div>
+              <h6 className="fw-bold">শাহিনুর রহমান</h6>
+              <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>
+                পোল্ট্রি ব্যবস্থাপন <br />
+                জাতীয় পোল্ট্রি উন্নয়ন কেন্দ্র
+              </p>
+              <div className="d-flex flex-wrap gap-3 text-muted" style={{ fontSize: '0.85rem' }}>
+                <span>অভিজ্ঞতা: ১২ বছর</span>
+                <span>কোর্স: ৭টি</span>
+                <span>শিক্ষার্থী: 1876+</span>
+              </div>
+              <div className="d-flex align-items-center mt-1">
+                <span className="text-warning me-1">★</span> 4.6
+              </div>
+              <Button variant="outline-secondary" size="sm" className="mt-2">পোল্ট্রি</Button>
+            </div>
+          </div>
+          <Form.Control
+            type="text"
+            className="mt-3"
+            placeholder="প্রোফাইল দেখুন"
+            readOnly
+          />
+        </Card>
+      </Col>
+    </Row>
+  </>
+)}
+
+{activeTab === 'webinars' && (
+  <>
+    <h4 className="fw-bold mb-4">ওয়েবিনার ও ইভেন্ট</h4>
+
+    <Row className="g-4">
+      {/* Webinar Card 1 */}
+      <Col md={12}>
+        <Card className="p-3 shadow-sm border-0 rounded">
+          <Row className="align-items-center">
+            <Col md={9}>
+              <div className="d-flex gap-2 mb-2">
+                <span className="badge bg-dark text-white">আসন্ন</span>
+                <span className="badge bg-light text-dark border">সারাবছর</span>
+              </div>
+              <h5 className="fw-bold mb-1">জলবায়ু পরিবর্তন ও কৃষিতে এর প্রভাব</h5>
+              <p className="text-muted mb-2" style={{ fontStyle: 'italic' }}>Climate Change and Its Impact on Agriculture</p>
+              <div className="d-flex flex-wrap gap-3 text-secondary" style={{ fontSize: '0.9rem' }}>
+                <span>📅 ৫ জানুয়ারি, ২০২৫</span>
+                <span>🕘 সকাল ১০:০০</span>
+                <span>👥 ৪৫০ অংশগ্রহণকারী</span>
+              </div>
+              <p className="mt-2 mb-0">বক্তা: ড. মাসুদ উদ্দিন</p>
+            </Col>
+            <Col md={3} className="text-end">
+              <Button variant="primary" className="fw-bold">রেজিস্ট্রেশন</Button>
+            </Col>
+          </Row>
+        </Card>
+      </Col>
+
+      {/* Webinar Card 2 */}
+      <Col md={12}>
+        <Card className="p-3 shadow-sm border-0 rounded">
+          <Row className="align-items-center">
+            <Col md={9}>
+              <div className="d-flex gap-2 mb-2">
+                <span className="badge bg-light text-dark border">রেজিস্ট্রেশন চলছে</span>
+                <span className="badge bg-light text-dark border">ব্যবসা</span>
+              </div>
+              <h5 className="fw-bold mb-1">ই-কমার্সে কৃষি পণ্য বিপণন</h5>
+              <p className="text-muted mb-2" style={{ fontStyle: 'italic' }}>Marketing Agricultural Products on E-commerce</p>
+              <div className="d-flex flex-wrap gap-3 text-secondary" style={{ fontSize: '0.9rem' }}>
+                <span>📅 ৫ ফেব্রুয়ারি, ২০২৫</span>
+                <span>🕘 বিকাল ৩:০০</span>
+                <span>👥 ৩২০ অংশগ্রহণকারী</span>
+              </div>
+              <p className="mt-2 mb-0">বক্তা: রাহুল চন্দ্র দাস</p>
+            </Col>
+            <Col md={3} className="text-end">
+              <Button variant="primary" className="fw-bold">রেজিস্ট্রেশন</Button>
+            </Col>
+          </Row>
+        </Card>
+      </Col>
+    </Row>
+  </>
+)}
+
       </Container>
     </>
   );
