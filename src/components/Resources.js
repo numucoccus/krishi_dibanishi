@@ -3,8 +3,35 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, Button, Form, Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+function ResourceCard({ icon, category, title, subtitle, author, downloads, size, type }) {
+  return (
+    <Card className="p-3 shadow-sm h-100">
+      <Row>
+        <Col xs={2} className="d-flex align-items-start">
+          <div style={{ fontSize: '2rem' }}>{icon}</div>
+        </Col>
+        <Col xs={10}>
+          <div className="d-flex justify-content-between">
+            <span className="badge bg-light text-dark border">{category}</span>
+            <span className="badge bg-light text-dark border">{type}</span>
+          </div>
+          <h5 className="fw-bold mt-2">{title}</h5>
+          <p className="fst-italic mb-1">{subtitle}</p>
+          <p className="mb-1 text-secondary" style={{ fontSize: '0.85rem' }}>
+            লেখক: {author}
+          </p>
+          <div className="d-flex justify-content-between align-items-center mt-2" style={{ fontSize: '0.85rem' }}>
+            <span>⬇ {downloads} ডাউনলোড</span>
+            <Button variant="outline-secondary" size="sm">ডাউনলোড করুন</Button>
+          </div>
+        </Col>
+      </Row>
+    </Card>
+  );
+}
+
 function Resources() {
-  const [activeTab, setActiveTab] = useState('courses'); // tabs: courses, resources, experts, webinars
+  const [activeTab, setActiveTab] = useState('courses'); // courses, resources, experts, webinars
 
   return (
     <>
@@ -249,12 +276,12 @@ function Resources() {
                         <span className="badge bg-light text-dark border">মধ্যম</span>
                       </div>
                       <h5 className="fw-bold mt-2 mb-0">মুরগি পালনের আধুনিক পদ্ধতি</h5>
-                      <p className="text-muted mb-1">Modern Poultry Farming Techniques</p>
+                      <p className="text-muted mb-1">Modern Poultry Farming Methods</p>
                       <p className="mb-1" style={{ fontSize: '0.9rem' }}>
-                        মুরগির স্বাস্থ্য, খাবার ও বাচ্চা উৎপাদন সংক্রান্ত সম্পূর্ণ গাইড
+                        উচ্চ ফলনশীল মুরগি পালনের কৌশল এবং রোগ প্রতিরোধ ব্যবস্থা
                       </p>
                       <p className="mb-1 text-secondary" style={{ fontSize: '0.85rem' }}>
-                        মিস্টার আলমগীর হোসেন — পোল্ট্রি বিশেষজ্ঞ, খুলনা
+                        ড. মিনহাজুল ইসলাম — প্রাণিসম্পদ বিশেষজ্ঞ, খুলনা
                       </p>
                       <div className="d-flex align-items-center justify-content-between flex-wrap mt-2">
                         <div className="d-flex align-items-center gap-3 text-muted" style={{ fontSize: '0.85rem' }}>
@@ -274,23 +301,69 @@ function Resources() {
         )}
 
         {activeTab === 'resources' && (
-          <div className="text-center py-5 text-muted">
-            <h5>রিসোর্স পেজ নির্মাণাধীন...</h5>
-            <p>শিগগিরই এখানে প্রয়োজনীয় গাইড, আর্টিকেল ও ভিডিও পাওয়া যাবে।</p>
-          </div>
+          <>
+            <Row className="g-4">
+              <Col md={6}>
+                <ResourceCard
+                  icon="📕"
+                  category="প্রশিক্ষণ"
+                  title="কৃষি চাষের পদ্ধতি"
+                  subtitle="Step by step crop farming guide"
+                  author="মোঃ আজিজুর রহমান"
+                  downloads={256}
+                  size="2MB"
+                  type="PDF"
+                />
+              </Col>
+              <Col md={6}>
+                <ResourceCard
+                  icon="🎥"
+                  category="ভিডিও"
+                  title="মাছ চাষ প্রশিক্ষণ"
+                  subtitle="Fish farming training video"
+                  author="আলমগীর হোসেন"
+                  downloads={198}
+                  size="500MB"
+                  type="ভিডিও"
+                />
+              </Col>
+              <Col md={6}>
+                <ResourceCard
+                  icon="📕"
+                  category="গাইড"
+                  title="পোল্ট্রি পালন"
+                  subtitle="Poultry farming guide"
+                  author="সেলিনা খাতুন"
+                  downloads={310}
+                  size="1.5MB"
+                  type="PDF"
+                />
+              </Col>
+              <Col md={6}>
+                <ResourceCard
+                  icon="📕"
+                  category="প্রবন্ধ"
+                  title="গবাদিপশু চিকিৎসা"
+                  subtitle="Livestock healthcare tips"
+                  author="ড. রফিকুল ইসলাম"
+                  downloads={190}
+                  size="3MB"
+                  type="PDF"
+                />
+              </Col>
+            </Row>
+          </>
         )}
 
         {activeTab === 'experts' && (
-          <div className="text-center py-5 text-muted">
-            <h5>বিশেষজ্ঞ পেজ নির্মাণাধীন...</h5>
-            <p>বিশেষজ্ঞদের তালিকা এবং যোগাযোগ তথ্য শিগগিরই প্রদান করা হবে।</p>
+          <div className="text-center text-muted py-5">
+            <h5>বিশেষজ্ঞ বিভাগ এই মুহূর্তে প্রস্তুত নয়।</h5>
           </div>
         )}
 
         {activeTab === 'webinars' && (
-          <div className="text-center py-5 text-muted">
-            <h5>ওয়েবিনার পেজ নির্মাণাধীন...</h5>
-            <p>আসন্ন ও শেষ হওয়া ওয়েবিনারের তথ্য এখানে দেখতে পারবেন।</p>
+          <div className="text-center text-muted py-5">
+            <h5>ওয়েবিনার বিভাগে ইতি মধ্যে যুক্ত রয়েছে।</h5>
           </div>
         )}
       </Container>
