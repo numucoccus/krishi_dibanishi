@@ -35,18 +35,18 @@ function Resources() {
 
     return (
         <>
-             {/* Dashboard Navbar (Edited to match Home Page Navbar) */}
+             {/* Resources Navbar */}
             <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
               <div className="container">
                 <Link className="navbar-brand fw-bold text-success" to="/home">
                   BD <span className="text-dark">কৃষি দিবানিশি</span>
                 </Link>
             
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNavbar">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ResourcesNavbar">
                   <span className="navbar-toggler-icon"></span>
                 </button>
             
-                <div className="collapse navbar-collapse justify-content-between" id="dashboardNavbar">
+                <div className="collapse navbar-collapse justify-content-between" id="ResourcesNavbar">
                   <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li className="nav-item">
                       <Link className="nav-link" to="/home">হোম</Link>
