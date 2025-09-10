@@ -173,6 +173,74 @@ function Resources() {
               </Row>
             </Card>
           </Col>
+
+          {/* Course Card 3 */}
+          <Col md={6} className="d-flex flex-column">
+            <Card className="p-3 shadow-sm flex-grow-1">
+              <Row>
+                <Col xs={2} className="d-flex align-items-start">
+                  <div style={{ fontSize: '2rem' }}>🐄</div>
+                </Col>
+                <Col xs={10}>
+                  <div className="d-flex justify-content-between">
+                    <span className="badge bg-light text-dark border">গবাদিপশু</span>
+                    <span className="badge bg-light text-dark border">উন্নত</span>
+                  </div>
+                  <h5 className="fw-bold mt-2 mb-0">গবাদিপশু পালন প্রযুক্তি</h5>
+                  <p className="text-muted mb-1">Advanced Livestock Management</p>
+                  <p className="mb-1" style={{ fontSize: '0.9rem' }}>
+                    গবাদিপশু স্বাস্থ্যের যত্ন ও আধুনিক পালন পদ্ধতি
+                  </p>
+                  <p className="mb-1 text-secondary" style={{ fontSize: '0.85rem' }}>
+                    ড. মীনা হাসান — প্রাণিসম্পদ বিশেষজ্ঞ, খুলনা
+                  </p>
+                  <div className="d-flex align-items-center justify-content-between flex-wrap mt-2">
+                    <div className="d-flex align-items-center gap-3 text-muted" style={{ fontSize: '0.85rem' }}>
+                      <span>⏱ ৫ ঘন্টা</span>
+                      <span>📄 ১৫ পাঠ</span>
+                      <span>⭐ 4.7 (1200 শিক্ষার্থী)</span>
+                    </div>
+                    <span className="text-success fw-bold">১২০০ টাকা</span>
+                  </div>
+                  <Button className="mt-3 w-100 fw-bold" variant="success">কোর্সে ভর্তি হন</Button>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+
+          {/* Course Card 4 */}
+          <Col md={6} className="d-flex flex-column">
+            <Card className="p-3 shadow-sm flex-grow-1">
+              <Row>
+                <Col xs={2} className="d-flex align-items-start">
+                  <div style={{ fontSize: '2rem' }}>🐔</div>
+                </Col>
+                <Col xs={10}>
+                  <div className="d-flex justify-content-between">
+                    <span className="badge bg-light text-dark border">পোল্ট্রি</span>
+                    <span className="badge bg-light text-dark border">মৌলিক</span>
+                  </div>
+                  <h5 className="fw-bold mt-2 mb-0">পোল্ট্রি ফার্মিং বেসিক্স</h5>
+                  <p className="text-muted mb-1">Poultry Farming Basics</p>
+                  <p className="mb-1" style={{ fontSize: '0.9rem' }}>
+                    পোল্ট্রি পাখি পালন ও খাদ্য ব্যবস্থাপনা
+                  </p>
+                  <p className="mb-1 text-secondary" style={{ fontSize: '0.85rem' }}>
+                    মোহাম্মদ হোসেন — পোল্ট্রি বিশেষজ্ঞ, রাজশাহী
+                  </p>
+                  <div className="d-flex align-items-center justify-content-between flex-wrap mt-2">
+                    <div className="d-flex align-items-center gap-3 text-muted" style={{ fontSize: '0.85rem' }}>
+                      <span>⏱ ৪ ঘন্টা</span>
+                      <span>📄 ১১ পাঠ</span>
+                      <span>⭐ 4.6 (950 শিক্ষার্থী)</span>
+                    </div>
+                    <span className="text-success fw-bold">৬০০ টাকা</span>
+                  </div>
+                  <Button className="mt-3 w-100 fw-bold" variant="success">কোর্সে ভর্তি হন</Button>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
         </Row>
       </Container>
     </>
