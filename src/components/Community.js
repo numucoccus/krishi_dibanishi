@@ -83,18 +83,18 @@ export default function Community() {
 
   return (
     <>
-      {/* Resources Navbar */}
+      {/* Community Navbar */}
       <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div className="container">
           <Link className="navbar-brand fw-bold text-success" to="/home">
             BD <span className="text-dark">কৃষি দিবানিশি</span>
           </Link>
 
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ResourcesNavbar">
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#CommunityNavbar">
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse justify-content-between" id="ResourcesNavbar">
+          <div className="collapse navbar-collapse justify-content-between" id="CommunityNavbar">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className="nav-link" to="/home">হোম</Link>
@@ -125,6 +125,7 @@ export default function Community() {
         {/* Header */}
         <div className="text-center mb-4">
           <h2 className="fw-bold text-success">🌾 কৃষি দিবানিশি কমিউনিটি</h2>
+           <p className="text-muted">Krishi Dibanishi Community</p>
           <p className="text-muted">
             সহ-কৃষক, বিশেষজ্ঞ ও উদ্যোক্তাদের সাথে জ্ঞান ভাগাভাগি ও সহযোগিতা নিন
           </p>

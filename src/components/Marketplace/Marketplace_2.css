@@ -1,0 +1,177 @@
+.marketplace-section {
+  padding: 2rem 0;
+  font-family: 'SolaimanLipi', sans-serif;
+}
+
+.marketplace-header h2 {
+  font-size: 2.5rem;
+  color: #222;
+}
+
+.marketplace-header p {
+  color: #666;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.btn-filter, .btn-location {
+  font-size: 0.9rem;
+}
+
+/* Categories */
+.category-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.category-card:hover {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.category-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.count-badge {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Special Offers */
+.special-offer-card {
+  background-color: #fff4ec;
+  border: 1px solid #fbd3b4;
+  border-radius: 10px;
+  padding: 1rem;
+  color: #333;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.special-offer-card h5 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.special-offer-card p {
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.special-offer-card code {
+  background-color: #f1f1f1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.btn-offer {
+  background-color: #ff5c00;
+  border: none;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  align-self: flex-start;
+  padding: 0.35rem 1.25rem;
+  font-size: 0.9rem;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.btn-offer:hover {
+  background-color: #e04e00;
+  border: none;
+  color: white;
+}
+
+/* Product Card */
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.product-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #666;
+}
+
+.price-section {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-left: 10px;
+  font-weight: normal;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #ffc107;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.stock {
+  color: #28a745;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Tabs */
+.marketplace-tabs .nav-link {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #444;
+}
+
+.marketplace-tabs .nav-link.active {
+  font-weight: 700;
+  color: #ff5c00;
+  border-bottom: 3px solid #ff5c00;
+}
+
+/* Load More */
+.load-more-btn {
+  background-color: #ff5c00;
+  border: none;
+  font-weight: 700;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background-color: #e04e00;
+  border: none;
+  color: white;
+}
+
+
+
+
+

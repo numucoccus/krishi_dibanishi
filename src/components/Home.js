@@ -1,41 +1,51 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
 function Home() {
   return (
     <>
-      {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div className="container">
-          <Link className="navbar-brand fw-bold text-success" to="/home">BD <span className="text-dark">কৃষি দিবানিশি</span></Link>
+{/* Navbar */}
+            <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+              <div className="container">
+                <Link className="navbar-brand fw-bold text-success" to="/home">
+                  BD <span className="text-dark">কৃষি দিবানিশি</span>
+                </Link>
+            
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#Navbar">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+            
+                <div className="collapse navbar-collapse justify-content-between" id="Navbar">
+                  <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/home">হোম</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/community">কমিউনিটি</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/resources">রিসোর্স</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/market">বাজার</Link>
+                    </li>
+                  </ul>
+            
+                  <div className="d-flex">
+                    <button className="btn btn-success me-2">কৃষক</button>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            
 
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-
-          <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-  <li className="nav-item"><Link className="nav-link" to="/home">হোম</Link></li>
-  <li className="nav-item"><Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link></li>
-  <li className="nav-item"><Link className="nav-link" to="/community">কমিউনিটি</Link></li>
-  <li className="nav-item"><Link className="nav-link" to="/resources">রিসোর্স</Link></li>
-  <li className="nav-item"><Link className="nav-link" to="/market">বাজার</Link></li>
-</ul>
-
-            <div className="d-flex">
-              <button className="btn btn-success me-2">কৃষক</button>
-              
-
-            </div>
-          </div>
-        </div>
-      </nav>
-      
-
+     
       
       <section className="text-center py-5" style={{ backgroundColor: '#e9f7ef' }}>
         <div className="container">

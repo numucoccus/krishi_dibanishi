@@ -12,7 +12,9 @@ import RegistrationForm from "./components/Registration/RegistrationForm";
 import RegistrationSuccess from "./components/Registration/RegistrationSuccess";
 import Community from "./components/Community";
 import Resources from './components/Resources';
-import Marketplace from './components/Marketplace';
+import Marketplace from './components/Marketplace/Marketplace_1'; 
+
+
 
 
 function App() {

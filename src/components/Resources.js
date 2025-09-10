@@ -78,7 +78,7 @@ function Resources() {
                 <div className="text-center mb-4">
                     <h2 className="fw-bold">শিক্ষা ও রিসোর্স কেন্দ্র</h2>
                     <p className="text-muted">Learning & Resource Center</p>
-                    <p>কৃষি, মৎস্য ও প্রাণিসম্পদ বিষয়ক বিশ্লেষক জ্ঞান, প্রশিক্ষণ এবং সর্বাধিক তথ্য সংগ্রহ</p>
+                    <p>কৃষি, মৎস্য ও প্রাণিসম্পদ বিষয়ক বিশ্লেষক জ্ঞান, প্রশিক্ষণ এবং সর্বাধিক তথ্য সম্ভার</p>
                 </div>
 
                 {/* Search Bar */}
