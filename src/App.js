@@ -11,6 +11,8 @@ import Dashboard from "./components/Dashboard";
 import RegistrationForm from "./components/Registration/RegistrationForm";
 import RegistrationSuccess from "./components/Registration/RegistrationSuccess";
 import Community from "./components/Community";
+import Resources from './components/Resources';
+
 
 function App() {
   return (
@@ -62,6 +64,11 @@ function App() {
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" />} />
+
+        {/* Resources page */}
+        <Route path="/resources" element={<Resources />} />
+
+
       </Routes>
     </Router>
   );
