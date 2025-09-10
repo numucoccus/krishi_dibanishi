@@ -454,6 +454,25 @@ function Resources() {
 )}
 
 
+<div className="border rounded p-4 mt-5" style={{ backgroundColor: '#e9f7ef', borderColor: '#28a745' }}>
+  <div className="text-center mb-3">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#28a745" className="bi bi-award" viewBox="0 0 16 16">
+      <path d="M9.669.864 8 0 6.331.864 5.5 2.5 4 3 3 4 3.5 5.5 2.836 7.169 2 8l.836.831L3.5 10.5 3 12l1 1 1.5-.5L6.331 15 8 16l1.669-1 1.5.5 1-1-.5-1.5.836-1.669L13 7.5 13.5 6 13 4l-1-0.5-1.5-.5L9.669.864zM8 1.944 9.334 3.5 11.5 4 12 5.5 11.5 7 12 8l-1.5.5-1.334 1.556-1.333-1.556L4.5 8 4 6.5 4.5 5 6.666 4 8 1.944z"/>
+    </svg>
+  </div>
+  <h4 className="text-center fw-bold mb-2">বিশেষজ্ঞ হয়ে উঠুন</h4>
+  <p className="text-center mb-4" style={{ fontSize: '1rem', color: '#555' }}>
+    আপনার কৃষি, মৎস্য বা প্রাণিসম্পদ বিষয়ক জ্ঞান শেয়ার করুন এবং কমিউনিটিকে সাহায্য করুন। <br />
+    আমাদের সাথে শিক্ষক হিসেবে যোগ দিন।
+  </p>
+  <div className="d-flex justify-content-center gap-3">
+    <button className="btn btn-success">শিক্ষক হিসেবে যোগ দিন</button>
+    <button className="btn btn-outline-secondary">কোর্স তৈরি করুন</button>
+  </div>
+</div>
+
+
+
 
       </Container>
     </>
