@@ -98,7 +98,8 @@ function Resources() {
         <div className="d-flex justify-content-center gap-3 mb-5">
           <Button variant="light" className="fw-bold border">কোর্সসমূহ</Button>
           <Button variant="light" className="fw-bold border">রিসোর্স</Button>
-          <Button variant="light" className="fw-bold border">গাইডলাইন</Button>
+          <Button variant="light" className="fw-bold border">বিশেষজ্ঞ</Button>
+          <Button variant="light" className="fw-bold border">ওয়েবিনার</Button>
         </div>
 
         {/* বৈশিষ্ট্যমূলক কোর্স Section */}
