@@ -167,121 +167,79 @@ const Marketplace = () => {
 
           <Tab.Content>
             <Tab.Pane eventKey="products">
-              <Row className="g-3">
-                {products.slice(0, visibleProducts).map((p, idx) => (
-                  <Col md={4} key={idx}>
-                    <Card className="product-card">
-                      <Row className="align-items-center g-3">
-                        <Col md={2} className="product-icon">
-                          {p.category === "বীজ ও চারা" && "🌾"}
-                          {p.category === "মৎস্য চাষ" && "🐟"}
-                          {p.category === "খাদ্য ও সার" && "🐄"}
-                          {p.category === "যন্ত্রপাতি" && "🚜"}
-                          {p.category === "ঔষধ ও ভ্যাকসিন" && "💉"}
-                        </Col>
-                        <Col md={10}>
-                          <div className="d-flex justify-content-between align-items-center mb-2">
-                            {p.tag && (
-                              <Badge
-                                bg={p.tag === "প্রিমিয়াম" ? "dark" : "danger"}
-                                className="fw-semibold"
-                              >
-                                {p.tag}
-                              </Badge>
-                            )}
-                            {p.discountPercent > 0 && (
-                              <Badge bg="danger" className="fw-semibold">
-                                {p.discountPercent}% ছাড়
-                              </Badge>
-                            )}
-                          </div>
-                          <h5 className="fw-semibold">{p.title}</h5>
-                          <small className="text-muted fst-italic">{p.subtitle}</small>
-                          <p className="my-2">{p.desc}</p>
-                          <p className="price-section">
-                            {p.price.toLocaleString()} টাকা
-                            {p.originalPrice > 0 && (
-                              <span className="original-price">
-                                <del>{p.originalPrice.toLocaleString()} টাকা</del>
-                              </span>
-                            )}
-                          </p>
-                          <p className="text-muted mb-1">{p.unit}</p>
-                          <div className="rating">★ {p.rating} ({p.ratingCount})</div>
-                          <p className="stock">স্টকে আছে</p>
-                          <Button variant="success" className="w-100" size="sm">
-                            কার্টে যোগ করুন
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
+              <div className="mt-5"> {/* ✅ This was missing a closing tag */}
+                <h4 className="fw-bold mb-4">জনপ্রিয় পণ্য</h4>
+                <Row className="g-3">
+                  {products.slice(0, visibleProducts).map((p, idx) => (
+                    <Col md={4} key={idx}>
+                      <Card className="product-card">
+                        <Row className="align-items-center g-3">
+                          <Col md={2} className="product-icon">
+                            {p.category === "বীজ ও চারা" && "🌾"}
+                            {p.category === "মৎস্য চাষ" && "🐟"}
+                            {p.category === "খাদ্য ও সার" && "🐄"}
+                            {p.category === "যন্ত্রপাতি" && "🚜"}
+                            {p.category === "ঔষধ ও ভ্যাকসিন" && "💉"}
+                          </Col>
+                          <Col md={10}>
+                            <div className="d-flex justify-content-between align-items-center mb-2">
+                              {p.tag && (
+                                <Badge
+                                  bg={p.tag === "প্রিমিয়াম" ? "dark" : "danger"}
+                                  className="fw-semibold"
+                                >
+                                  {p.tag}
+                                </Badge>
+                              )}
+                              {p.discountPercent > 0 && (
+                                <Badge bg="danger" className="fw-semibold">
+                                  {p.discountPercent}% ছাড়
+                                </Badge>
+                              )}
+                            </div>
+                            <h5 className="fw-semibold">{p.title}</h5>
+                            <small className="text-muted fst-italic">{p.subtitle}</small>
+                            <p className="my-2">{p.desc}</p>
+                            <p className="price-section">
+                              {p.price.toLocaleString()} টাকা
+                              {p.originalPrice > 0 && (
+                                <span className="original-price">
+                                  <del>{p.originalPrice.toLocaleString()} টাকা</del>
+                                </span>
+                              )}
+                            </p>
+                            <p className="text-muted mb-1">{p.unit}</p>
+                            <div className="rating">★ {p.rating} ({p.ratingCount})</div>
+                            <p className="stock">স্টকে আছে</p>
+                            <div className="d-flex gap-2 align-items-center">
+                            <Button variant="success" size="sm" className="flex-grow-1">
+                               কার্টে যোগ করুন
+                            </Button>
+                            <Button variant="outline-primary" size="sm">
+                                📞
+                            </Button>
+                            <Button variant="outline-secondary" size="sm">
+                               💬
+                            </Button>
+                           </div>      
+                          </Col>
+                        </Row>
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </div> {/* ✅ Closing tag added here */}
             </Tab.Pane>
+
             <Tab.Pane eventKey="suppliers">
               <p className="text-center text-muted">সরবরাহকারী তথ্য আসছে...</p>
             </Tab.Pane>
+
             <Tab.Pane eventKey="services">
               <p className="text-center text-muted">সেবা সম্পর্কিত তথ্য আসছে...</p>
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>
-
-        {/* জনপ্রিয় পণ্য */}
-        <div className="mt-5">
-          <h4 className="fw-bold mb-4">জনপ্রিয় পণ্য</h4>
-          <Row className="g-3">
-            {products.slice(0, 3).map((p, idx) => (
-              <Col md={4} key={`popular-${idx}`}>
-                <Card className="product-card">
-                  <Row className="align-items-center g-3">
-                    <Col md={2} className="product-icon">
-                      {p.category === "বীজ ও চারা" && "🌾"}
-                      {p.category === "মৎস্য চাষ" && "🐟"}
-                      {p.category === "খাদ্য ও সার" && "🐄"}
-                    </Col>
-                    <Col md={10}>
-                      <div className="d-flex justify-content-between align-items-center mb-2">
-                        <Badge bg="danger">জনপ্রিয়</Badge>
-                        {p.discountPercent > 0 && (
-                          <Badge bg="danger">{p.discountPercent}% ছাড়</Badge>
-                        )}
-                      </div>
-                      <h5 className="fw-semibold">{p.title}</h5>
-                      <small className="text-muted fst-italic">{p.subtitle}</small>
-                      <p className="my-2">{p.desc}</p>
-                      <p className="price-section">
-                        {p.price.toLocaleString()} টাকা
-                        {p.originalPrice > 0 && (
-                          <span className="original-price">
-                            <del>{p.originalPrice.toLocaleString()} টাকা</del>
-                          </span>
-                        )}
-                      </p>
-                      <p className="text-muted mb-1">{p.unit}</p>
-                      <div className="rating">★ {p.rating} ({p.ratingCount})</div>
-                      <p className="stock">স্টকে আছে</p>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <Button variant="success" size="sm">
-                          কার্টে যোগ করুন
-                        </Button>
-                        <div className="d-flex gap-2">
-                          <Button variant="outline-primary" size="sm">
-                            📞
-                          </Button>
-                          <Button variant="outline-secondary" size="sm">
-                            💬
-                          </Button>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </div>
       </Container>
     </div>
   );
