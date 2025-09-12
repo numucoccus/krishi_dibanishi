@@ -9,6 +9,51 @@ const categories = [
   { icon: "💉", title: "ঔষধ ও ভ্যাকসিন", subtitle: "Medicine & Vaccines", count: "৯৮ পণ্য" },
 ];
 
+
+const TrendingNow = () => (
+  <div className="mt-5">
+    <Card className="p-4">
+      <h5 className="fw-bold mb-3 text-success">📈 এই মুহূর্তে জনপ্রিয়</h5>
+      <p className="text-muted">সবচেয়ে বেশি খোঁজা পণ্যসমূহ</p>
+      <ul className="list-unstyled mb-0">
+        {[
+          "ব্রি ধান২৯ বীজ",
+          "তেলাপিয়া পোনা",
+          "ইউরিয়া সার",
+          "পাওয়ার টিলার",
+          "গাভীর খাদ্য",
+        ].map((item, index) => (
+          <li
+            key={index}
+            className="d-flex justify-content-between align-items-center"
+          >
+            #{index + 1} {item}
+            <span className="text-success">📈</span>
+          </li>
+        ))}
+      </ul>
+    </Card>
+  </div>
+);
+
+const BecomeSeller = () => (
+  <div className="mt-5">
+    <Card className="p-4" style={{ backgroundColor: "#eaf5f8", border: "1px solid #b7e1ff", borderRadius: "8px" }}>
+      <h4 className="fw-bold mb-3 text-center" style={{ fontWeight: "700" }}>
+        বিক্রেতা হয়ে উঠুন
+      </h4>
+      <p className="text-center mb-4" style={{ fontSize: "16px", color: "#3a3a3a" }}>
+        আপনার কৃষি পণ্য বা সেবা বিক্রয় করুন এবং সারা বাংলাদেশের কৃষকদের কাছে পৌঁছান। আমাদের সাথে ব্যবসা শুরু করুন।
+      </p>
+      <div className="d-flex justify-content-center gap-3">
+        <Button variant="success">বিক্রেতা হিসেবে যোগ দিন</Button>
+        <Button variant="light" style={{ border: "1px solid #ccc" }}>আরও জানুন</Button>
+      </div>
+    </Card>
+  </div>
+);
+
+
 const specialOffers = [
   {
     title: "মৌসুমী ছাড়",
@@ -92,7 +137,7 @@ const products = [
   {
     category: "যন্ত্রপাতি",
     tag: "গ্যারান্টি",
-    discountPercent: 10000,
+    discountTaka: 10000,
     discountTag: "টাকা ছাড়",
     title: "পাওয়ার টিলার (১২ এইচপি)",
     subtitle: "Power Tiller (12 HP)",
@@ -108,7 +153,7 @@ const products = [
   {
     category: "যন্ত্রপাতি",
     tag: "বেস্ট সেলার",
-    discountPercent: 3500,
+    discountTaka: 3500,
     discountTag: "টাকা ছাড়",
     title: "এরোটর মেশিন (মাছের পুকুরের জন্য)",
     subtitle: "Aerator Machine (For Fish Pond)",
@@ -207,7 +252,7 @@ const Marketplace = () => {
         </Row>
         </Row>
 
-        <Tab.Container activeKey={activeTab} onSelect={setActiveTab}>
+         <Tab.Container activeKey={activeTab} onSelect={setActiveTab}>
           <Nav variant="tabs" className="marketplace-tabs mb-4 justify-content-center">
             <Nav.Item><Nav.Link eventKey="products">পণ্যসমূহ</Nav.Link></Nav.Item>
             <Nav.Item><Nav.Link eventKey="suppliers">সরবরাহকারী</Nav.Link></Nav.Item>
@@ -216,7 +261,7 @@ const Marketplace = () => {
 
           <Tab.Content>
             <Tab.Pane eventKey="products">
-              <div className="mt-5"> 
+              <div className="mt-5">
                 <h4 className="fw-bold mb-4">জনপ্রিয় পণ্য</h4>
                 <Row className="g-3">
                   {products.slice(0, visibleProducts).map((p, idx) => (
@@ -230,34 +275,32 @@ const Marketplace = () => {
                             {p.category === "যন্ত্রপাতি" && "🚜"}
                             {p.category === "ঔষধ ও ভ্যাকসিন" && "💉"}
                           </Col>
-                          <Col md={10}> 
-                          <div
-                          className="badge-container d-flex flex-column align-items-end gap-1 mb-2"
-                          style={{ minHeight: '40px' }} >
-                          {p.tag && (
-                          <Badge
-                          bg={p.tag === "প্রিমিয়াম" ? "dark" : "light"}
-                          text={p.tag === "প্রিমিয়াম" ? "light" : "dark"}
-                          className="fw-semibold border" >
-                          {p.tag}
-                          </Badge>  )}
-                          {p.discountPercent > 0 ? (
-                          <Badge bg="danger" className="fw-semibold">
-                          {p.discountPercent}% ছাড়
-                          </Badge>
-                           ) : (
-                            null
-                           )}
-                          </div>
-                          <div className="mb-2">
-                          <Badge bg="light" text="dark" className="fw-semibold border">
-                          {p.category}
-                          </Badge>
-                          </div>
-                          <h5 className="fw-semibold">{p.title}</h5>
-                          <small className="text-muted fst-italic">{p.subtitle}</small>
-
-                           <p className="my-2">{p.desc}</p>
+                          <Col md={10}>
+                            <div className="badge-container d-flex flex-column align-items-end gap-1 mb-2" style={{ minHeight: '40px' }}>
+                              {p.tag && (
+                                <Badge bg={p.tag === "প্রিমিয়াম" ? "dark" : "light"} text={p.tag === "প্রিমিয়াম" ? "light" : "dark"} className="fw-semibold border">
+                                  {p.tag}
+                                </Badge>
+                              )}
+                              {p.discountPercent > 0 && (
+                                <Badge bg="danger" className="fw-semibold">
+                                  {p.discountPercent}% ছাড়
+                                </Badge>
+                              )}
+                              {p.discountTaka > 0 && (
+                                <Badge bg="danger" className="fw-semibold">
+                                  {p.discountTaka} টাকা ছাড়
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="mb-2">
+                              <Badge bg="light" text="dark" className="fw-semibold border">
+                                {p.category}
+                              </Badge>
+                            </div>
+                            <h5 className="fw-semibold">{p.title}</h5>
+                            <small className="text-muted fst-italic">{p.subtitle}</small>
+                            <p className="my-2">{p.desc}</p>
                             <p className="price-section">
                               {p.price.toLocaleString()} টাকা
                               {p.originalPrice > 0 && (
@@ -269,31 +312,21 @@ const Marketplace = () => {
                             <p className="text-muted mb-1">{p.unit}</p>
                             <div className="rating">★ {p.rating} ({p.ratingCount})</div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
-                             <small className="text-muted">
-                            📍{p.location}
-                             </small>
-                              <Badge bg="success" className="fw-semibold">
-                              স্টকে আছে
-                             </Badge>
-                             </div>
+                              <small className="text-muted">📍{p.location}</small>
+                              <Badge bg="success" className="fw-semibold">স্টকে আছে</Badge>
+                            </div>
                             <div className="d-flex gap-2 align-items-center">
-                            <Button variant="success" size="sm" className="flex-grow-1">
-                               কার্টে যোগ করুন
-                            </Button>
-                            <Button variant="outline-primary" size="sm">
-                                📞
-                            </Button>
-                            <Button variant="outline-secondary" size="sm">
-                               💬
-                            </Button>
-                           </div>      
+                              <Button variant="success" size="sm" className="flex-grow-1">কার্টে যোগ করুন</Button>
+                              <Button variant="outline-primary" size="sm">📞</Button>
+                              <Button variant="outline-secondary" size="sm">💬</Button>
+                            </div>
                           </Col>
                         </Row>
                       </Card>
                     </Col>
                   ))}
                 </Row>
-              </div> {/* ✅ Closing tag added here */}
+              </div>
             </Tab.Pane>
 
             <Tab.Pane eventKey="suppliers">
@@ -305,6 +338,8 @@ const Marketplace = () => {
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>
+        <TrendingNow />
+       < BecomeSeller />
       </Container>
     </div>
   );
