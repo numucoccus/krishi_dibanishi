@@ -319,7 +319,6 @@ const Marketplace = () => {
      </nav>
 
 
-
      <div className="marketplace-section">
       <Container>
         <div className="marketplace-header text-center mb-5">
