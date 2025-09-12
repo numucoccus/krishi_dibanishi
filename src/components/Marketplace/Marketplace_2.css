@@ -1,0 +1,502 @@
+.marketplace-section {
+  padding: 2rem 0;
+  font-family: 'SolaimanLipi', sans-serif;
+}
+
+.marketplace-header h1 {
+  font-size: 2.5rem;
+  color: #222;
+}
+
+.marketplace-header p {
+  color: #666;
+}
+.marketplace-header {
+  margin-top: -3rem; /* adjust as needed */
+}
+
+
+.search-input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.btn-filter, .btn-location {
+  font-size: 0.9rem;
+}
+
+/* Categories */
+.category-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.category-card:hover {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.category-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.count-badge {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Special Offers */
+.special-offer-card {
+  background-color: #fff4ec;
+  border: 1px solid #fbd3b4;
+  border-radius: 10px;
+  padding: 1rem;
+  color: #333;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.special-offer-card h5 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.special-offer-card p {
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.special-offer-card code {
+  background-color: #f1f1f1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.btn-offer {
+  background-color: #ff5c00;
+  border: none;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  align-self: flex-start;
+  padding: 0.35rem 1.25rem;
+  font-size: 0.9rem;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.btn-offer:hover {
+  background-color: #e04e00;
+  border: none;
+  color: white;
+}
+
+/* Product Card */
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.product-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #666;
+}
+
+.price-section {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-left: 10px;
+  font-weight: normal;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #ffc107;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.stock {
+  color: #28a745;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Tabs */
+.marketplace-tabs .nav-link {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #444;
+}
+
+.marketplace-tabs .nav-link.active {
+  font-weight: 700;
+  color: #ff5c00;
+  border-bottom: 3px solid #ff5c00;
+}
+
+/* Load More */
+.load-more-btn {
+  background-color: #ff5c00;
+  border: none;
+  font-weight: 700;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background-color: #e04e00;
+  border: none;
+  color: white;
+}
+
+.product-card small {
+  font-size: 0.85rem;
+}
+
+.category-card, .product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+
+/* supplier css*/
+
+.suppliers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .suppliers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.supplier-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  padding: 20px;
+  font-family: 'Noto Sans Bengali', sans-serif;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.supplier-header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.supplier-initial {
+  width: 50px;
+  height: 50px;
+  background: #cfe1ff;
+  color: #3b65ff;
+  font-weight: 600;
+  font-size: 22px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.supplier-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tag {
+  background: #2563eb;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  user-select: none;
+}
+
+.supplier-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.supplier-location {
+  font-size: 13px;
+  color: #777;
+  margin-top: 5px;
+}
+
+.supplier-info {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-size: 14px;
+  color: #444;
+}
+
+.label {
+  font-weight: 600;
+  color: #666;
+}
+
+.value {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 3px;
+}
+
+.rating {
+  margin-left: auto;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star {
+  font-size: 18px;
+}
+
+.supplier-expert-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.expert-tag {
+  background: #f3f4f6;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  color: #444;
+  user-select: none;
+}
+
+.supplier-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-profile,
+.btn-contact {
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-profile {
+  background: #f8fafc;
+  color: #444;
+  border: 1px solid #ccc;
+}
+
+.btn-profile:hover {
+  background: #e2e8f0;
+}
+
+.btn-contact {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-contact:hover {
+  background: #1e40af;
+}
+
+.supplier-specialization-label {
+  font-weight: 400;
+  margin-top: 10px;
+  margin-bottom: 1px; 
+  font-size: 14px;
+  color: #555;
+}
+
+/* services css*/
+
+.services-heading {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #000; /* black text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* neat font */
+}
+
+.services-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.service-card {
+  background: #fff; /* default white */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.05);
+  padding: 20px 25px;
+  flex: 1 1 30%;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Pani color background for first 3 cards */
+.pani-bg {
+  background-color: #e1f0fb; /* light pani blue */
+}
+
+/* Text colors inside pani bg */
+.pani-bg .service-title,
+.pani-bg .service-desc,
+.pani-bg .service-price {
+  color: #000; /* black or dark text for readability */
+}
+
+/* Button style inside pani-bg can stay same or customized */
+.pani-bg .btn-service {
+  background: #d4e9fb;
+  color: #003366;
+  font-weight: 600;
+}
+
+.pani-bg .btn-service:hover:not(.disabled) {
+  background: #a8d0f0;
+}
+
+
+.marketplace-section {
+  padding-top: 80px; /* adjust based on navbar height */
+}
+
+
+
+
+
+
+
+
+
+
+.services-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+  padding: 16px 20px;
+  flex: 1 1 300px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.service-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.service-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.service-desc {
+  font-size: 14px;
+  color: #6b6b6b;
+  margin-bottom: 15px;
+  line-height: 1.4;
+  white-space: pre-line; /* to preserve line breaks if present */
+}
+
+.service-price {
+  font-size: 13px;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.price-icon {
+  font-size: 14px;
+  color: #555;
+}
+
+.btn-service {
+  background: #f9f9f9;
+  border: none;
+  padding: 8px 20px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.btn-service:hover:not(.disabled) {
+  background: #d6e1ff;
+}
+
+.btn-service.disabled {
+  cursor: not-allowed;
+  background: #e3e6ea;
+  color: #999;
+  box-shadow: none;
+}
+

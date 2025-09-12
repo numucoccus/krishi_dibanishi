@@ -35,32 +35,50 @@ function Resources() {
 
     return (
         <>
-            {/* NAVBAR */}
-            <Navbar bg="light" expand="lg" className="shadow-sm">
-                <Container>
-                    <Navbar.Brand as={Link} to="/" className="fw-bold text-success">
-                        BD <span className="text-dark">কৃষি দিবানিশি</span>
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mx-auto">
-                            <Nav.Link as={Link} to="/" className="mx-2">হোম</Nav.Link>
-                            <Nav.Link as={Link} to="/dashboard" className="mx-2">ড্যাশবোর্ড</Nav.Link>
-                            <Nav.Link as={Link} to="/community" className="mx-2">কমিউনিটি</Nav.Link>
-                            <Nav.Link as={Link} to="/resources" className="mx-2">রিসোর্স</Nav.Link>
-                            <Nav.Link as={Link} to="/market" className="mx-2">বাজার</Nav.Link>
-                        </Nav>
-                        <Button variant="success" className="fw-bold text-white">কৃষক</Button>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+             {/* Resources Navbar */}
+            <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+              <div className="container">
+                <Link className="navbar-brand fw-bold text-success" to="/home">
+                  BD <span className="text-dark">কৃষি দিবানিশি</span>
+                </Link>
+            
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ResourcesNavbar">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+            
+                <div className="collapse navbar-collapse justify-content-between" id="ResourcesNavbar">
+                  <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/home">হোম</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/community">কমিউনিটি</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/resources">রিসোর্স</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/market">বাজার</Link>
+                    </li>
+                  </ul>
+            
+                  <div className="d-flex">
+                    <button className="btn btn-success me-2">কৃষক</button>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            
 
             {/* MAIN CONTENT */}
             <Container className="mt-5">
-                <div className="text-center mb-4">
+                <div className="text-center mb-4 mt-0">
                     <h2 className="fw-bold">শিক্ষা ও রিসোর্স কেন্দ্র</h2>
                     <p className="text-muted">Learning & Resource Center</p>
-                    <p>কৃষি, মৎস্য ও প্রাণিসম্পদ বিষয়ক বিশ্লেষক জ্ঞান, প্রশিক্ষণ এবং সর্বাধিক তথ্য সংগ্রহ</p>
+                    <p>কৃষি, মৎস্য ও প্রাণিসম্পদ বিষয়ক বিশ্লেষক জ্ঞান, প্রশিক্ষণ এবং সর্বাধিক তথ্য সম্ভার</p>
                 </div>
 
                 {/* Search Bar */}
