@@ -168,6 +168,68 @@ const products = [
   },
 ];
 
+
+const suppliers = [
+  {
+    category: "বীজ ও সার বিশেষজ্ঞ",
+    tag: "যাচাইকৃত",
+    title: "সুন্দরবন এগ্রো",
+    subtitle: "বীজ ও সার বিশেষজ্ঞ",
+    desc: "বিশেষজ্ঞ: ধানের বীজ, সবজির বীজ, ফলের সার",
+    location: "খুলনা",
+    stock: true,
+    experience: 15,
+    productCount: 145,
+    rating: 4.9,
+    ratingCount: 145,
+    unit: ""
+  },
+  {
+    category: "মৎস্য চাষ সরবরাহকারী",
+    tag: "যাচাইকৃত",
+    title: "বাংলা মৎস্য সেন্টার",
+    subtitle: "মৎস্য চাষ সরবরাহকারী",
+    desc: "বিশেষজ্ঞ: মাছের পোনা, মৎস্য খাদ্য, টিডি পেস্ট লার্ভা",
+    location: "কক্সবাজার",
+    stock: true,
+    experience: 12,
+    productCount: 89,
+    rating: 4.8,
+    ratingCount: 89,
+    unit: ""
+  },
+  {
+    category: "পোল্ট্রি সরবরাহকারী",
+    tag: "যাচাইকৃত",
+    title: "রফেল পোল্ট্রি সাপ্লাই",
+    subtitle: "পোল্ট্রি সরবরাহকারী",
+    desc: "বিশেষজ্ঞ: মুরগির খাদ্য, ভ্যাকসিন, পোল্ট্রি যন্ত্রপাতি",
+    location: "গাজীপুর",
+    stock: true,
+    experience: 10,
+    productCount: 67,
+    rating: 4.7,
+    ratingCount: 67,
+    unit: ""
+  },
+  {
+    category: "সার্বিকপুষ্টি বিশেষজ্ঞ",
+    tag: "যাচাইকৃত",
+    title: "প্রাণিসম্পদ সেবা কেন্দ্র",
+    subtitle: "সার্বিকপুষ্টি বিশেষজ্ঞ",
+    desc: "বিশেষজ্ঞ: গবাদিপশু খাদ্য, পুষ্টি উপকরণ, দুধ উৎপাদন সহায়তা",
+    location: "পাবনা",
+    stock: true,
+    experience: 18,
+    productCount: 156,
+    rating: 4.8,
+    ratingCount: 156,
+    unit: ""
+  }
+];
+
+
+
 const Marketplace = () => {
   const [activeTab, setActiveTab] = useState("products");
   const [visibleProducts, setVisibleProducts] = useState(6);
@@ -330,8 +392,51 @@ const Marketplace = () => {
             </Tab.Pane>
 
             <Tab.Pane eventKey="suppliers">
-              <p className="text-center text-muted">সরবরাহকারী তথ্য আসছে...</p>
-            </Tab.Pane>
+  <div className="suppliers-grid">
+    {suppliers.map((supplier, index) => (
+      <div key={index} className="supplier-card">
+        <div className="supplier-header">
+          <div className="supplier-initial">{supplier.title.charAt(0)}</div>
+          <div>
+            <h5 className="supplier-title">{supplier.title} <span className="tag">{supplier.tag}</span></h5>
+            <p className="supplier-subtitle">{supplier.subtitle}</p>
+            <p className="supplier-location">
+              <i className="location-icon"></i> {supplier.location}
+            </p>
+          </div>
+        </div>
+
+        <div className="supplier-info">
+          <div>
+            <div className="label">অভিজ্ঞতা</div>
+            <div className="value">{supplier.experience} বছর</div>
+          </div>
+          <div>
+            <div className="label">পণ্য</div>
+            <div className="value">{supplier.productCount}</div>
+          </div>
+          <div className="rating">
+            <span className="star">⭐</span> {supplier.rating.toFixed(1)}
+          </div>
+        </div>
+        <div className="supplier-specialization-label">বিশেষত্ব:</div>
+
+        <div className="supplier-expert-tags">
+          {supplier.desc.replace('বিশেষজ্ঞ: ', '').split(', ').map((tag, i) => (
+            <span key={i} className="expert-tag">{tag}</span>
+          ))}
+        </div>
+
+        <div className="supplier-actions">
+          <button className="btn-profile">প্রোফাইল দেখুন</button>
+          <button className="btn-contact">যোগাযোগ করুন</button>
+        </div>
+      </div>
+    ))}
+  </div>
+</Tab.Pane>
+
+
 
             <Tab.Pane eventKey="services">
               <p className="text-center text-muted">সেবা সম্পর্কিত তথ্য আসছে...</p>
