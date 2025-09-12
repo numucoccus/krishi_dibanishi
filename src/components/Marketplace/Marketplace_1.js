@@ -228,6 +228,33 @@ const suppliers = [
   }
 ];
 
+const services = [
+  {
+    icon: "🚚",
+    title: "হোম ডেলিভারি",
+    desc: "আপনার দরজাগোয়া পণ্য পৌঁছে দেওয়ার সেবা। ঢাকা শহরে ২৪ ঘণ্টায়, সারাদেশে ৩-৫ দিনে।",
+    price: "৫০ টাকা থেকে শুরু",
+    btnText: "অর্ডার করুন",
+    btnDisabled: false,
+  },
+  {
+    icon: "👨‍⚕️",
+    title: "পশু চিকিৎসা সেবা",
+    desc: "অভিজ্ঞ ভেটেরিনারি ডাক্তারদের কাছ থেকে পশু চিকিৎসা সেবা। জরুরি অবস্থায় ২৪/৭ সেবা।",
+    price: "৫০০ টাকা থেকে শুরু",
+    btnText: "ডাক্তারের ডাকুন",
+    btnDisabled: false,
+  },
+  {
+    icon: "🔧",
+    title: "যন্ত্রপাতি মেরামত",
+    desc: "কৃষি যন্ত্রপাতি মেরামত ও রক্ষণাবেক্ষণ সেবা। দক্ষ টেকনিশিয়ান ও আসল যন্ত্রাংশ।",
+    price: "সেম ডে সার্ভিস",
+    btnText: "সেবা নিন",
+    btnDisabled: false,
+  },
+];
+
 
 
 const Marketplace = () => {
@@ -324,7 +351,7 @@ const Marketplace = () => {
           <Tab.Content>
             <Tab.Pane eventKey="products">
               <div className="mt-5">
-                <h4 className="fw-bold mb-4">জনপ্রিয় পণ্য</h4>
+                <h4 className="services-heading">জনপ্রিয় পণ্য</h4>
                 <Row className="g-3">
                   {products.slice(0, visibleProducts).map((p, idx) => (
                     <Col md={4} key={idx}>
@@ -391,46 +418,77 @@ const Marketplace = () => {
               </div>
             </Tab.Pane>
 
-            <Tab.Pane eventKey="suppliers">
-  <div className="suppliers-grid">
-    {suppliers.map((supplier, index) => (
-      <div key={index} className="supplier-card">
-        <div className="supplier-header">
-          <div className="supplier-initial">{supplier.title.charAt(0)}</div>
-          <div>
-            <h5 className="supplier-title">{supplier.title} <span className="tag">{supplier.tag}</span></h5>
-            <p className="supplier-subtitle">{supplier.subtitle}</p>
-            <p className="supplier-location">
-              <i className="location-icon"></i> {supplier.location}
-            </p>
-          </div>
-        </div>
 
-        <div className="supplier-info">
-          <div>
-            <div className="label">অভিজ্ঞতা</div>
-            <div className="value">{supplier.experience} বছর</div>
-          </div>
-          <div>
-            <div className="label">পণ্য</div>
-            <div className="value">{supplier.productCount}</div>
-          </div>
-          <div className="rating">
-            <span className="star">⭐</span> {supplier.rating.toFixed(1)}
-          </div>
-        </div>
-        <div className="supplier-specialization-label">বিশেষত্ব:</div>
 
-        <div className="supplier-expert-tags">
-          {supplier.desc.replace('বিশেষজ্ঞ: ', '').split(', ').map((tag, i) => (
-            <span key={i} className="expert-tag">{tag}</span>
-          ))}
-        </div>
+             <Tab.Pane eventKey="suppliers">
+              <div className="mt-5"></div>
+              <h4 className="services-heading">বিশ্বস্ত সরবরাহকারী</h4>
+               <div className="suppliers-grid">
+                 {suppliers.map((supplier, index) => (
+                  <div key={index} className="supplier-card">
+                    <div className="supplier-header">
+                  <div className="supplier-initial">{supplier.title.charAt(0)}</div>
+                    <div>
+                      <h5 className="supplier-title">{supplier.title} <span className="tag">{supplier.tag}</span></h5>
+                       <p className="supplier-subtitle">{supplier.subtitle}</p>
+                        <p className="supplier-location">
+                        <i className="location-icon"></i> {supplier.location}
+                          </p>
+                          </div>
+                           </div>
+                            <div className="supplier-info">
+                             <div>
+                             <div className="label">অভিজ্ঞতা</div>
+                             <div className="value">{supplier.experience} বছর</div>
+                             </div>
+                             <div>
+                             <div className="label">পণ্য</div>
+                             <div className="value">{supplier.productCount}</div>
+                             </div>
+                             <div className="rating">
+                           <span className="star">⭐</span> {supplier.rating.toFixed(1)}
+                      </div>
+                    </div>
+                    <div className="supplier-specialization-label">বিশেষত্ব:</div>
+                   <div className="supplier-expert-tags">
+                  {supplier.desc.replace('বিশেষজ্ঞ: ', '').split(', ').map((tag, i) => (
+                  <span key={i} className="expert-tag">{tag}</span>
+                  ))}
+                  </div>
+                 <div className="supplier-actions">
+                     <button className="btn-profile">প্রোফাইল দেখুন</button>
+                     <button className="btn-contact">যোগাযোগ করুন</button>
+                 </div>
+                </div>
+                ))}
+                </div>
+               </Tab.Pane>
 
-        <div className="supplier-actions">
-          <button className="btn-profile">প্রোফাইল দেখুন</button>
-          <button className="btn-contact">যোগাযোগ করুন</button>
-        </div>
+
+
+              <Tab.Pane eventKey="services">
+                <div className="mt-5"></div>
+  <h4 className="services-heading">উপলব্ধ সেবাসমূহ</h4>
+  <div className="services-grid">
+    {services.map((service, index) => (
+      <div 
+        key={index} 
+        className={`service-card ${index < 3 ? 'pani-bg' : ''}`}
+      >
+        <div className="service-icon">{service.icon}</div>
+        <h5 className="service-title">{service.title}</h5>
+        <p className="service-desc">{service.desc}</p>
+        
+        <p className="service-price">
+          <span className="price-icon">{service.priceIcon}</span>
+          {service.price}
+        </p>
+        <button 
+          className={`btn-service ${service.btnDisabled ? 'disabled' : ''}`} 
+          disabled={service.btnDisabled}
+        >
+          {service.btnText}
+        </button>
       </div>
     ))}
   </div>
@@ -438,9 +496,11 @@ const Marketplace = () => {
 
 
 
-            <Tab.Pane eventKey="services">
-              <p className="text-center text-muted">সেবা সম্পর্কিত তথ্য আসছে...</p>
-            </Tab.Pane>
+
+
+
+
+
           </Tab.Content>
         </Tab.Container>
         <TrendingNow />

@@ -345,14 +345,148 @@
   background: #1e40af;
 }
 
-
 .supplier-specialization-label {
   font-weight: 400;
   margin-top: 10px;
-  margin-bottom: 1px; /* small, clean gap */
+  margin-bottom: 1px; 
   font-size: 14px;
   color: #555;
 }
 
+/* services css*/
 
+.services-heading {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #000; /* black text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* neat font */
+}
+
+.services-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.service-card {
+  background: #fff; /* default white */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.05);
+  padding: 20px 25px;
+  flex: 1 1 30%;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Pani color background for first 3 cards */
+.pani-bg {
+  background-color: #e1f0fb; /* light pani blue */
+}
+
+/* Text colors inside pani bg */
+.pani-bg .service-title,
+.pani-bg .service-desc,
+.pani-bg .service-price {
+  color: #000; /* black or dark text for readability */
+}
+
+/* Button style inside pani-bg can stay same or customized */
+.pani-bg .btn-service {
+  background: #d4e9fb;
+  color: #003366;
+  font-weight: 600;
+}
+
+.pani-bg .btn-service:hover:not(.disabled) {
+  background: #a8d0f0;
+}
+
+
+
+
+
+
+
+
+
+.services-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+  padding: 16px 20px;
+  flex: 1 1 300px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.service-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.service-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.service-desc {
+  font-size: 14px;
+  color: #6b6b6b;
+  margin-bottom: 15px;
+  line-height: 1.4;
+  white-space: pre-line; /* to preserve line breaks if present */
+}
+
+.service-price {
+  font-size: 13px;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.price-icon {
+  font-size: 14px;
+  color: #555;
+}
+
+.btn-service {
+  background: #f9f9f9;
+  border: none;
+  padding: 8px 20px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.btn-service:hover:not(.disabled) {
+  background: #d6e1ff;
+}
+
+.btn-service.disabled {
+  cursor: not-allowed;
+  background: #e3e6ea;
+  color: #999;
+  box-shadow: none;
+}
 
