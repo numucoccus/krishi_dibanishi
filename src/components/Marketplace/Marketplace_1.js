@@ -1,6 +1,8 @@
 import './Marketplace_2.css';
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form, Badge, Tab, Nav } from "react-bootstrap";
+
 
 const categories = [
   { icon: "🌾", title: "বীজ ও চারা", subtitle: "Seeds & Seedlings", count: "২৩৪ পণ্য" },
@@ -107,7 +109,7 @@ const products = [
     tag: "জনপ্রিয়",
     discountPercent: 7,
     discountTag: "ছাড়",
-    title: "গাভীর জন্য সুসম খাদ্য (৫০ কেজি)",
+    title: "গাভীর জন্য সুষম খাদ্য (৫০ কেজি)",
     subtitle: "Balanced Cattle Feed (50kg)",
     desc: "গাভীর দুধ উৎপাদন বৃদ্ধির জন্য বিশেষভাবে প্রস্তুতকৃত পুষ্টিকর খাদ্য",
     location: "প্রাণ এগ্রো লিমিটেড, নারায়ণগঞ্জ, ঢাকা",
@@ -119,14 +121,14 @@ const products = [
     ratingCount: 234,
   },
 {
-    category: "খাদ্য ও সার",
+    category1: "খাদ্য ও সার",
     tag: "নতুন",
     discountPercent: 0,
     discountTag: "",
     title: "ব্রয়লার স্টার্টার ফিড (২৫ কেজি)",
     subtitle: "Broiler Starter Feed (25kg)",
     desc: "ব্রয়লার মুরগির প্রথম ৩ সপ্তাহের জন্য বিশেষ প্রযুক্তির স্টার্টার ফিড",
-    location: "কিউএফএস পোল্ট্রি, কুমিল্লা",
+    location: "কিউএইচএস পোল্ট্রি, কুমিল্লা",
     stock: true,
     price: 1450,
     originalPrice: 0,
@@ -146,7 +148,7 @@ const products = [
     stock: true,
     price: 125000,
     originalPrice: 135000,
-    unit: "প্রতি টি",
+    unit: "প্রতিটি",
     rating: 4.5,
     ratingCount: 45,
   },
@@ -162,7 +164,7 @@ const products = [
     stock: true,
     price: 18500,
     originalPrice: 22000,
-    unit: "প্রতি টি",
+    unit: "প্রতিটি",
     rating: 4.8,
     ratingCount: 67,
   },
@@ -175,8 +177,8 @@ const suppliers = [
     tag: "যাচাইকৃত",
     title: "সুন্দরবন এগ্রো",
     subtitle: "বীজ ও সার বিশেষজ্ঞ",
-    desc: "বিশেষজ্ঞ: ধানের বীজ, সবজির বীজ, ফলের সার",
-    location: "খুলনা",
+    desc: "বিশেষজ্ঞ: ধানের বীজ, সবজির বীজ, জৈব সার",
+    location: "📍খুলনা",
     stock: true,
     experience: 15,
     productCount: 145,
@@ -189,8 +191,8 @@ const suppliers = [
     tag: "যাচাইকৃত",
     title: "বাংলা মৎস্য সেন্টার",
     subtitle: "মৎস্য চাষ সরবরাহকারী",
-    desc: "বিশেষজ্ঞ: মাছের পোনা, মৎস্য খাদ্য, টিডি পেস্ট লার্ভা",
-    location: "কক্সবাজার",
+    desc: "বিশেষজ্ঞ: মাছের পোনা, মৎস্য খাদ্য, চিংড়ি পোস্ট লার্ভা",
+    location: "📍কক্সবাজার",
     stock: true,
     experience: 12,
     productCount: 89,
@@ -204,7 +206,7 @@ const suppliers = [
     title: "রফেল পোল্ট্রি সাপ্লাই",
     subtitle: "পোল্ট্রি সরবরাহকারী",
     desc: "বিশেষজ্ঞ: মুরগির খাদ্য, ভ্যাকসিন, পোল্ট্রি যন্ত্রপাতি",
-    location: "গাজীপুর",
+    location: "📍গাজীপুর",
     stock: true,
     experience: 10,
     productCount: 67,
@@ -213,12 +215,12 @@ const suppliers = [
     unit: ""
   },
   {
-    category: "সার্বিকপুষ্টি বিশেষজ্ঞ",
+    category: "গবাদিপশু বিশেষজ্ঞ",
     tag: "যাচাইকৃত",
     title: "প্রাণিসম্পদ সেবা কেন্দ্র",
-    subtitle: "সার্বিকপুষ্টি বিশেষজ্ঞ",
-    desc: "বিশেষজ্ঞ: গবাদিপশু খাদ্য, পুষ্টি উপকরণ, দুধ উৎপাদন সহায়তা",
-    location: "পাবনা",
+    subtitle: "গবাদিপশু বিশেষজ্ঞ",
+    desc: "বিশেষজ্ঞ: গবাদিপশু খাদ্য, পশু ওষুধ, দুগ্ধ যন্ত্রপাতি",
+    location: "📍পাবনা",
     stock: true,
     experience: 18,
     productCount: 156,
@@ -232,7 +234,7 @@ const services = [
   {
     icon: "🚚",
     title: "হোম ডেলিভারি",
-    desc: "আপনার দরজাগোয়া পণ্য পৌঁছে দেওয়ার সেবা। ঢাকা শহরে ২৪ ঘণ্টায়, সারাদেশে ৩-৫ দিনে।",
+    desc: "আপনার দোরগোড়ায় পণ্য পৌঁছে দেওয়ার সেবা। ঢাকা শহরে ২৪ ঘণ্টায়, সারাদেশে ৩-৫ দিনে।",
     price: "৫০ টাকা থেকে শুরু",
     btnText: "অর্ডার করুন",
     btnDisabled: false,
@@ -242,7 +244,7 @@ const services = [
     title: "পশু চিকিৎসা সেবা",
     desc: "অভিজ্ঞ ভেটেরিনারি ডাক্তারদের কাছ থেকে পশু চিকিৎসা সেবা। জরুরি অবস্থায় ২৪/৭ সেবা।",
     price: "৫০০ টাকা থেকে শুরু",
-    btnText: "ডাক্তারের ডাকুন",
+    btnText: "ডাক্তার ডাকুন",
     btnDisabled: false,
   },
   {
@@ -277,7 +279,48 @@ const Marketplace = () => {
   }, []);
 
   return (
-    <div className="marketplace-section">
+   <>
+    {/* Navbar */}
+
+       <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+       <div className="container">
+        <Link className="navbar-brand fw-bold text-success" to="/home">
+          BD <span className="text-dark">কৃষি দিবানিশি</span>
+        </Link>
+
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#MarketplaceNavbar">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse justify-content-between" id="MarketplaceNavbar">
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link" to="/home">হোম</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/community">কমিউনিটি</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/resources">রিসোর্স</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/market">বাজার</Link>
+            </li>
+          </ul>
+
+          <div className="d-flex">
+            <button className="btn btn-success me-2">কৃষক</button>
+          </div>
+        </div>
+      </div>
+     </nav>
+
+
+
+     <div className="marketplace-section">
       <Container>
         <div className="marketplace-header text-center mb-5">
           <h2 className="fw-bold">কৃষি দিবানিশি মার্কেটপ্লেস</h2>
@@ -361,6 +404,7 @@ const Marketplace = () => {
                             {p.category === "বীজ ও চারা" && "🌾"}
                             {p.category === "মৎস্য চাষ" && "🐟"}
                             {p.category === "খাদ্য ও সার" && "🐄"}
+                            {p.category1 === "খাদ্য ও সার" && "🐔"}
                             {p.category === "যন্ত্রপাতি" && "🚜"}
                             {p.category === "ঔষধ ও ভ্যাকসিন" && "💉"}
                           </Col>
@@ -386,6 +430,11 @@ const Marketplace = () => {
                               <Badge bg="light" text="dark" className="fw-semibold border">
                                 {p.category}
                               </Badge>
+                             </div>
+                            <div className="mb-2">
+                              <Badge bg="light" text="dark" className="fw-semibold border">
+                                {p.category1}
+                              </Badge>
                             </div>
                             <h5 className="fw-semibold">{p.title}</h5>
                             <small className="text-muted fst-italic">{p.subtitle}</small>
@@ -405,7 +454,7 @@ const Marketplace = () => {
                               <Badge bg="success" className="fw-semibold">স্টকে আছে</Badge>
                             </div>
                             <div className="d-flex gap-2 align-items-center">
-                              <Button variant="success" size="sm" className="flex-grow-1">কার্টে যোগ করুন</Button>
+                              <Button variant="success" size="sm" className="flex-grow-1">🛒  কার্টে যোগ করুন</Button>
                               <Button variant="outline-primary" size="sm">📞</Button>
                               <Button variant="outline-secondary" size="sm">💬</Button>
                             </div>
@@ -468,46 +517,39 @@ const Marketplace = () => {
 
               <Tab.Pane eventKey="services">
                 <div className="mt-5"></div>
-  <h4 className="services-heading">উপলব্ধ সেবাসমূহ</h4>
-  <div className="services-grid">
-    {services.map((service, index) => (
-      <div 
-        key={index} 
-        className={`service-card ${index < 3 ? 'pani-bg' : ''}`}
-      >
-        <div className="service-icon">{service.icon}</div>
-        <h5 className="service-title">{service.title}</h5>
-        <p className="service-desc">{service.desc}</p>
-        
-        <p className="service-price">
-          <span className="price-icon">{service.priceIcon}</span>
-          {service.price}
-        </p>
-        <button 
-          className={`btn-service ${service.btnDisabled ? 'disabled' : ''}`} 
-          disabled={service.btnDisabled}
-        >
-          {service.btnText}
-        </button>
-      </div>
-    ))}
-  </div>
-</Tab.Pane>
-
-
-
-
-
-
-
+                 <h4 className="services-heading">উপলব্ধ সেবাসমূহ</h4>
+                  <div className="services-grid">
+                   {services.map((service, index) => (
+                    <div 
+                  key={index} 
+                  className={`service-card ${index < 3 ? 'pani-bg' : ''}`}
+                    >
+                 <div className="service-icon">{service.icon}</div>
+                <h5 className="service-title">{service.title}</h5>
+               <p className="service-desc">{service.desc}</p>
+              <p className="service-price">
+              <span className="price-icon">{service.priceIcon}</span>
+              {service.price}
+              </p>
+             <button 
+             className={`btn-service ${service.btnDisabled ? 'disabled' : ''}`} 
+             disabled={service.btnDisabled}
+             >
+             {service.btnText}
+             </button>
+             </div>
+             ))}
+             </div>
+            </Tab.Pane>
 
           </Tab.Content>
         </Tab.Container>
         <TrendingNow />
-       < BecomeSeller />
+        <BecomeSeller />
       </Container>
     </div>
-  );
+  </>
+);
 };
 
 export default Marketplace;
