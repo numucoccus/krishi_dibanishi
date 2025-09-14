@@ -1,52 +1,45 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import './App.css';
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const res = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-      const data = await response.json().catch(() => ({}));
-      setLoading(false);
+    const data = await res.json();
+    console.log("Login response:", data); // 👈 see if token is inside
 
-      if (response.ok && data.success) {
-        // Store user info instead of token
-        localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/home"); // ✅ Make sure this route exists
-      } else {
-        setError(data.message || "Login failed");
-      }
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-      setError("Server error. Try again later.");
+    if (res.ok && data.token) {
+      localStorage.setItem("token", data.token);
+      console.log("Saved token:", localStorage.getItem("token")); // 👈 confirm saved
+      navigate("/home");
+    } else {
+      alert(data.message || "Login failed");
     }
+  } catch (err) {
+    console.error("Login error:", err);
+  }
+};
+
+  const handleRegister = () => {
+    navigate("/register");
   };
 
   return (
-    <div className="card p-4 shadow-sm h-100">
-      <h5 className="fw-bold text-center mb-3">
-        লগইন করুন / <span className="text-muted">Login</span>
-      </h5>
+    <div className="card p-4 shadow-sm">
+      <h5 className="fw-bold text-center mb-3">লগইন করুন / <span className="text-muted">Login</span></h5>
       <p className="text-muted small text-center mb-4">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
-
-      {error && <p className="text-danger text-center">{error}</p>}
-      {loading && <p className="text-center text-primary">Logging in...</p>}
 
       <form onSubmit={handleLogin}>
         <div className="mb-3">
@@ -55,9 +48,9 @@ export default function LoginForm() {
             type="email"
             className="form-control"
             id="email"
+            placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="your@email.com"
             required
           />
         </div>
@@ -68,23 +61,21 @@ export default function LoginForm() {
             type="password"
             className="form-control"
             id="password"
+            placeholder="আপনার পাসওয়ার্ড"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="আপনার পাসওয়ার্ড"
             required
           />
         </div>
 
-        <button type="submit" className="btn btn-success w-100 mb-3" disabled={loading}>
-          লগইন করুন / Login
-        </button>
-
+        <button type="submit" className="btn btn-success w-100 mb-3">লগইন করুন / Login</button>
+        
         <div className="text-center">
           <p className="small mb-2">অ্যাকাউন্ট নেই?</p>
           <button 
             type="button" 
             className="btn btn-outline-primary w-100"
-            onClick={() => navigate("/register")}
+            onClick={handleRegister}
           >
             রেজিস্টার করুন / Register
           </button>

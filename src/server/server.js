@@ -44,6 +44,7 @@ const authenticateUser = async (req, res, next) => {
   if (authHeader && authHeader.startsWith("Bearer ")) {
     try {
       const token = authHeader.split(" ")[1];
+      console.log("JWT_SECRET at profile:", process.env.JWT_SECRET);
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.userId = decoded.id;
       next();
@@ -136,6 +137,8 @@ app.post("/api/login", async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ success: false, message: "Invalid email or password" });
+
+    console.log("JWT_SECRET at login:", process.env.JWT_SECRET);
 
     // ✅ Generate JWT Token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {

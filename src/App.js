@@ -12,8 +12,8 @@ import RegistrationForm from "./components/Registration/RegistrationForm";
 import RegistrationSuccess from "./components/Registration/RegistrationSuccess";
 import Community from "./components/Community";
 import Resources from './components/Resources';
-import Marketplace from './components/Marketplace/Marketplace_1'; 
-
+import Marketplace from './components/Marketplace/Marketplace_1';
+import ProfilePage from "./components/ProfilePage";
 
 
 
@@ -74,6 +74,8 @@ function App() {
 
         {/* Resources page */}
         <Route path="/resources" element={<Resources />} />
+
+        <Route path="/profile" element={<ProfilePage />} />
 
 
       </Routes>
