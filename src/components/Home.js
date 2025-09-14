@@ -36,7 +36,8 @@ function Home() {
             </ul>
       
             <div className="d-flex">
-              <button className="btn btn-success me-2">কৃষক</button>
+            <Link to="/profile" className="btn btn-success me-2">কৃষক</Link>
+
             </div>
           </div>
         </div>
