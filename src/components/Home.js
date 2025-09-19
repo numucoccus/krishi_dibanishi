@@ -52,7 +52,7 @@ function Home() {
             Krishi Dibanishi - Bangladesh's Integrated Agriculture, Fisheries & Livestock Platform<br />
             বাংলাদেশের কৃষক, মৎস্যজীবী ও খামারিদের জন্য আধুনিক ডিজিটাল সমাধান। বিশেষজ্ঞ পরামর্শ, প্রযুক্তিগত সহায়তা এবং একটি প্রাণবন্ত কমিউনিটি।
           </p>
-          <Link to="/join" className="btn btn-success btn-lg">আজই যোগ দিন / Join Today</Link>
+          {/*<Link to="/join" className="btn btn-success btn-lg">আজই যোগ দিন / Join Today</Link>*/}
           
           {/* Stats Section */}
           <div className="row mt-5 justify-content-center">
