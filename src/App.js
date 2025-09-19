@@ -14,6 +14,7 @@ import Community from "./components/Community";
 import Resources from './components/Resources';
 import Marketplace from './components/Marketplace/Marketplace_1';
 import ProfilePage from "./components/ProfilePage";
+import OpenHome from "./components/OpenHome";
 
 
 
@@ -21,6 +22,7 @@ function App() {
   return (
     <Router>
       <Routes>
+
         {/* Login + Role Selector page (root path) */}
         <Route
           path="/"
@@ -37,7 +39,6 @@ function App() {
             </div>
           }
         />
-
         {/* Registration page */}
         <Route
           path="/register"
