@@ -78,6 +78,8 @@ const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")))
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" />} />
+
+
       </Routes>
   );
 }

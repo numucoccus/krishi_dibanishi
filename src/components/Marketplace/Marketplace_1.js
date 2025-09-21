@@ -2,11 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Tab, Nav, Badge,Form } from "react-bootstrap";
 import './Marketplace_2.css';
+import { io } from "socket.io-client";
+import AddProducts from "./AddProducts";
+import axios from "../../api";
+const socket = io("http://localhost:5000");
+
 
 // ==================== SupplierDashboard Component ====================
 const SupplierDashboard = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
 const [user, setUser] = useState(storedUser || {}); 
+const [showAdd, setShowAdd] = useState(false);
+const [productsList, setProductsList] = useState([]); // Optional: supplier products দেখানোর জন্য
+
+const handleAddProductClick = () => setShowAdd(true);
+const handleClose = () => setShowAdd(false);
+
+const handleProductAdded = (newProduct) => {
+  setProductsList(prev => [newProduct, ...prev]);
+};
 
 
 
@@ -44,19 +58,14 @@ const [user, setUser] = useState(storedUser || {});
     </Link>
   </li>
 </ul>
-
-
-          <div className="d-flex">
+         <div className="d-flex">
             <button className="btn btn-success me-2">কৃষক</button>
           </div>
         </div>
       </div>
      </nav>
 
-
-
-
-        <div className="marketplace-section">
+  <div className="marketplace-section">
       <Container>
         <div className="marketplace-header text-center mb-5">
           <h2 className="fw-bold">কৃষি দিবানিশি মার্কেটপ্লেস</h2>
@@ -75,8 +84,19 @@ const [user, setUser] = useState(storedUser || {});
       <h5>📦 পণ্য বিক্রয় করুন</h5>
       <p>আপনার সকল তালিকাভুক্ত পণ্য দেখুন, ম্যানেজ করুন এবং নতুন পণ্য যোগ করুন।</p>
       <div className="d-flex flex-column gap-2">
-        <Button variant="success">➕ নতুন পণ্য যোগ করুন</Button>
-        <Button variant="outline-primary">📋 সব পণ্য দেখুন</Button>
+        <Button variant="success" onClick={handleAddProductClick}>➕ নতুন পণ্য যোগ করুন</Button>
+          <AddProducts
+  show={showAdd}
+  handleClose={handleClose}
+  onProductAdded={handleProductAdded}
+/>
+  {/* Optional: productsList দেখানোর জন্য */}
+      <div>
+        {productsList.map(p => (
+          <div key={p._id}>{p.title} - {p.price} টাকা</div>
+        ))}
+      </div>
+ <Button variant="outline-primary">📋 সব পণ্য দেখুন</Button>
       </div>
     </Card>
   </Col>
@@ -93,29 +113,6 @@ const [user, setUser] = useState(storedUser || {});
     </Card>
   </Col>
 
-  {/* প্রোফাইল */}
-  <Col md={4}>
-    <Card className="supplier-card">
-      <h5>👤 প্রোফাইল</h5>
-      <p>আপনার প্রোফাইল তথ্য, দোকানের লোগো এবং কন্টাক্ট তথ্য আপডেট করুন।</p>
-      <div className="d-flex flex-column gap-2">
-        <Button variant="success">✏️ প্রোফাইল আপডেট করুন</Button>
-        <Button variant="outline-primary">📍 ঠিকানা সেট করুন</Button>
-      </div>
-    </Card>
-  </Col>
-
-  {/* বিক্রয় পরিসংখ্যান */}
-  <Col md={4}>
-    <Card className="supplier-card">
-      <h5>📈 বিক্রয় পরিসংখ্যান</h5>
-      <p>আজকের বিক্রি, মোট আয় এবং জনপ্রিয় পণ্যের তালিকা দেখুন।</p>
-      <div className="d-flex flex-column gap-2">
-        <Button variant="success">💰 আজকের আয়</Button>
-        <Button variant="outline-primary">⭐ জনপ্রিয় পণ্য</Button>
-      </div>
-    </Card>
-  </Col>
 
   {/* নোটিফিকেশন */}
   <Col md={4}>
@@ -128,22 +125,8 @@ const [user, setUser] = useState(storedUser || {});
       </div>
     </Card>
   </Col>
-
-  {/* গ্রাহক প্রতিক্রিয়া */}
-  <Col md={4}>
-    <Card className="supplier-card">
-      <h5>⭐ গ্রাহক প্রতিক্রিয়া</h5>
-      <p>আপনার পণ্যের রেটিং ও রিভিউ পড়ুন এবং গ্রাহকের সাথে যোগাযোগ করুন।</p>
-      <div className="d-flex flex-column gap-2">
-        <Button variant="success">📝 নতুন রিভিউ দেখুন</Button>
-        <Button variant="outline-primary">📖 সব রিভিউ</Button>
-      </div>
-    </Card>
-  </Col>
-
 </Row>
-
-      </Container>
+     </Container>
     </div>
     </>
   );
@@ -191,6 +174,33 @@ const specialOffers = [
     description: "১০,০০০ টাকার বেশি কেনাকাটায় ১৫% ছাড়",
     validity: "বৈধতা: ১৫ ফেব্রুয়ারি পর্যন্ত",
     code: "BULK15",
+  },
+];
+
+const services = [
+  {
+    icon: "🚚",
+    title: "হোম ডেলিভারি",
+    desc: "আপনার দোরগোড়ায় পণ্য পৌঁছে দেওয়ার সেবা। ঢাকা শহরে ২৪ ঘণ্টায়, সারাদেশে ৩-৫ দিনে।",
+    price: "৫০ টাকা থেকে শুরু",
+    btnText: "অর্ডার করুন",
+    btnDisabled: false,
+  },
+  {
+    icon: "👨‍⚕️",
+    title: "পশু চিকিৎসা সেবা",
+    desc: "অভিজ্ঞ ভেটেরিনারি ডাক্তারদের কাছ থেকে পশু চিকিৎসা সেবা। জরুরি অবস্থায় ২৪/৭ সেবা।",
+    price: "৫০০ টাকা থেকে শুরু",
+    btnText: "ডাক্তার ডাকুন",
+    btnDisabled: false,
+  },
+  {
+    icon: "🔧",
+    title: "যন্ত্রপাতি মেরামত",
+    desc: "কৃষি যন্ত্রপাতি মেরামত ও রক্ষণাবেক্ষণ সেবা। দক্ষ টেকনিশিয়ান ও আসল যন্ত্রাংশ।",
+    price: "সেম ডে সার্ভিস",
+    btnText: "সেবা নিন",
+    btnDisabled: false,
   },
 ];
 
@@ -293,37 +303,24 @@ const products = [
   },
 ];
 
-const services = [
-  {
-    icon: "🚚",
-    title: "হোম ডেলিভারি",
-    desc: "আপনার দোরগোড়ায় পণ্য পৌঁছে দেওয়ার সেবা। ঢাকা শহরে ২৪ ঘণ্টায়, সারাদেশে ৩-৫ দিনে।",
-    price: "৫০ টাকা থেকে শুরু",
-    btnText: "অর্ডার করুন",
-    btnDisabled: false,
-  },
-  {
-    icon: "👨‍⚕️",
-    title: "পশু চিকিৎসা সেবা",
-    desc: "অভিজ্ঞ ভেটেরিনারি ডাক্তারদের কাছ থেকে পশু চিকিৎসা সেবা। জরুরি অবস্থায় ২৪/৭ সেবা।",
-    price: "৫০০ টাকা থেকে শুরু",
-    btnText: "ডাক্তার ডাকুন",
-    btnDisabled: false,
-  },
-  {
-    icon: "🔧",
-    title: "যন্ত্রপাতি মেরামত",
-    desc: "কৃষি যন্ত্রপাতি মেরামত ও রক্ষণাবেক্ষণ সেবা। দক্ষ টেকনিশিয়ান ও আসল যন্ত্রাংশ।",
-    price: "সেম ডে সার্ভিস",
-    btnText: "সেবা নিন",
-    btnDisabled: false,
-  },
-];
 
-// ==================== Marketplace Component ====================
 const Marketplace = (props) => {
   const location = useLocation();
   const [supplierView, setSupplierView] = useState(false);
+  const [productsState, setProducts] = useState(products); 
+  const [activeTab, setActiveTab] = useState("products");
+  const [visibleProducts, setVisibleProducts] = useState(6);
+
+
+    useEffect(() => {
+  socket.on("new-product", (product) => {
+    setProducts(prev => [product, ...prev]);
+  });
+
+  return () => socket.off("new-product");
+}, []);
+
+
 
   // Update supplierView based on user or location.state changes
   useEffect(() => {
@@ -337,18 +334,20 @@ const Marketplace = (props) => {
     }
   }, [location.state]); // location.state change এ re-evaluate হবে
 
-  const [activeTab, setActiveTab] = useState("products");
-  const [visibleProducts, setVisibleProducts] = useState(6);
 
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
-        setVisibleProducts(prev => Math.min(prev + 1, products.length));
-      }
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+
+
+
+useEffect(() => {
+  const onScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
+      setVisibleProducts(prev => Math.min(prev + 1, productsState.length));
+    }
+  };
+  window.addEventListener("scroll", onScroll);
+  return () => window.removeEventListener("scroll", onScroll);
+}, [productsState]);
+
 
    // ==================== Supplier View ====================
   if (supplierView) return <SupplierDashboard />;
@@ -468,7 +467,7 @@ const Marketplace = (props) => {
               <div className="mt-5">
                 <h4 className="services-heading">জনপ্রিয় পণ্য</h4>
                 <Row className="g-3">
-                  {products.slice(0, visibleProducts).map((p, idx) => (
+                  {productsState.slice(0, visibleProducts).map((p, idx) => (
                     <Col md={4} key={idx}>
                       <Card className="product-card">
                         <Row className="align-items-center g-3">
