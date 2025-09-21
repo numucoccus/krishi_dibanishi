@@ -8,29 +8,42 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await res.json();
-    console.log("Login response:", data); // 👈 see if token is inside
+      const data = await res.json();
+      console.log("Login response:", data);
 
-    if (res.ok && data.token) {
-      localStorage.setItem("token", data.token);
-      console.log("Saved token:", localStorage.getItem("token")); // 👈 confirm saved
-      navigate("/home");
-    } else {
-      alert(data.message || "Login failed");
+      if (res.ok && data.token) {
+        // Save token & user info
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        console.log("Logged in as:", data.user.role);
+       
+
+
+        // Role-based redirect
+        if (data.user.role.toLowerCase() === "supplier") {
+          // Supplier login → Supplier Dashboard
+        navigate("/home");
+        } else {
+          // Farmer / Normal user → Marketplace
+          navigate("/home");
+        }
+
+      } else {
+        alert(data.message || "Login failed");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
     }
-  } catch (err) {
-    console.error("Login error:", err);
-  }
-};
+  };
 
   const handleRegister = () => {
     navigate("/register");
