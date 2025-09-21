@@ -204,10 +204,13 @@ app.post("/api/products", authenticateUser, upload.single("image"), async (req, 
     });
     await newProduct.save();
 
-    // Emit live update to all clients
-    io.emit("new-product", newProduct);
+    // Populate supplier info before emitting
+    const populatedProduct = await Product.findById(newProduct._id).populate("supplierId", "name email role");
 
-    res.status(201).json({ success: true, product: newProduct });
+    // Emit live update to all clients
+    io.emit("new-product", populatedProduct);
+
+    res.status(201).json({ success: true, product: populatedProduct });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Failed to add product" });
@@ -218,18 +221,11 @@ app.post("/api/products", authenticateUser, upload.single("image"), async (req, 
 app.get("/api/products", async (req, res) => {
   try {
     const products = await Product.find().populate("supplierId", "name email role");
-    res.json({ success: true, products });
+    res.json({ success: true, products: Array.isArray(products) ? products : [] });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Failed to fetch products" });
   }
-});
-
-// -------------------- Socket.io --------------------
-io.on("connection", (socket) => {
-  console.log("New client connected:", socket.id);
-
-  socket.on("disconnect", () => console.log("Client disconnected:", socket.id));
 });
 
 // -------------------- Start Server --------------------
