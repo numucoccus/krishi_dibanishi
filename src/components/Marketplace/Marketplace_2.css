@@ -12,9 +12,8 @@
   color: #666;
 }
 .marketplace-header {
-  margin-top: -3rem; /* adjust as needed */
+  margin-top: -3rem; 
 }
-
 
 .search-input {
   padding: 0.5rem 1rem;
@@ -187,176 +186,6 @@
 }
 
 
-/* supplier css*/
-
-.suppliers-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  padding: 15px;
-}
-
-@media (max-width: 768px) {
-  .suppliers-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-.supplier-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-  padding: 20px;
-  font-family: 'Noto Sans Bengali', sans-serif;
-  color: #222;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.supplier-header {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.supplier-initial {
-  width: 50px;
-  height: 50px;
-  background: #cfe1ff;
-  color: #3b65ff;
-  font-weight: 600;
-  font-size: 22px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-}
-
-.supplier-title {
-  font-weight: 600;
-  font-size: 18px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.tag {
-  background: #2563eb;
-  color: #fff;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  user-select: none;
-}
-
-.supplier-subtitle {
-  margin: 2px 0 0 0;
-  font-size: 14px;
-  color: #555;
-}
-
-.supplier-location {
-  font-size: 13px;
-  color: #777;
-  margin-top: 5px;
-}
-
-.supplier-info {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  font-size: 14px;
-  color: #444;
-}
-
-.label {
-  font-weight: 600;
-  color: #666;
-}
-
-.value {
-  font-weight: 700;
-  font-size: 16px;
-  margin-top: 3px;
-}
-
-.rating {
-  margin-left: auto;
-  font-weight: 700;
-  font-size: 16px;
-  color: #fbbf24;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.star {
-  font-size: 18px;
-}
-
-.supplier-expert-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.expert-tag {
-  background: #f3f4f6;
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 13px;
-  color: #444;
-  user-select: none;
-}
-
-.supplier-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-profile,
-.btn-contact {
-  flex: 1;
-  padding: 10px 15px;
-  font-size: 15px;
-  font-weight: 600;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.btn-profile {
-  background: #f8fafc;
-  color: #444;
-  border: 1px solid #ccc;
-}
-
-.btn-profile:hover {
-  background: #e2e8f0;
-}
-
-.btn-contact {
-  background: #2563eb;
-  color: white;
-}
-
-.btn-contact:hover {
-  background: #1e40af;
-}
-
-.supplier-specialization-label {
-  font-weight: 400;
-  margin-top: 10px;
-  margin-bottom: 1px; 
-  font-size: 14px;
-  color: #555;
-}
-
 /* services css*/
 
 .services-heading {
@@ -413,15 +242,6 @@
 .marketplace-section {
   padding-top: 80px; /* adjust based on navbar height */
 }
-
-
-
-
-
-
-
-
-
 
 .services-grid {
   display: flex;
@@ -499,4 +319,49 @@
   color: #999;
   box-shadow: none;
 }
+
+.supplier-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  background: #f9fff7;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.supplier-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.supplier-card h5 {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #2e7d32;
+}
+
+.supplier-card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.supplier-card button {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
 
