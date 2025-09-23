@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col, Card, Button, Form, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Resource Card Component
 function ResourceCard({ icon, title, description, author, downloads, size, type }) {
@@ -39,12 +39,24 @@ function ResourceCard({ icon, title, description, author, downloads, size, type 
 function Resources() {
   const [activeTab, setActiveTab] = useState("courses");
   const [user, setUser] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // LocalStorage থেকে ইউজার আনুন
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
     if (loggedInUser) setUser(loggedInUser);
   }, []);
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login');
+  };
+
+  // Check if current path is resources to apply active styling
+  const isResourcesActive = location.pathname === '/resources';
 
   // Role mapping in Bangla
   const roleLabels = {
@@ -95,7 +107,10 @@ function Resources() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" to="/resources">
+                <Link 
+                  className={`nav-link ${isResourcesActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/resources"
+                >
                   রিসোর্স
                 </Link>
               </li>
@@ -108,11 +123,20 @@ function Resources() {
 
             <div className="d-flex">
               {user ? (
-                <Link to="/profile">
-                  <button className="btn btn-success me-2">
-                    {roleLabels[user.role] || user.name}
+                <>
+                  <Link to="/profile">
+                    <button className="btn btn-success me-2">
+                      {roleLabels[user.role] || user.name}
+                    </button>
+                  </Link>
+                  {/* Logout Button */}
+                  <button 
+                    className="btn btn-outline-danger" 
+                    onClick={handleLogout}
+                  >
+                    লগআউট
                   </button>
-                </Link>
+                </>
               ) : (
                 <Link to="/login">
                   <button className="btn btn-outline-success me-2">লগইন</button>

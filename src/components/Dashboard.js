@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const [selectedRole, setSelectedRole] = useState('farmer');
   const [userRole, setUserRole] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -14,6 +16,13 @@ function Dashboard() {
       setSelectedRole(user.role); // auto-select dashboard tab
     }
   }, []);
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login');
+  };
 
   // English → Bangla mapping
   const roleTranslations = {
@@ -26,6 +35,9 @@ function Dashboard() {
   };
 
   const profileName = roleTranslations[userRole?.toLowerCase()] || "প্রোফাইল";
+
+  // Check if current path is dashboard to apply active styling
+  const isDashboardActive = location.pathname === '/dashboard';
 
   // Farmer Dashboard
   const renderFarmerDashboard = () => (
@@ -248,23 +260,42 @@ function Dashboard() {
 
           <div className="collapse navbar-collapse justify-content-between" id="dashboardNavbar">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li className="nav-item"><Link className="nav-link" to="/home">হোম</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link></li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/home">হোম</Link>
+              </li>
+              <li className="nav-item">
+                <Link 
+                  className={`nav-link ${isDashboardActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/dashboard"
+                >
+                  ড্যাশবোর্ড
+                </Link>
+              </li>
               <li className="nav-item"><Link className="nav-link" to="/community">কমিউনিটি</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/resources">রিসোর্স</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/market">বাজার</Link></li>
             </ul>
 
             <div className="d-flex">
+              {/* Dynamic Profile Button */}
               <Link to="/profile" className="btn btn-success me-2">
                 {profileName}
               </Link>
+              
+              {/* Logout Button */}
+              <button 
+                className="btn btn-outline-danger" 
+                onClick={handleLogout}
+              >
+                লগআউট
+              </button>
             </div>
           </div>
         </div>
       </nav>
 
       {/* Main Dashboard */}
+      
       <div className="container py-5">
         <div className="text-center mb-4">
           <h2 className="fw-bold">ব্যক্তিগত ড্যাশবোর্ড</h2>

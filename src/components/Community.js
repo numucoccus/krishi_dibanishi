@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from "react";
 import DiscussionCard from "../components/DiscussionCard";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "../App.css";
 
 export default function Community() {
   const [user, setUser] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check for logged-in user from localStorage (or any auth state)
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
     if (loggedInUser) setUser(loggedInUser);
   }, []);
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login');
+  };
+
+  // Check if current path is community to apply active styling
+  const isCommunityActive = location.pathname === '/community';
 
   // Map roles to Bangla labels
   const roleLabels = {
@@ -132,7 +144,10 @@ export default function Community() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" to="/community">
+                <Link 
+                  className={`nav-link ${isCommunityActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/community"
+                >
                   কমিউনিটি
                 </Link>
               </li>
@@ -151,11 +166,20 @@ export default function Community() {
             {/* Dynamic Profile/Login Button */}
             <div className="d-flex">
               {user ? (
-                <Link to="/profile">
-                  <button className="btn btn-success me-2">
-                    {roleLabels[user.role] || user.name}
+                <>
+                  <Link to="/profile">
+                    <button className="btn btn-success me-2">
+                      {roleLabels[user.role] || user.name}
+                    </button>
+                  </Link>
+                  {/* Logout Button */}
+                  <button 
+                    className="btn btn-outline-danger" 
+                    onClick={handleLogout}
+                  >
+                    লগআউট
                   </button>
-                </Link>
+                </>
               ) : (
                 <Link to="/login">
                   <button className="btn btn-outline-success me-2">লগইন</button>

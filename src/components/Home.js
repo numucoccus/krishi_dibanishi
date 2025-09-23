@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Home() {
   const [userRole, setUserRole] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -12,6 +14,13 @@ function Home() {
       setUserRole(user.role); // e.g. "farmer", "supplier", "expert"
     }
   }, []);
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login');
+  };
 
   // Mapping English role → Bangla text
   const roleTranslations = {
@@ -25,6 +34,9 @@ function Home() {
 
   // If role not found, default to "প্রোফাইল"
   const profileName = roleTranslations[userRole?.toLowerCase()] || "প্রোফাইল";
+
+  // Check if current path is home to apply active styling
+  const isHomeActive = location.pathname === '/home';
 
   return (
     <div>
@@ -41,7 +53,14 @@ function Home() {
       
           <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li className="nav-item"><Link className="nav-link" to="/home">হোম</Link></li>
+              <li className="nav-item">
+                <Link 
+                  className={`nav-link ${isHomeActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/home"
+                >
+                  হোম
+                </Link>
+              </li>
               <li className="nav-item"><Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/community">কমিউনিটি</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/resources">রিসোর্স</Link></li>
@@ -53,6 +72,14 @@ function Home() {
               <Link to="/profile" className="btn btn-success me-2">
                 {profileName}
               </Link>
+              
+              {/* Logout Button */}
+              <button 
+                className="btn btn-outline-danger" 
+                onClick={handleLogout}
+              >
+                লগআউট
+              </button>
             </div>
           </div>
         </div>
