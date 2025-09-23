@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -15,7 +15,9 @@ import Resources from './components/Resources';
 import Marketplace from './components/Marketplace/Marketplace_1';
 import ProfilePage from "./components/ProfilePage";
 import OpenHome from "./components/OpenHome";
+
 import About from "./components/About"; // Add this import
+
 
 function AppWrapper() {
   return (
@@ -46,6 +48,7 @@ function App() {
             </div>
             
             <div className="row w-100 justify-content-center align-items-center">
+
               {/* Green About Button Box */}
               <div className="col-12 col-md-4 mb-3 mb-md-0">
                 <button 
@@ -58,6 +61,7 @@ function App() {
                 >
                   <span className="text-white fw-bold fs-5">আমাদের সম্পর্কে জানুন</span>
                 </button>
+
               </div>
               
               {/* Login Form */}

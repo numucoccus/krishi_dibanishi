@@ -13,38 +13,48 @@ body {
    New Styles for Login Page
 ========================= */
 .text-green {
+
   color: #2b7a0b !important; /* Matches login button color */
 }
 
 .btn-green {
   background-color: #2b7a0b !important; /* Matches login button color */
   border-color: #2b7a0b !important; /* Matches login button color */
+
   color: white !important;
 }
 
 .btn-green:hover {
+
   background-color: #226307 !important; /* Darker shade for hover */
+
   border-color: #1e5a06 !important;
   color: white !important;
 }
+
+
 
 .about-button {
   border-radius: 8px;
   transition: all 0.3s ease;
   border: none;
   min-height: 300px;
+
   background-color: #2b7a0b !important; /* Matches login button color */
+
   color: white !important;
 }
 
 .about-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
   background-color: #226307 !important; /* Darker shade for hover */
   color: white !important;
 }
 
 .about-button span {
+
   color: white !important;
 }
 
@@ -275,8 +285,34 @@ body {
   }
   
   /* Responsive styles for login page */
+
   .about-button {
 
 
+
+
+  }
+
+}
+
+/* =========================
+   Additional responsive styles for login layout
+========================= */
+@media (max-width: 576px) {
+  .about-box {
+    min-height: 150px;
+  }
+  
+  .about-box h2 {
+    font-size: 1.5rem;
+  }
+  
+  .about-box span {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+  
+  .text-green {
+    font-size: 24px !important;
   }
 }
