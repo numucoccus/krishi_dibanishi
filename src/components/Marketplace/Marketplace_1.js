@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import { Container, Row, Col, Card, Button, Tab, Nav, Badge, Form, Modal } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Badge, Form, Modal } from "react-bootstrap";
 import './Marketplace_2.css';
 import { io } from "socket.io-client";
 import AddProducts from "./AddProducts";
@@ -24,7 +24,7 @@ const SupplierDashboard = () => {
   const [user] = useState(storedUser || {});
   const [showAdd, setShowAdd] = useState(false);
   const [productsList, setProductsList] = useState([]);
-  const [productsState, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -32,13 +32,11 @@ const SupplierDashboard = () => {
   const handleClose = () => setShowAdd(false);
 
   const handleLogout = () => {
-    // Clear user data from localStorage
     localStorage.removeItem("user");
-    // Navigate to login page
+    localStorage.removeItem("token");
     navigate('/login', { replace: true });
   };
 
-  // Check if current path is market to apply active styling
   const isMarketActive = location.pathname === '/market';
 
   const handleProductAdded = (newProduct) => {
@@ -47,6 +45,30 @@ const SupplierDashboard = () => {
       socket.emit("new-product", newProduct);
     }
   };
+
+  // Fetch supplier's products
+  useEffect(() => {
+    const fetchSupplierProducts = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://localhost:5000/api/products", {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        if (data.success) {
+          setProductsList(data.products || []);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    if (user?.role?.toLowerCase() === "supplier") {
+      fetchSupplierProducts();
+    }
+  }, [user]);
 
   return (
     <>
@@ -79,11 +101,7 @@ const SupplierDashboard = () => {
               <button className="btn btn-success me-2">
                 {roleLabels[user?.role] || "ইউজার"}
               </button>
-              {/* Logout Button */}
-              <button 
-                className="btn btn-outline-danger" 
-                onClick={handleLogout}
-              >
+              <button className="btn btn-outline-danger" onClick={handleLogout}>
                 লগআউট
               </button>
             </div>
@@ -94,155 +112,116 @@ const SupplierDashboard = () => {
       <div className="marketplace-section">
         <Container>
           <div className="marketplace-header text-center mb-5">
-            <h2 className="fw-bold">কৃষি দিবানিশি মার্কেটপ্লেস</h2>
-            <p className="text-muted">Krishi Dibanishi Marketplace</p>
+            <h2 className="fw-bold">সরবরাহকারী ড্যাশবোর্ড</h2>
+            <p className="text-muted">Supplier Dashboard</p>
           </div>
 
           <Row className="g-4">
             {/* পণ্য বিক্রয় করুন */}
-            <Col md={4}>
-              <Card className="supplier-card">
-                <h5>📦 পণ্য বিক্রয় করুন</h5>
-                <p>আপনার সকল তালিকাভুক্ত পণ্য দেখুন, ম্যানেজ করুন এবং নতুন পণ্য যোগ করুন।</p>
-                <div className="d-flex flex-column gap-2">
-                  <Button variant="success" onClick={handleAddProductClick}>➕ নতুন পণ্য যোগ করুন</Button>
-                  <AddProducts show={showAdd} handleClose={handleClose} onProductAdded={handleProductAdded} />
-                  <div>
-                    {productsList.map(p => (
-                      <div key={p._id}>{p.title} - {p.price} টাকা</div>
-                    ))}
-                  </div>
-                  <Button variant="outline-primary">📋 সব পণ্য দেখুন</Button>
+            <Col md={6}>
+              <Card className="supplier-card h-100">
+                <div className="text-center">
+                  <div className="supplier-icon">📦</div>
+                  <h5>পণ্য ব্যবস্থাপনা</h5>
+                  <p>আপনার সকল তালিকাভুক্ত পণ্য দেখুন, ম্যানেজ করুন এবং নতুন পণ্য যোগ করুন।</p>
                 </div>
+                <div className="d-flex flex-column gap-2 mt-3">
+                  <Button variant="success" onClick={handleAddProductClick}>
+                    ➕ নতুন পণ্য যোগ করুন
+                  </Button>
+                  <AddProducts show={showAdd} handleClose={handleClose} onProductAdded={handleProductAdded} />
+                  <Button variant="outline-primary">
+                    📋 আমার পণ্য ({productsList.length})
+                  </Button>
+                </div>
+                {productsList.length > 0 && (
+                  <div className="mt-3">
+                    <small className="text-muted">সর্বশেষ যোগকৃত: {productsList[0]?.title}</small>
+                  </div>
+                )}
               </Card>
             </Col>
 
             {/* অর্ডারসমূহ */}
-            <Col md={4}>
-              <Card className="supplier-card">
-                <h5>🛒 অর্ডারসমূহ</h5>
-                <p>আপনার সকল অর্ডার ট্র্যাক করুন এবং ডেলিভারি স্ট্যাটাস আপডেট করুন।</p>
-                <div className="d-flex flex-column gap-2">
-                  <Button variant="success">📦 নতুন অর্ডার দেখুন</Button>
-                  <Button variant="outline-primary">📊 অর্ডার হিস্ট্রি</Button>
+            <Col md={6}>
+              <Card className="supplier-card h-100">
+                <div className="text-center">
+                  <div className="supplier-icon">🛒</div>
+                  <h5>অর্ডার ব্যবস্থাপনা</h5>
+                  <p>আপনার সকল অর্ডার ট্র্যাক করুন এবং ডেলিভারি স্ট্যাটাস আপডেট করুন।</p>
                 </div>
-              </Card>
-            </Col>
-
-            {/* নোটিফিকেশন */}
-            <Col md={4}>
-              <Card className="supplier-card">
-                <h5>🔔 নোটিফিকেশন</h5>
-                <p>নতুন অর্ডার, গ্রাহকের মেসেজ এবং সিস্টেম আপডেট সম্পর্কে জানুন।</p>
-                <div className="d-flex flex-column gap-2">
-                  <Button variant="success">📨 ইনবক্স দেখুন</Button>
-                  <Button variant="outline-primary">⚙️ সেটিংস</Button>
+                <div className="d-flex flex-column gap-2 mt-3">
+                  <Button variant="success">
+                    📦 নতুন অর্ডার দেখুন ({orders.length})
+                  </Button>
+                  <Button variant="outline-primary">
+                    📊 অর্ডার হিস্ট্রি
+                  </Button>
                 </div>
+                {orders.length === 0 && (
+                  <div className="mt-3">
+                    <small className="text-muted">কোন নতুন অর্ডার নেই</small>
+                  </div>
+                )}
               </Card>
             </Col>
           </Row>
+
+          {/* Recent Products Preview */}
+          {productsList.length > 0 && (
+            <Row className="mt-5">
+              <Col>
+                <Card>
+                  <Card.Header>
+                    <h5 className="mb-0">আপনার সর্বশেষ পণ্যসমূহ</h5>
+                  </Card.Header>
+                  <Card.Body>
+                    <Row className="g-3">
+                      {productsList.slice(0, 3).map((product, index) => (
+                        <Col md={4} key={index}>
+                          <Card className="product-preview-card">
+                            <Card.Body>
+                              <h6>{product.title}</h6>
+                              <p className="text-success mb-1">{product.price} টাকা</p>
+                              <small className="text-muted">পরিমাণ: {product.quantity}</small>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+                      ))}
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          )}
         </Container>
       </div>
     </>
   );
 };
 
-// ==================== Marketplace Data ====================
-const categories = [
-  { icon: "🌾", title: "বীজ ও চারা", subtitle: "Seeds & Seedlings", count: "২৩৪ পণ্য" },
-  { icon: "🚜", title: "যন্ত্রপাতি", subtitle: "Equipment", count: "১৮৯ পণ্য" },
-  { icon: "🐄", title: "খাদ্য ও সার", subtitle: "Feed & Fertilizer", count: "১৫৬ পণ্য" },
-  { icon: "💉", title: "ঔষধ ও ভ্যাকসিন", subtitle: "Medicine & Vaccines", count: "৯৮ পণ্য" },
-];
-
-const TrendingNow = () => (
-  <div className="mt-5">
-    <Card className="p-4">
-      <h5 className="fw-bold mb-3 text-success">📈 এই মুহূর্তে জনপ্রিয়</h5>
-      <p className="text-muted">সবচেয়ে বেশি খোঁজা পণ্যসমূহ</p>
-      <ul className="list-unstyled mb-0">
-        {[
-          "ব্রি ধান২৯ বীজ",
-          "তেলাপিয়া পোনা",
-          "ইউরিয়া সার",
-          "পাওয়ার টিলার",
-          "গাভীর খাদ্য",
-        ].map((item, index) => (
-          <li
-            key={index}
-            className="d-flex justify-content-between align-items-center"
-          >
-            #{index + 1} {item}
-            <span className="text-success">📈</span>
-          </li>
-        ))}
-      </ul>
-    </Card>
-  </div>
-);
-
-const specialOffers = [
-  {
-    title: "মৌসুমী ছাড়",
-    description: "সব ধরনের বীজে ২০% পর্যন্ত ছাড়",
-    validity: "বৈধতা: ৩১ জানুয়ারি পর্যন্ত",
-    code: "WINTER20",
-  },
-  {
-    title: "বাল্ক অর্ডারের ছাড়",
-    description: "১০,০০০ টাকার বেশি কেনাকাটায় ১৫% ছাড়",
-    validity: "বৈধতা: ১৫ ফেব্রুয়ারি পর্যন্ত",
-    code: "BULK15",
-  },
-];
-
-const services = [
-  {
-    icon: "🚚",
-    title: "হোম ডেলিভারি",
-    desc: "আপনার দোরগোড়ায় পণ্য পৌঁছে দেওয়ার সেবা। ঢাকা শহরে ২৪ ঘণ্টায়, সারাদেশে ৩-৫ দিনে।",
-    price: "৫০ টাকা থেকে শুরু",
-    btnText: "অর্ডার করুন",
-    btnDisabled: false,
-  },
-  {
-    icon: "👨‍⚕️",
-    title: "পশু চিকিৎসা সেবা",
-    desc: "অভিজ্ঞ ভেটেরিনারি ডাক্তারদের কাছ থেকে পশু চিকিৎসা সেবা। জরুরি অবস্থায় ২৪/৭ সেবা।",
-    price: "৫০০ টাকা থেকে শুরু",
-    btnText: "ডাক্তার ডাকুন",
-    btnDisabled: false,
-  },
-  {
-    icon: "🔧",
-    title: "যন্ত্রপাতি মেরামত",
-    desc: "কৃষি যন্ত্রপাতি মেরামত ও রক্ষণাবেক্ষণ সেবা। দক্ষ টেকনিশিয়ান ও আসল যন্ত্রাংশ।",
-    price: "সেম ডে সার্ভিস",
-    btnText: "সেবা নিন",
-    btnDisabled: false,
-  },
-];
-
+// ==================== Marketplace Component ====================
 const Marketplace = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [supplierView, setSupplierView] = useState(false);
   const [productsState, setProducts] = useState([]);
-  const [activeTab, setActiveTab] = useState("products");
-  const [visibleProducts, setVisibleProducts] = useState(6);
+  const [activeFilter, setActiveFilter] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [visibleProducts, setVisibleProducts] = useState(9);
+
   const handleClose = () => setSelectedProduct(null);
+  const handleShowMore = () => setVisibleProducts(prev => prev + 6);
 
   const handleLogout = () => {
-    // Clear user data from localStorage
     localStorage.removeItem("user");
-    // Navigate to login page
+    localStorage.removeItem("token");
     navigate('/login');
   };
 
-  // Check if current path is market to apply active styling
   const isMarketActive = location.pathname === '/market';
 
+  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -255,7 +234,7 @@ const Marketplace = () => {
     fetchProducts();
   }, []);
 
-  // ✅ Socket.io new-product 
+  // Socket.io for real-time updates
   useEffect(() => {
     socket.on("new-product", (product) => {
       if (product) {
@@ -265,7 +244,7 @@ const Marketplace = () => {
     return () => socket.off("new-product");
   }, []);
 
-  // ✅ Supplier view check
+  // Supplier view check
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (location.state?.supplierView) {
@@ -277,20 +256,29 @@ const Marketplace = () => {
     }
   }, [location.state]);
 
-  // ✅ Infinite scroll
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
-        setVisibleProducts(prev => Math.min(prev + 1, productsState.length));
-      }
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [productsState]);
+  // Filter products
+  const filteredProducts = activeFilter === "all" 
+    ? productsState 
+    : productsState.filter(product => product.category === activeFilter);
+
+  // Category counts
+  const categoryCounts = {
+    'all': productsState.length,
+    'বীজ ও চারা': productsState.filter(p => p.category === 'বীজ ও চারা').length,
+    'যন্ত্রপাতি': productsState.filter(p => p.category === 'যন্ত্রপাতি').length,
+    'খাদ্য ও সার': productsState.filter(p => p.category === 'খাদ্য ও সার').length,
+    'ঔষধ ও ভ্যাকসিন': productsState.filter(p => p.category === 'ঔষধ ও ভ্যাকসিন').length,
+  };
+
+  const categories = [
+    { icon: "🌾", title: "বীজ ও চারা", value: "বীজ ও চারা" },
+    { icon: "🚜", title: "যন্ত্রপাতি", value: "যন্ত্রপাতি" },
+    { icon: "🐄", title: "খাদ্য ও সার", value: "খাদ্য ও সার" },
+    { icon: "💉", title: "ঔষধ ও ভ্যাকসিন", value: "ঔষধ ও ভ্যাকসিন" },
+  ];
 
   if (supplierView) return <SupplierDashboard />;
 
-  // ==================== Normal Marketplace UI ====================
   const storedUser = JSON.parse(localStorage.getItem("user"));
 
   return (
@@ -323,11 +311,7 @@ const Marketplace = () => {
               <button className="btn btn-success me-2">
                 {roleLabels[storedUser?.role] || "ইউজার"}
               </button>
-              {/* Logout Button */}
-              <button 
-                className="btn btn-outline-danger" 
-                onClick={handleLogout}
-              >
+              <button className="btn btn-outline-danger" onClick={handleLogout}>
                 লগআউট
               </button>
             </div>
@@ -342,149 +326,205 @@ const Marketplace = () => {
             <h2 className="fw-bold">কৃষি দিবানিশি মার্কেটপ্লেস</h2>
             <p className="text-muted">Krishi Dibanishi Marketplace</p>
             <p className="text-muted fs-6 mx-auto" style={{ maxWidth: "600px" }}>
-              কৃষি, মৎস্য ও প্রাণিসম্পদের জন্য প্রয়োজনীয় সকল পণ্য ও সেবা এক
-              জায়গায়। বিশ্বস্ত বিক্রেতা ও সাশ্রয়ী মূল্য।
+              কৃষি, মৎস্য ও প্রাণিসম্পদের জন্য প্রয়োজনীয় সকল পণ্য এক জায়গায়। বিশ্বস্ত সরবরাহকারী ও সাশ্রয়ী মূল্য।
             </p>
           </div>
 
-          <Row className="mb-4 justify-content-center align-items-center">
-            <Col md={6}>
-              <Form.Control
-                type="text"
-                placeholder="পণ্য, বীজ, যন্ত্রপাতি বা সেবা খুঁজুন..."
-                className="search-input"
-              />
-            </Col>
-            <Col md="auto" className="d-flex gap-2">
-              <Button variant="outline-secondary" className="btn-filter">
-                ফিল্টার
-              </Button>
-              <Button variant="outline-secondary" className="btn-location">
-                এলাকা
-              </Button>
+          {/* Category Filters */}
+          <Row className="mb-4 justify-content-center">
+            <Col md={10}>
+              <div className="d-flex flex-wrap gap-2 justify-content-center">
+                <Button 
+                  variant={activeFilter === 'all' ? 'success' : 'outline-success'} 
+                  onClick={() => setActiveFilter('all')}
+                  className="filter-btn"
+                >
+                  সব পণ্য ({categoryCounts.all})
+                </Button>
+                {categories.map((category, index) => (
+                  <Button 
+                    key={index}
+                    variant={activeFilter === category.value ? 'success' : 'outline-success'} 
+                    onClick={() => setActiveFilter(category.value)}
+                    className="filter-btn"
+                  >
+                    {category.icon} {category.title} ({categoryCounts[category.value]})
+                  </Button>
+                ))}
+              </div>
             </Col>
           </Row>
 
+          {/* Category Overview */}
           <Row className="g-4 text-center mb-5">
-            {categories.map(({ icon, title, subtitle, count }, idx) => (
+            {categories.map(({ icon, title, value }, idx) => (
               <Col md={3} key={idx}>
                 <Card className="category-card">
-                  <div className="icon">{icon}</div>
+                  <div className="category-icon">{icon}</div>
                   <h5>{title}</h5>
-                  <p>{subtitle}</p>
-                  <Badge bg="light" text="muted" className="count-badge">
-                    {count}
+                  <Badge bg="light" text="dark" className="count-badge">
+                    {categoryCounts[value]} পণ্য
                   </Badge>
                 </Card>
               </Col>
             ))}
           </Row>
 
-          <h4 className="mb-3 fw-bold">বিশেষ অফার</h4>
-          <Row className="mb-4">
-            {specialOffers.map(({ title, description, validity, code }, idx) => (
-              <Col md={6} key={idx}>
-                <Card className="special-offer-card p-3">
-                  <h5>{title}</h5>
-                  <p>{description}</p>
-                  <small className="text-muted">
-                    {validity} | কোড: <code>{code}</code>
-                  </small>
-                  <Button variant="warning" size="sm" className="btn-offer mt-3">
-                    অফার পান
-                  </Button>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-
-          {/* Products & Services */}
-          <Tab.Container activeKey={activeTab} onSelect={setActiveTab}>
-            <Nav variant="tabs" className="marketplace-tabs mb-4 justify-content-center">
-              <Nav.Item><Nav.Link eventKey="products">পণ্যসমূহ</Nav.Link></Nav.Item>
-              <Nav.Item><Nav.Link eventKey="services">সেবাসমূহ</Nav.Link></Nav.Item>
-            </Nav>
-            <Tab.Content>
-              <Tab.Pane eventKey="products">
-                <Row className="g-3">
-                  {productsState.slice(0, visibleProducts).map((p, idx) => (
+          {/* Products Grid */}
+          <div className="products-section">
+            <h4 className="mb-4 fw-bold text-center">
+              {activeFilter === 'all' ? 'সকল পণ্য' : `${activeFilter} - পণ্যসমূহ`}
+            </h4>
+            
+            {filteredProducts.length === 0 ? (
+              <div className="text-center py-5">
+                <div className="empty-state">
+                  <div style={{ fontSize: '4rem' }}>🛒</div>
+                  <h5 className="mt-3">কোন পণ্য পাওয়া যায়নি</h5>
+                  <p className="text-muted">এই বিভাগে এখনো কোন পণ্য যোগ করা হয়নি</p>
+                </div>
+              </div>
+            ) : (
+              <>
+                <Row className="g-4">
+                  {filteredProducts.slice(0, visibleProducts).map((product, idx) => (
                     <Col md={4} key={idx}>
-                      <Card
-                        className="product-card p-3 hover-card"
-                        onClick={() => setSelectedProduct(p)}
+                      <Card 
+                        className="product-card h-100" 
+                        onClick={() => setSelectedProduct(product)}
                       >
-                        <h5>{p.title}</h5>
-                        <p>{p.price} টাকা</p>
-                        <small>{p.unit}</small>
+                        {/* Product Image */}
+                        <div className="product-image-container">
+                          {product.image ? (
+                            <img 
+                              src={`http://localhost:5000/uploads/${product.image}`} 
+                              alt={product.title}
+                              className="product-image"
+                            />
+                          ) : (
+                            <div className="product-placeholder">
+                              🛒
+                            </div>
+                          )}
+                        </div>
+                        
+                        <Card.Body className="d-flex flex-column">
+                          {/* Product Category */}
+                          <Badge bg="success" className="align-self-start mb-2">
+                            {product.category}
+                          </Badge>
+                          
+                          {/* Product Title */}
+                          <h6 className="product-title">{product.title}</h6>
+                          
+                          {/* Product Description */}
+                          <p className="product-description">
+                            {product.description || 'বিস্তারিত বিবরণ নেই'}
+                          </p>
+                          
+                          {/* Price and Quantity */}
+                          <div className="mt-auto">
+                            <div className="d-flex justify-content-between align-items-center mb-2">
+                              <h5 className="product-price text-success mb-0">
+                                {product.price} টাকা
+                              </h5>
+                              <Badge bg="outline-secondary" className="quantity-badge">
+                                {product.quantity} ইউনিট
+                              </Badge>
+                            </div>
+                            
+                            {/* Supplier Info */}
+                            {product.supplierId && (
+                              <div className="supplier-info">
+                                <small className="text-muted">
+                                  সরবরাহকারী: {product.supplierId.name}
+                                </small>
+                              </div>
+                            )}
+                            
+                            <Button variant="outline-success" size="sm" className="w-100">
+                              বিস্তারিত দেখুন
+                            </Button>
+                          </div>
+                        </Card.Body>
                       </Card>
                     </Col>
                   ))}
                 </Row>
 
-                {/* Product Detail Modal */}
-                {selectedProduct && (
-                  <Modal show={true} onHide={handleClose} centered>
-                    <Modal.Header closeButton>
-                      <Modal.Title>{selectedProduct.title}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <p><strong>মূল্য:</strong> {selectedProduct.price} টাকা</p>
-                      <p><strong>একক:</strong> {selectedProduct.unit}</p>
-                      <p><strong>বিবরণ:</strong> {selectedProduct.desc || "বিস্তারিত তথ্য নেই।"}</p>
-
-                      {/* Supplier Information */}
-                      {selectedProduct.supplier && (
-                        <>
-                          <hr />
-                          <h6>সরবরাহকারী তথ্য</h6>
-                          <p><strong>Username:</strong> {selectedProduct.supplier.username}</p>
-                          <p><strong>ফোন:</strong> {selectedProduct.supplier.phone}</p>
-                          <p><strong>অবস্থান:</strong> {selectedProduct.supplier.location}</p>
-                        </>
-                      )}
-                    </Modal.Body>
-                    <Modal.Footer className="d-flex justify-content-between">
-                      <Button variant="secondary" onClick={handleClose}>
-                        বন্ধ করুন
-                      </Button>
-                      <Button variant="success">
-                        🛒 কিনুন
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                {/* Load More Button */}
+                {visibleProducts < filteredProducts.length && (
+                  <div className="text-center mt-4">
+                    <Button variant="success" onClick={handleShowMore}>
+                      আরও পণ্য দেখুন ({filteredProducts.length - visibleProducts}টি বাকি)
+                    </Button>
+                  </div>
                 )}
-              </Tab.Pane>
-
-              <Tab.Pane eventKey="services">
-                <div className="mt-5"></div>
-                <h4 className="services-heading">উপলব্ধ সেবাসমূহ</h4>
-                <div className="services-grid">
-                  {services.map((service, index) => (
-                    <div 
-                      key={index} 
-                      className={`service-card ${index < 3 ? 'pani-bg' : ''}`}
-                    >
-                      <div className="icon">{service.icon}</div>
-                      <h5>{service.title}</h5>
-                      <p>{service.desc}</p>
-                      <div className="service-price">{service.price}</div>
-                      <Button 
-                        variant="success" 
-                        size="sm" 
-                        disabled={service.btnDisabled}
-                      >
-                        {service.btnText}
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </Tab.Pane>
-            </Tab.Content>
-          </Tab.Container>
-
-          <TrendingNow />
+              </>
+            )}
+          </div>
         </Container>
       </div>
+
+      {/* Product Detail Modal */}
+      {selectedProduct && (
+        <Modal show={true} onHide={handleClose} centered size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>{selectedProduct.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Row>
+              <Col md={6}>
+                {selectedProduct.image ? (
+                  <img 
+                    src={`http://localhost:5000/uploads/${selectedProduct.image}`} 
+                    alt={selectedProduct.title}
+                    className="img-fluid rounded"
+                    style={{ width: '100%', maxHeight: '300px', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div className="text-center py-4 bg-light rounded">
+                    <div style={{ fontSize: '4rem' }}>🛒</div>
+                    <p className="text-muted">ছবি নেই</p>
+                  </div>
+                )}
+              </Col>
+              <Col md={6}>
+                <Badge bg="success" className="mb-3">{selectedProduct.category}</Badge>
+                <h4 className="mb-3">{selectedProduct.title}</h4>
+                
+                <div className="product-details">
+                  <p><strong>মূল্য:</strong> <span className="text-success fs-5">{selectedProduct.price} টাকা</span></p>
+                  <p><strong>পরিমাণ:</strong> {selectedProduct.quantity} ইউনিট</p>
+                  <p><strong>বিবরণ:</strong> {selectedProduct.description || "বিস্তারিত তথ্য নেই।"}</p>
+                </div>
+                
+                {/* Supplier Information */}
+                {selectedProduct.supplierId && (
+                  <>
+                    <hr />
+                    <h6>সরবরাহকারী তথ্য</h6>
+                    <div className="supplier-details">
+                      <p><strong>নাম:</strong> {selectedProduct.supplierId.name}</p>
+                      <p><strong>ইমেইল:</strong> {selectedProduct.supplierId.email}</p>
+                      <p><strong>ফোন:</strong> {selectedProduct.supplierId.mobile || 'নেই'}</p>
+                      <p><strong>অবস্থান:</strong> {selectedProduct.supplierId.district || 'নেই'}</p>
+                    </div>
+                  </>
+                )}
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer className="d-flex justify-content-between">
+            <Button variant="secondary" onClick={handleClose}>
+              বন্ধ করুন
+            </Button>
+            <Button variant="success" size="lg">
+              🛒 অর্ডার করুন
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </>
   );
 };
