@@ -15,7 +15,9 @@ import Resources from './components/Resources';
 import Marketplace from './components/Marketplace/Marketplace_1';
 import ProfilePage from "./components/ProfilePage";
 import OpenHome from "./components/OpenHome";
-import About from "./components/About";
+
+import About from "./components/About"; // Add this import
+
 
 function AppWrapper() {
   return (
@@ -40,20 +42,26 @@ function App() {
         {/* Login + Role Selector */}
         <Route path="/" element={
           <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
+            {/* Website Name at the top */}
+            <div className="position-absolute top-0 start-50 translate-middle-x mt-4">
+              <h1 className="text-green fw-bold">কৃষি দিবানিশি</h1>
+            </div>
+            
             <div className="row w-100 justify-content-center align-items-center">
-              {/* Green About Button Box with Website Name */}
+
+              {/* Green About Button Box */}
               <div className="col-12 col-md-4 mb-3 mb-md-0">
-                <Link 
-                  to="/about" 
-                  className="btn about-box w-100 h-100 d-flex flex-column align-items-center justify-content-center text-decoration-none"
+                <button 
+                  className="btn btn-green w-100 h-100 d-flex align-items-center justify-content-center about-button"
+                  onClick={() => window.location.href = '/about'}
                   style={{ 
                     height: '100%', 
-                    minHeight: '300px'
+                    minHeight: '300px' // Adjust to match login box height
                   }}
                 >
-                  <h2 className="text-white fw-bold mb-3">কৃষি দিবানিশি</h2>
                   <span className="text-white fw-bold fs-5">আমাদের সম্পর্কে জানুন</span>
-                </Link>
+                </button>
+
               </div>
               
               {/* Login Form */}

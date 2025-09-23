@@ -13,74 +13,48 @@ body {
    New Styles for Login Page
 ========================= */
 .text-green {
-  color: #2b7a0b !important;
+
+  color: #2b7a0b !important; /* Matches login button color */
 }
 
 .btn-green {
-  background-color: #2b7a0b !important;
-  border-color: #2b7a0b !important;
+  background-color: #2b7a0b !important; /* Matches login button color */
+  border-color: #2b7a0b !important; /* Matches login button color */
+
   color: white !important;
 }
 
 .btn-green:hover {
-  background-color: #226307 !important;
+
+  background-color: #226307 !important; /* Darker shade for hover */
+
   border-color: #1e5a06 !important;
   color: white !important;
 }
 
-/* New About Box Styles */
-.about-box {
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  border: none;
-  min-height: 300px;
-  background-color: #198754 !important; /* New green color from your image */
-  color: white !important;
-  padding: 20px;
-}
 
-.about-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
-  background-color: #157347 !important; /* Darker shade for hover */
-  color: white !important;
-  text-decoration: none;
-}
 
-.about-box h2 {
-  font-size: 2.5rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-  margin-bottom: 1rem !important;
-}
-
-.about-box span {
-  font-size: 1.25rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-  padding: 10px 20px;
-  border: 2px solid white;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-.about-box:hover span {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: scale(1.05);
-}
-
-/* Remove old about-button styles */
 .about-button {
   border-radius: 8px;
   transition: all 0.3s ease;
   border: none;
   min-height: 300px;
-  background-color: #198754 !important; /* New green color */
+
+  background-color: #2b7a0b !important; /* Matches login button color */
+
   color: white !important;
 }
 
 .about-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background-color: #157347 !important;
+
+  background-color: #226307 !important; /* Darker shade for hover */
+  color: white !important;
+}
+
+.about-button span {
+
   color: white !important;
 }
 
@@ -152,7 +126,7 @@ body {
 }
 
 .new-btn {
-  background: #2b7a0b;
+  background: #2b7a0b; /* Matches login button color */
   color: #fff;
   padding: 8px 12px;
   border: none;
@@ -163,7 +137,7 @@ body {
 }
 
 .new-btn:hover {
-  background: #226307;
+  background: #226307; /* Darker shade for hover */
 }
 
 /* =========================
@@ -180,7 +154,7 @@ body {
 }
 
 .discussion-card:hover {
-  border-color: #2b7a0b;
+  border-color: #2b7a0b; /* Matches login button color */
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
@@ -192,7 +166,7 @@ body {
 
 .discussion-category,
 .category {
-  background: #2b7a0b;
+  background: #2b7a0b; /* Matches login button color */
   color: #fff;
   padding: 2px 8px;
   border-radius: 5px;
@@ -226,7 +200,7 @@ body {
 
 .author-name {
   font-weight: bold;
-  color: #2b7a0b;
+  color: #2b7a0b; /* Matches login button color */
 }
 
 .stats,
@@ -255,7 +229,7 @@ body {
   margin-bottom: 12px;
   font-size: 16px;
   font-weight: bold;
-  color: #2b7a0b;
+  color: #2b7a0b; /* Matches login button color */
 }
 
 .sidebar .box p {
@@ -275,7 +249,7 @@ body {
 .sidebar .box li,
 .widget li {
   margin-bottom: 6px;
-  color: #2b7a0b;
+  color: #2b7a0b; /* Matches login button color */
   cursor: pointer;
   font-size: 14px;
 }
@@ -290,7 +264,7 @@ body {
 ========================= */
 .nav-link.active {
   font-weight: bold;
-  color: #2b7a0b !important;
+  color: #2b7a0b !important; /* Matches login button color */
 }
 
 /* =========================
@@ -311,64 +285,14 @@ body {
   }
   
   /* Responsive styles for login page */
-  .about-box {
-    min-height: 200px;
-    margin-bottom: 20px;
+
+  .about-button {
+
+
+
+
   }
-  
-  .about-box h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  .about-box span {
-    font-size: 1rem;
-    padding: 8px 16px;
-  }
-}
 
-/* =========================
-   Categories inside Sidebar
-========================= */
-.categories li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.categories .icon {
-  margin-right: 8px;
-  color: #2b7a0b;
-}
-
-.categories .count {
-  font-size: 13px;
-  color: #666;
-}
-
-/* =========================
-   Load More Button
-========================= */
-.load-more-container {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.load-more-btn {
-  background: #2b7a0b;
-  color: white;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s ease;
-}
-
-.load-more-btn:hover {
-  background: #226307;
 }
 
 /* =========================
