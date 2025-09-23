@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
-import { Container, Row, Col, Card, Button, Tab, Nav, Badge,Form,Modal } from "react-bootstrap";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+import { Container, Row, Col, Card, Button, Tab, Nav, Badge, Form, Modal } from "react-bootstrap";
 import './Marketplace_2.css';
 import { io } from "socket.io-client";
 import AddProducts from "./AddProducts";
 import axios from "../../api";
 
 const socket = io("http://localhost:5000", { transports: ["websocket"] });
+
+// ==================== Role Labels ====================
+const roleLabels = {
+  Farmer: "কৃষক",
+  Expert: "কৃষি বিশেষজ্ঞ",
+  Coordinator: "স্থানীয় সমন্বয়কারী",
+  Entrepreneur: "স্টার্টআপ উদ্যোক্তা",
+  Supplier: "সরবরাহকারী",
+  Investor: "বিনিয়োগকারী",
+};
 
 // ==================== SupplierDashboard Component ====================
 const SupplierDashboard = () => {
@@ -15,17 +25,28 @@ const SupplierDashboard = () => {
   const [showAdd, setShowAdd] = useState(false);
   const [productsList, setProductsList] = useState([]);
   const [productsState, setProducts] = useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleAddProductClick = () => setShowAdd(true);
   const handleClose = () => setShowAdd(false);
 
-const handleProductAdded = (newProduct) => {
-  if (newProduct) {
-    setProductsList(prev => Array.isArray(prev) ? [newProduct, ...prev] : [newProduct]);
-    socket.emit("new-product", newProduct);
-  }
-};
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login', { replace: true });
+  };
 
+  // Check if current path is market to apply active styling
+  const isMarketActive = location.pathname === '/market';
+
+  const handleProductAdded = (newProduct) => {
+    if (newProduct) {
+      setProductsList(prev => Array.isArray(prev) ? [newProduct, ...prev] : [newProduct]);
+      socket.emit("new-product", newProduct);
+    }
+  };
 
   return (
     <>
@@ -45,13 +66,26 @@ const handleProductAdded = (newProduct) => {
               <li className="nav-item"><Link className="nav-link" to="/community">কমিউনিটি</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/resources">রিসোর্স</Link></li>
               <li className="nav-item">
-                <Link className="nav-link" to="/market" state={{ supplierView: true }}>
+                <Link 
+                  className={`nav-link ${isMarketActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/market" 
+                  state={{ supplierView: true }}
+                >
                   বাজার
                 </Link>
               </li>
             </ul>
             <div className="d-flex">
-              <button className="btn btn-success me-2">কৃষক</button>
+              <button className="btn btn-success me-2">
+                {roleLabels[user?.role] || "ইউজার"}
+              </button>
+              {/* Logout Button */}
+              <button 
+                className="btn btn-outline-danger" 
+                onClick={handleLogout}
+              >
+                লগআউট
+              </button>
             </div>
           </div>
         </div>
@@ -189,10 +223,9 @@ const services = [
   },
 ];
 
-
-
 const Marketplace = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [supplierView, setSupplierView] = useState(false);
   const [productsState, setProducts] = useState([]);
   const [activeTab, setActiveTab] = useState("products");
@@ -200,28 +233,37 @@ const Marketplace = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const handleClose = () => setSelectedProduct(null);
 
-useEffect(() => {
-  const fetchProducts = async () => {
-    try {
-      const res = await axios.get("/products");
-      setProducts(Array.isArray(res.data.products) ? res.data.products : []);
-    } catch (err) {
-      console.error(err);
-    }
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login');
   };
-  fetchProducts();
-}, []);
+
+  // Check if current path is market to apply active styling
+  const isMarketActive = location.pathname === '/market';
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("/products");
+        setProducts(Array.isArray(res.data.products) ? res.data.products : []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   // ✅ Socket.io new-product 
-useEffect(() => {
-  socket.on("new-product", (product) => {
-    if (product) {
-      setProducts(prev => Array.isArray(prev) ? [product, ...prev] : [product]);
-    }
-  });
-  return () => socket.off("new-product");
-}, []);
-
+  useEffect(() => {
+    socket.on("new-product", (product) => {
+      if (product) {
+        setProducts(prev => Array.isArray(prev) ? [product, ...prev] : [product]);
+      }
+    });
+    return () => socket.off("new-product");
+  }, []);
 
   // ✅ Supplier view check
   useEffect(() => {
@@ -249,6 +291,8 @@ useEffect(() => {
   if (supplierView) return <SupplierDashboard />;
 
   // ==================== Normal Marketplace UI ====================
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
   return (
     <>
       {/* Navbar */}
@@ -266,176 +310,179 @@ useEffect(() => {
               <li className="nav-item"><Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/community">কমিউনিটি</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/resources">রিসোর্স</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/market">বাজার</Link></li>
+              <li className="nav-item">
+                <Link 
+                  className={`nav-link ${isMarketActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/market"
+                >
+                  বাজার
+                </Link>
+              </li>
             </ul>
             <div className="d-flex">
-              <button className="btn btn-success me-2">কৃষক</button>
+              <button className="btn btn-success me-2">
+                {roleLabels[storedUser?.role] || "ইউজার"}
+              </button>
+              {/* Logout Button */}
+              <button 
+                className="btn btn-outline-danger" 
+                onClick={handleLogout}
+              >
+                লগআউট
+              </button>
             </div>
           </div>
         </div>
       </nav>
 
-           <div className="marketplace-section">
-      <Container>
-        <div className="marketplace-header text-center mb-5">
-          <h2 className="fw-bold">কৃষি দিবানিশি মার্কেটপ্লেস</h2>
-          <p className="text-muted">Krishi Dibanishi Marketplace</p>
-          <p className="text-muted fs-6 mx-auto" style={{ maxWidth: "600px" }}>
-            কৃষি, মৎস্য ও প্রাণিসম্পদের জন্য প্রয়োজনীয় সকল পণ্য ও সেবা এক
-            জায়গায়। বিশ্বস্ত বিক্রেতা ও সাশ্রয়ী মূল্য।
-          </p>
-        </div>
+      {/* Marketplace Section */}
+      <div className="marketplace-section">
+        <Container>
+          <div className="marketplace-header text-center mb-5">
+            <h2 className="fw-bold">কৃষি দিবানিশি মার্কেটপ্লেস</h2>
+            <p className="text-muted">Krishi Dibanishi Marketplace</p>
+            <p className="text-muted fs-6 mx-auto" style={{ maxWidth: "600px" }}>
+              কৃষি, মৎস্য ও প্রাণিসম্পদের জন্য প্রয়োজনীয় সকল পণ্য ও সেবা এক
+              জায়গায়। বিশ্বস্ত বিক্রেতা ও সাশ্রয়ী মূল্য।
+            </p>
+          </div>
 
-        <Row className="mb-4 justify-content-center align-items-center">
-          <Col md={6}>
-            <Form.Control
-              type="text"
-              placeholder="পণ্য, বীজ, যন্ত্রপাতি বা সেবা খুঁজুন..."
-              className="search-input"
-            />
-          </Col>
-          <Col md="auto" className="d-flex gap-2">
-            <Button variant="outline-secondary" className="btn-filter">
-              ফিল্টার
-            </Button>
-            <Button variant="outline-secondary" className="btn-location">
-              এলাকা
-            </Button>
-          </Col>
-        </Row>
-
-        <Row className="g-4 text-center mb-5">
-          {categories.map(({ icon, title, subtitle, count }, idx) => (
-            <Col md={3} key={idx}>
-              <Card className="category-card">
-                <div className="icon">{icon}</div>
-                <h5>{title}</h5>
-                <p>{subtitle}</p>
-                <Badge bg="light" text="muted" className="count-badge">
-                  {count}
-                </Badge>
-              </Card>
+          <Row className="mb-4 justify-content-center align-items-center">
+            <Col md={6}>
+              <Form.Control
+                type="text"
+                placeholder="পণ্য, বীজ, যন্ত্রপাতি বা সেবা খুঁজুন..."
+                className="search-input"
+              />
             </Col>
-          ))}
-        </Row>
+            <Col md="auto" className="d-flex gap-2">
+              <Button variant="outline-secondary" className="btn-filter">
+                ফিল্টার
+              </Button>
+              <Button variant="outline-secondary" className="btn-location">
+                এলাকা
+              </Button>
+            </Col>
+          </Row>
 
-        <h4 className="mb-3 fw-bold">বিশেষ অফার</h4>
-        <Row className="mb-4">
+          <Row className="g-4 text-center mb-5">
+            {categories.map(({ icon, title, subtitle, count }, idx) => (
+              <Col md={3} key={idx}>
+                <Card className="category-card">
+                  <div className="icon">{icon}</div>
+                  <h5>{title}</h5>
+                  <p>{subtitle}</p>
+                  <Badge bg="light" text="muted" className="count-badge">
+                    {count}
+                  </Badge>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+
+          <h4 className="mb-3 fw-bold">বিশেষ অফার</h4>
           <Row className="mb-4">
-          {specialOffers.map(({ title, description, validity, code }, idx) => (
-            <Col md={6} key={idx}>
-              <Card className="special-offer-card p-3">
-                <h5>{title}</h5>
-                <p>{description}</p>
-                <small className="text-muted">
-                  {validity} | কোড: <code>{code}</code>
-                </small>
-                <Button variant="warning" size="sm" className="btn-offer mt-3">
-                  অফার পান
-                </Button>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-        </Row>
+            {specialOffers.map(({ title, description, validity, code }, idx) => (
+              <Col md={6} key={idx}>
+                <Card className="special-offer-card p-3">
+                  <h5>{title}</h5>
+                  <p>{description}</p>
+                  <small className="text-muted">
+                    {validity} | কোড: <code>{code}</code>
+                  </small>
+                  <Button variant="warning" size="sm" className="btn-offer mt-3">
+                    অফার পান
+                  </Button>
+                </Card>
+              </Col>
+            ))}
+          </Row>
 
-          {/* Products */}
+          {/* Products & Services */}
           <Tab.Container activeKey={activeTab} onSelect={setActiveTab}>
             <Nav variant="tabs" className="marketplace-tabs mb-4 justify-content-center">
               <Nav.Item><Nav.Link eventKey="products">পণ্যসমূহ</Nav.Link></Nav.Item>
               <Nav.Item><Nav.Link eventKey="services">সেবাসমূহ</Nav.Link></Nav.Item>
             </Nav>
             <Tab.Content>
+              <Tab.Pane eventKey="products">
+                <Row className="g-3">
+                  {productsState.slice(0, visibleProducts).map((p, idx) => (
+                    <Col md={4} key={idx}>
+                      <Card
+                        className="product-card p-3 hover-card"
+                        onClick={() => setSelectedProduct(p)}
+                      >
+                        <h5>{p.title}</h5>
+                        <p>{p.price} টাকা</p>
+                        <small>{p.unit}</small>
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
 
+                {/* Product Detail Modal */}
+                {selectedProduct && (
+                  <Modal show={true} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                      <Modal.Title>{selectedProduct.title}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p><strong>মূল্য:</strong> {selectedProduct.price} টাকা</p>
+                      <p><strong>একক:</strong> {selectedProduct.unit}</p>
+                      <p><strong>বিবরণ:</strong> {selectedProduct.desc || "বিস্তারিত তথ্য নেই।"}</p>
 
-               <Tab.Pane eventKey="products">
-              <Row className="g-3">
-                {productsState.slice(0, visibleProducts).map((p, idx) => (
-                  <Col md={4} key={idx}>
-                    <Card
-                      className="product-card p-3 hover-card"
-                      onClick={() => setSelectedProduct(p)}
-                    >
-                      <h5>{p.title}</h5>
-                      <p>{p.price} টাকা</p>
-                      <small>{p.unit}</small>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-
-              
-              {/* Product Detail Modal */}
-{/* Product Detail Modal */}
-{selectedProduct && (
-  <Modal show={true} onHide={handleClose} centered>
-    <Modal.Header closeButton>
-      <Modal.Title>{selectedProduct.title}</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <p><strong>মূল্য:</strong> {selectedProduct.price} টাকা</p>
-      <p><strong>একক:</strong> {selectedProduct.unit}</p>
-      <p><strong>বিবরণ:</strong> {selectedProduct.desc || "বিস্তারিত তথ্য নেই।"}</p>
-
-      {/* Supplier Information */}
-      {selectedProduct.supplier && (
-        <>
-          <hr />
-          <h6>সরবরাহকারী তথ্য</h6>
-          <p><strong>Username:</strong> {selectedProduct.supplier.username}</p>
-          <p><strong>ফোন:</strong> {selectedProduct.supplier.phone}</p>
-          <p><strong>অবস্থান:</strong> {selectedProduct.supplier.location}</p>
-        </>
-      )}
-    </Modal.Body>
-    <Modal.Footer className="d-flex justify-content-between">
-      <Button variant="secondary" onClick={handleClose}>
-        বন্ধ করুন
-      </Button>
-      <Button variant="success">
-        🛒 কিনুন
-      </Button>
-    </Modal.Footer>
-  </Modal>
-)}
-
-
-            </Tab.Pane>
-
-
-
+                      {/* Supplier Information */}
+                      {selectedProduct.supplier && (
+                        <>
+                          <hr />
+                          <h6>সরবরাহকারী তথ্য</h6>
+                          <p><strong>Username:</strong> {selectedProduct.supplier.username}</p>
+                          <p><strong>ফোন:</strong> {selectedProduct.supplier.phone}</p>
+                          <p><strong>অবস্থান:</strong> {selectedProduct.supplier.location}</p>
+                        </>
+                      )}
+                    </Modal.Body>
+                    <Modal.Footer className="d-flex justify-content-between">
+                      <Button variant="secondary" onClick={handleClose}>
+                        বন্ধ করুন
+                      </Button>
+                      <Button variant="success">
+                        🛒 কিনুন
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                )}
+              </Tab.Pane>
 
               <Tab.Pane eventKey="services">
                 <div className="mt-5"></div>
-                 <h4 className="services-heading">উপলব্ধ সেবাসমূহ</h4>
-                  <div className="services-grid">
-                   {services.map((service, index) => (
+                <h4 className="services-heading">উপলব্ধ সেবাসমূহ</h4>
+                <div className="services-grid">
+                  {services.map((service, index) => (
                     <div 
-                  key={index} 
-                  className={`service-card ${index < 3 ? 'pani-bg' : ''}`}
+                      key={index} 
+                      className={`service-card ${index < 3 ? 'pani-bg' : ''}`}
                     >
-                 <div className="service-icon">{service.icon}</div>
-                <h5 className="service-title">{service.title}</h5>
-               <p className="service-desc">{service.desc}</p>
-              <p className="service-price">
-              <span className="price-icon">{service.priceIcon}</span>
-              {service.price}
-              </p>
-             <button 
-             className={`btn-service ${service.btnDisabled ? 'disabled' : ''}`} 
-             disabled={service.btnDisabled}
-             >
-             {service.btnText}
-             </button>
-             </div>
-             ))}
-             </div>
-            </Tab.Pane>
-
-
+                      <div className="icon">{service.icon}</div>
+                      <h5>{service.title}</h5>
+                      <p>{service.desc}</p>
+                      <div className="service-price">{service.price}</div>
+                      <Button 
+                        variant="success" 
+                        size="sm" 
+                        disabled={service.btnDisabled}
+                      >
+                        {service.btnText}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </Tab.Pane>
             </Tab.Content>
           </Tab.Container>
-           <TrendingNow />
+
+          <TrendingNow />
         </Container>
       </div>
     </>

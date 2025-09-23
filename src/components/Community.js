@@ -1,11 +1,40 @@
-// src/pages/Community.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DiscussionCard from "../components/DiscussionCard";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "../App.css";
 
 export default function Community() {
+  const [user, setUser] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check for logged-in user from localStorage (or any auth state)
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    if (loggedInUser) setUser(loggedInUser);
+  }, []);
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login');
+  };
+
+  // Check if current path is community to apply active styling
+  const isCommunityActive = location.pathname === '/community';
+
+  // Map roles to Bangla labels
+  const roleLabels = {
+    Farmer: "কৃষক",
+    Expert: "কৃষি বিশেষজ্ঞ",
+    Coordinator: "স্থানীয় সমন্বয়কারী",
+    Entrepreneur: "স্টার্টআপ উদ্যোক্তা",
+    Supplier: "সরবরাহকারী",
+    Investor: "বিনিয়োগকারী",
+  };
+
   const discussions = [
     {
       id: 1,
@@ -17,7 +46,7 @@ export default function Community() {
       comments: "💬28",
       likes: "👍67",
       views: "👁️234",
-      time: "⌚২ ঘণ্টা আগে"
+      time: "⌚২ ঘণ্টা আগে",
     },
     {
       id: 2,
@@ -29,7 +58,7 @@ export default function Community() {
       comments: "💬19",
       likes: "👍45",
       views: "👁️189",
-      time: "⌚৪ ঘণ্টা আগে"
+      time: "⌚৪ ঘণ্টা আগে",
     },
     {
       id: 3,
@@ -41,7 +70,7 @@ export default function Community() {
       comments: "💬42",
       likes: "👍89",
       views: "👁️356",
-      time: "⌚৬ ঘণ্টা আগে"
+      time: "⌚৬ ঘণ্টা আগে",
     },
     {
       id: 4,
@@ -53,7 +82,7 @@ export default function Community() {
       comments: "💬15",
       likes: "👍32",
       views: "👁️145",
-      time: "⌚৮ ঘণ্টা আগে"
+      time: "⌚৮ ঘণ্টা আগে",
     },
     {
       id: 5,
@@ -65,7 +94,7 @@ export default function Community() {
       comments: "💬22",
       likes: "👍5",
       views: "👁️120",
-      time: "⌚১ দিন আগে"
+      time: "⌚১ দিন আগে",
     },
     {
       id: 6,
@@ -77,8 +106,8 @@ export default function Community() {
       comments: "💬12",
       likes: "👍30",
       views: "👁️98",
-      time: "⌚১ দিন আগে"
-    }
+      time: "⌚১ দিন আগে",
+    },
   ];
 
   return (
@@ -90,54 +119,97 @@ export default function Community() {
             BD <span className="text-dark">কৃষি দিবানিশি</span>
           </Link>
 
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#CommunityNavbar">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#CommunityNavbar"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse justify-content-between" id="CommunityNavbar">
+          <div
+            className="collapse navbar-collapse justify-content-between"
+            id="CommunityNavbar"
+          >
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" to="/home">হোম</Link>
+                <Link className="nav-link" to="/home">
+                  হোম
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link>
+                <Link className="nav-link" to="/dashboard">
+                  ড্যাশবোর্ড
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/community">কমিউনিটি</Link>
+                <Link 
+                  className={`nav-link ${isCommunityActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/community"
+                >
+                  কমিউনিটি
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/resources">রিসোর্স</Link>
+                <Link className="nav-link" to="/resources">
+                  রিসোর্স
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/market">বাজার</Link>
+                <Link className="nav-link" to="/market">
+                  বাজার
+                </Link>
               </li>
             </ul>
 
+            {/* Dynamic Profile/Login Button */}
             <div className="d-flex">
-              <button className="btn btn-success me-2">কৃষক</button>
+              {user ? (
+                <>
+                  <Link to="/profile">
+                    <button className="btn btn-success me-2">
+                      {roleLabels[user.role] || user.name}
+                    </button>
+                  </Link>
+                  {/* Logout Button */}
+                  <button 
+                    className="btn btn-outline-danger" 
+                    onClick={handleLogout}
+                  >
+                    লগআউট
+                  </button>
+                </>
+              ) : (
+                <Link to="/login">
+                  <button className="btn btn-outline-success me-2">লগইন</button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Main Page Content */}
+      {/* Main Community Section */}
       <div className="container py-5">
         {/* Header */}
         <div className="text-center mb-4">
           <h2 className="fw-bold text-success">🌾 কৃষি দিবানিশি কমিউনিটি</h2>
-           <p className="text-muted">Krishi Dibanishi Community</p>
+          <p className="text-muted">Krishi Dibanishi Community</p>
           <p className="text-muted">
             সহ-কৃষক, বিশেষজ্ঞ ও উদ্যোক্তাদের সাথে জ্ঞান ভাগাভাগি ও সহযোগিতা নিন
           </p>
         </div>
 
-        {/* Main Layout */}
+        {/* Layout */}
         <div className="row">
-          {/* Left Section: Discussions */}
+          {/* Discussions */}
           <div className="col-lg-8 mb-4">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h4 className="fw-bold">সাম্প্রতিক আলোচনা</h4>
-              <button className="btn btn-outline-success btn-sm">নতুন আলোচনা শুরু করুন</button>
+              <button className="btn btn-outline-success btn-sm">
+                নতুন আলোচনা শুরু করুন
+              </button>
             </div>
 
             <div className="d-flex flex-column gap-3">
@@ -152,7 +224,7 @@ export default function Community() {
             </div>
           </div>
 
-          {/* Right Section: Sidebar */}
+          {/* Sidebar */}
           <Sidebar />
         </div>
       </div>

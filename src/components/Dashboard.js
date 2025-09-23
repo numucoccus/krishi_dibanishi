@@ -1,13 +1,45 @@
-// Dashboard.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
-
-
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const [selectedRole, setSelectedRole] = useState('farmer');
+  const [userRole, setUserRole] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setUserRole(user.role); // e.g. "farmer", "supplier", "expert"
+      setSelectedRole(user.role); // auto-select dashboard tab
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login');
+  };
+
+  // English → Bangla mapping
+  const roleTranslations = {
+    farmer: "কৃষক",
+    expert: "কৃষি বিশেষজ্ঞ",
+    coordinator: "স্থানীয় সমন্বয়কারী",
+    entrepreneur: "স্টার্টআপ উদ্যোক্তা",
+    supplier: "সরবরাহকারী",
+    investor: "বিনিয়োগকারী",
+  };
+
+  const profileName = roleTranslations[userRole?.toLowerCase()] || "প্রোফাইল";
+
+  // Check if current path is dashboard to apply active styling
+  const isDashboardActive = location.pathname === '/dashboard';
+
+  // Farmer Dashboard
   const renderFarmerDashboard = () => (
     <div className="row g-4">
       {/* Farm Condition */}
@@ -51,6 +83,7 @@ function Dashboard() {
     </div>
   );
 
+  // Expert Dashboard
   const renderExpertDashboard = () => (
     <div className="row g-4">
       {/* Active Advice */}
@@ -93,9 +126,9 @@ function Dashboard() {
     </div>
   );
 
+  // Coordinator Dashboard
   const renderCoordinatorDashboard = () => (
     <div className="row g-4">
-      {/* Local Farmer Stats */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
           <h6 className="fw-bold text-danger">📍 আঞ্চলিক পরিস্থিতি</h6>
@@ -109,10 +142,9 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Field Reports */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-         <h6 className="fw-bold text-primary">❗ মাঠ প্রতিবেদন</h6>
+          <h6 className="fw-bold text-primary">❗ মাঠ প্রতিবেদন</h6>
           <p className="text-muted small">সাম্প্রতিক মাঠ পর্যবেক্ষণ</p>
           <button className="btn btn-dark w-100 mb-2">প্রতিবেদন আপলোড</button>
           <p className="text-muted small">এই সপ্তাহে ৮টি প্রতিবেদন</p>
@@ -120,7 +152,6 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Coordination Programs */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
           <h6 className="fw-bold text-success">🤝 সমন্বয় কার্যক্রম</h6>
@@ -137,12 +168,12 @@ function Dashboard() {
     </div>
   );
 
-const renderEntrepreneurDashboard = () => (
+  // Entrepreneur Dashboard
+  const renderEntrepreneurDashboard = () => (
     <div className="row g-4">
-      {/* প্রযুক্তি প্রদর্শনী */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-primary"><i className="bi bi-phone"></i>💡 প্রযুক্তি প্রদর্শনী</h6>
+          <h6 className="text-primary">💡 প্রযুক্তি প্রদর্শনী</h6>
           <p className="text-muted small">আপনার উদ্ভাবন শেয়ার করুন</p>
           <button className="btn btn-dark w-100 mb-2">নতুন প্রযুক্তি প্রদর্শন</button>
           <button className="btn btn-outline-dark w-100">উপস্থাপনা নির্ধারণ</button>
@@ -150,10 +181,9 @@ const renderEntrepreneurDashboard = () => (
         </div>
       </div>
 
-      {/* পাইলট প্রকল্প */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-primary"><i className="bi bi-people"></i>🚀 পাইলট প্রকল্প</h6>
+          <h6 className="text-primary">🚀 পাইলট প্রকল্প</h6>
           <p className="text-muted small">সহযোগিতামূলক পরীক্ষা কর্মসূচি</p>
           <div className="bg-light p-2 rounded mb-2">
             <p className="mb-1 fw-bold">স্মার্ট সেচ ব্যবস্থা</p>
@@ -164,10 +194,9 @@ const renderEntrepreneurDashboard = () => (
         </div>
       </div>
 
-      {/* প্রভাব মেট্রিক্স */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-success"><i className="bi bi-graph-up"></i>📈 প্রভাব মেট্রিক্স</h6>
+          <h6 className="text-success">📈 প্রভাব মেট্রিক্স</h6>
           <p className="text-muted small">প্রযুক্তি গ্রহণের হার</p>
           <p><strong>পৌঁছানো কৃষক:</strong> ২৩৮জন</p>
           <p><strong>প্রযুক্তি গ্রহণ:</strong> ৮৯%</p>
@@ -177,14 +206,12 @@ const renderEntrepreneurDashboard = () => (
     </div>
   );
 
-
-
+  // Supplier Dashboard
   const renderSupplierDashboard = () => (
     <div className="row g-4">
-      {/* পণ্য ক্যাটালগ */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-success"><i className="bi bi-currency-dollar"></i>🏷️ পণ্য ক্যাটালগ</h6>
+          <h6 className="text-success">🏷️ পণ্য ক্যাটালগ</h6>
           <p className="text-muted small">আপনার পণ্য ব্যবস্থাপনা</p>
           <button className="btn btn-dark w-100 mb-2">নতুন পণ্য যোগ</button>
           <button className="btn btn-outline-secondary w-100 mb-2">ইনভেন্টরি আপডেট</button>
@@ -192,10 +219,9 @@ const renderEntrepreneurDashboard = () => (
         </div>
       </div>
 
-      {/* বিতরণকারী নেটওয়ার্ক */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-primary"><i className="bi bi-people"></i>👥 বিতরণকারী নেটওয়ার্ক</h6>
+          <h6 className="text-primary">👥 বিতরণকারী নেটওয়ার্ক</h6>
           <p className="text-muted small">অংশীদার সংযোগ</p>
           <ul className="list-unstyled mb-2">
             <li>সক্রিয় বিতরণকারী: <strong>৩৪জন</strong></li>
@@ -205,10 +231,9 @@ const renderEntrepreneurDashboard = () => (
         </div>
       </div>
 
-      {/* বিক্রয় বিশ্লেষণ */}
       <div className="col-md-4">
         <div className="border rounded p-3 shadow-sm h-100">
-          <h6 className="text-purple"><i className="bi bi-graph-up"></i>📊 বিক্রয় বিশ্লেষণ</h6>
+          <h6 className="text-purple">📊 বিক্রয় বিশ্লেষণ</h6>
           <p className="text-muted small">কার্যক্রম পরিসংখ্যান</p>
           <ul className="list-unstyled">
             <li>মাসিক বিক্রয়: <span className="text-success">৪.৮ লক্ষ ↑</span></li>
@@ -220,102 +245,88 @@ const renderEntrepreneurDashboard = () => (
     </div>
   );
 
+  return (
+    <>
+      {/* Navbar */}
+      <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div className="container">
+          <Link className="navbar-brand fw-bold text-success" to="/home">
+            BD <span className="text-dark">কৃষি দিবানিশি</span>
+          </Link>
 
- return (
-  <>
-     {/* dashboard Navbar */}
-                 <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-                   <div className="container">
-                     <Link className="navbar-brand fw-bold text-success" to="/home">
-                       BD <span className="text-dark">কৃষি দিবানিশি</span>
-                     </Link>
-                 
-                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNavbar">
-                       <span className="navbar-toggler-icon"></span>
-                     </button>
-                 
-                     <div className="collapse navbar-collapse justify-content-between" id="dashboardNavbar">
-                       <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-                         <li className="nav-item">
-                           <Link className="nav-link" to="/home">হোম</Link>
-                         </li>
-                         <li className="nav-item">
-                           <Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link>
-                         </li>
-                         <li className="nav-item">
-                           <Link className="nav-link" to="/community">কমিউনিটি</Link>
-                         </li>
-                         <li className="nav-item">
-                           <Link className="nav-link" to="/resources">রিসোর্স</Link>
-                         </li>
-                         <li className="nav-item">
-                           <Link className="nav-link" to="/market">বাজার</Link>
-                         </li>
-                       </ul>
-                 
-                       <div className="d-flex">
-                         <button className="btn btn-success me-2">কৃষক</button>
-                       </div>
-                     </div>
-                   </div>
-                 </nav>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNavbar">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
+          <div className="collapse navbar-collapse justify-content-between" id="dashboardNavbar">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link className="nav-link" to="/home">হোম</Link>
+              </li>
+              <li className="nav-item">
+                <Link 
+                  className={`nav-link ${isDashboardActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/dashboard"
+                >
+                  ড্যাশবোর্ড
+                </Link>
+              </li>
+              <li className="nav-item"><Link className="nav-link" to="/community">কমিউনিটি</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/resources">রিসোর্স</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/market">বাজার</Link></li>
+            </ul>
 
-    {/* Main Dashboard Content */}
-    <div className="container py-5">
-      {/* Title */}
-      <div className="text-center mb-4">
-        <h2 className="fw-bold">ব্যক্তিগত ড্যাশবোর্ড</h2>
-        <p className="text-muted">Personalized Dashboard</p>
-        <p>কৃষি ইকোসিস্টেমে ‌আপনার ভূমিকার উপর ভিত্তি করে বিশেষ টুলস এবং তথ্য</p>
-      </div>
-
-      {/* Role Tabs */}
-      <div className="d-flex justify-content-center mb-4">
-        <div className="btn-group" role="group">
-          <button
-            className={`btn ${selectedRole === 'farmer' ? 'btn-success' : 'btn-outline-secondary'}`}
-            onClick={() => setSelectedRole('farmer')}
-          >
-            কৃষক
-          </button>
-          <button
-            className={`btn ${selectedRole === 'expert' ? 'btn-success' : 'btn-outline-secondary'}`}
-            onClick={() => setSelectedRole('expert')}
-          >
-            বিশেষজ্ঞ
-          </button>
-          <button
-            className={`btn ${selectedRole === 'coordinator' ? 'btn-success' : 'btn-outline-secondary'}`}
-            onClick={() => setSelectedRole('coordinator')}
-          >
-            সমন্বয়কারী
-          </button>
-          <button
-            className={`btn ${selectedRole === 'entrepreneur' ? 'btn-success' : 'btn-outline-secondary'}`}
-            onClick={() => setSelectedRole('entrepreneur')}
-          >
-            উদ্যোক্তা
-          </button>
-          <button
-            className={`btn ${selectedRole === 'supplier' ? 'btn-success' : 'btn-outline-secondary'}`}
-            onClick={() => setSelectedRole('supplier')}
-          >
-            সরবরাহকারী
-          </button>
+            <div className="d-flex">
+              {/* Dynamic Profile Button */}
+              <Link to="/profile" className="btn btn-success me-2">
+                {profileName}
+              </Link>
+              
+              {/* Logout Button */}
+              <button 
+                className="btn btn-outline-danger" 
+                onClick={handleLogout}
+              >
+                লগআউট
+              </button>
+            </div>
+          </div>
         </div>
+      </nav>
+
+      {/* Main Dashboard */}
+      
+      <div className="container py-5">
+        <div className="text-center mb-4">
+          <h2 className="fw-bold">ব্যক্তিগত ড্যাশবোর্ড</h2>
+          <p className="text-muted">Personalized Dashboard</p>
+          <p>কৃষি ইকোসিস্টেমে ‌আপনার ভূমিকার উপর ভিত্তি করে বিশেষ টুলস এবং তথ্য</p>
+        </div>
+
+        {/* Role Tabs */}
+        <div className="d-flex justify-content-center mb-4">
+          <div className="btn-group" role="group">
+            {Object.keys(roleTranslations).map((role) => (
+              <button
+                key={role}
+                className={`btn ${selectedRole === role ? 'btn-success' : 'btn-outline-secondary'}`}
+                onClick={() => setSelectedRole(role)}
+              >
+                {roleTranslations[role]}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Conditional Rendering */}
+        {selectedRole === 'farmer' && renderFarmerDashboard()}
+        {selectedRole === 'expert' && renderExpertDashboard()}
+        {selectedRole === 'coordinator' && renderCoordinatorDashboard()}
+        {selectedRole === 'entrepreneur' && renderEntrepreneurDashboard()}
+        {selectedRole === 'supplier' && renderSupplierDashboard()}
       </div>
-
-      {/* Conditional Dashboard Rendering */}
-      {selectedRole === 'farmer' && renderFarmerDashboard()}
-      {selectedRole === 'expert' && renderExpertDashboard()}
-      {selectedRole === 'coordinator' && renderCoordinatorDashboard()}
-      {selectedRole === 'entrepreneur' && renderEntrepreneurDashboard()}
-      {selectedRole === 'supplier' && renderSupplierDashboard()}
-    </div>
-  </>
-);
-
+    </>
+  );
 }
 
 export default Dashboard;

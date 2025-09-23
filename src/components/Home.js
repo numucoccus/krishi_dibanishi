@@ -1,8 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Home() {
+  const [userRole, setUserRole] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setUserRole(user.role); // e.g. "farmer", "supplier", "expert"
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    // Navigate to login page
+    navigate('/login');
+  };
+
+  // Mapping English role → Bangla text
+  const roleTranslations = {
+    farmer: "কৃষক",
+    expert: "কৃষি বিশেষজ্ঞ",
+    coordinator: "স্থানীয় সমন্বয়কারী",
+    innovator: "স্টার্টআপ উদ্যোক্তা",
+    supplier: "সরবরাহকারী",
+    investor: "বিনিয়োগকারী",
+  };
+
+  // If role not found, default to "প্রোফাইল"
+  const profileName = roleTranslations[userRole?.toLowerCase()] || "প্রোফাইল";
+
+  // Check if current path is home to apply active styling
+  const isHomeActive = location.pathname === '/home';
+
   return (
     <div>
       {/* Navbar */}
@@ -19,25 +54,32 @@ function Home() {
           <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" to="/home">হোম</Link>
+                <Link 
+                  className={`nav-link ${isHomeActive ? 'active text-success fw-bold' : ''}`} 
+                  to="/home"
+                >
+                  হোম
+                </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/community">কমিউনিটি</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/resources">রিসোর্স</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/market">বাজার</Link>
-              </li>
+              <li className="nav-item"><Link className="nav-link" to="/dashboard">ড্যাশবোর্ড</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/community">কমিউনিটি</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/resources">রিসোর্স</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/market">বাজার</Link></li>
             </ul>
       
             <div className="d-flex">
-            <Link to="/profile" className="btn btn-success me-2">কৃষক</Link>
-
+              {/* Dynamic Profile Button */}
+              <Link to="/profile" className="btn btn-success me-2">
+                {profileName}
+              </Link>
+              
+              {/* Logout Button */}
+              <button 
+                className="btn btn-outline-danger" 
+                onClick={handleLogout}
+              >
+                লগআউট
+              </button>
             </div>
           </div>
         </div>
@@ -52,7 +94,6 @@ function Home() {
             Krishi Dibanishi - Bangladesh's Integrated Agriculture, Fisheries & Livestock Platform<br />
             বাংলাদেশের কৃষক, মৎস্যজীবী ও খামারিদের জন্য আধুনিক ডিজিটাল সমাধান। বিশেষজ্ঞ পরামর্শ, প্রযুক্তিগত সহায়তা এবং একটি প্রাণবন্ত কমিউনিটি।
           </p>
-          {/*<Link to="/join" className="btn btn-success btn-lg">আজই যোগ দিন / Join Today</Link>*/}
           
           {/* Stats Section */}
           <div className="row mt-5 justify-content-center">
@@ -95,13 +136,6 @@ function Home() {
                   <h5 className="fw-bold">ফসল চাষ</h5>
                   <p className="text-muted">Crop Farming</p>
                   <small>ধান, গম, সবজি, ফল ও অন্যান্য ফসল</small>
-                  <div className="mt-2">
-                    <span className="badge bg-light text-muted me-1">ধান ,</span>
-                    <span className="badge bg-light text-muted me-1">গম ,</span>
-                    <span className="badge bg-light text-muted me-1">আলু ,</span>
-                    <span className="badge bg-light text-muted me-1">টমেটো ,</span>
-                    <span className="badge bg-light text-muted">আম</span>
-                  </div>
                 </div>
               </div>
 
@@ -112,13 +146,6 @@ function Home() {
                   <h5 className="fw-bold">মাছ চাষ</h5>
                   <p className="text-muted">Fish Farming</p>
                   <small>দেশি-বিদেশি মাছ ও চিংড়ি চাষ</small>
-                  <div className="mt-2">
-                    <span className="badge bg-light text-muted me-1">রুই ,</span>
-                    <span className="badge bg-light text-muted me-1">কাতলা ,</span>
-                    <span className="badge bg-light text-muted me-1">তেলাপিয়া ,</span>
-                    <span className="badge bg-light text-muted me-1">পাঙ্গাস ,</span>
-                    <span className="badge bg-light text-muted">চিংড়ি</span>
-                  </div>
                 </div>
               </div>
 
@@ -129,27 +156,16 @@ function Home() {
                   <h5 className="fw-bold">গবাদিপশু পালন</h5>
                   <p className="text-muted">Cattle Farming</p>
                   <small>গরু, মহিষ, ছাগল ও ভেড়া পালন</small>
-                  <div className="mt-2">
-                    <span className="badge bg-light text-muted me-1">দেশি গাভী ,</span>
-                    <span className="badge bg-light text-muted me-1">জার্সি ,</span>
-                    <span className="badge bg-light text-muted me-1">ছাগল ,</span>
-                    <span className="badge bg-light text-muted">মহিষ</span>
-                  </div>
                 </div>
               </div>
               
+              {/* Card 4 */}
               <div className="col-md-3">
                 <div className="card p-3 h-100 shadow-sm">
                   <div className="fs-1 mb-2">🐓</div>
                   <h5 className="fw-bold">মুরগি পালন</h5>
                   <p className="text-muted">Poultry Farming</p>
                   <small>মুরগি, হাঁস ও অন্যান্য পাখি পালন</small>
-                  <div className="mt-2">
-                    <span className="badge bg-light text-muted me-1">দেশি মুরগি ,</span>
-                    <span className="badge bg-light text-muted me-1">ব্রয়লার ,</span>
-                    <span className="badge bg-light text-muted me-1">হাঁস ,</span>
-                    <span className="badge bg-light text-muted">কোয়েল ,</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -159,82 +175,13 @@ function Home() {
           <div className="text-center mt-5">
             <h3 className="fw-bold mb-2">আমাদের কমিউনিটি অংশীদার</h3>
             <p className="text-muted mb-4">Our Community Partners</p>
-
-            <div className="row g-4 justify-content-center">
-              {/* Agricultural Experts */}
-              <div className="col-md-4">
-                <div className="card h-100 p-3 border-start border-3 border-primary bg-light-subtle shadow-sm">
-                  <h5 className="fw-bold"><span className="me-2">📖</span>কৃষি বিশেষজ্ঞ</h5>
-                  <p className="text-muted mb-1">Agricultural Experts</p>
-                  <small>ফসল, মৎস্য ও প্রাণিসম্পদ বিশেষজ্ঞ পরামর্শ, সর্বোত্তম চাষাবাদ পদ্ধতি ও বিশ্লেষণ</small>
-                  <p className="mt-2 text-muted fst-italic">Expert guidance in crops, fisheries, livestock, best practices & analysis</p>
-                </div>
-              </div>
-
-              {/* Local Coordinators */}
-              <div className="col-md-4">
-                <div className="card h-100 p-3 border-start border-3 border-success bg-light-subtle shadow-sm">
-                  <h5 className="fw-bold"><span className="me-2">🛡️</span>স্থানীয় সমন্বয়কারী</h5>
-                  <p className="text-muted mb-1">Local Coordinators</p>
-                  <small>কৃষক, মৎস্যচাষী ও খামারিদের সহায়তা, নিবন্ধন ও মাঠ পর্যায়ের রিপোর্ট</small>
-                  <p className="mt-2 text-muted fst-italic">Support farmers, fish farmers & livestock owners, registration & field reports</p>
-                </div>
-              </div>
-
-              {/* Startup Innovators */}
-              <div className="col-md-4">
-                <div className="card h-100 p-3 border-start border-3 border-dark bg-light-subtle shadow-sm">
-                  <h5 className="fw-bold"><span className="me-2">⚙️</span>স্টার্টআপ উদ্যোক্তা</h5>
-                  <p className="text-muted mb-1">Startup Innovators</p>
-                  <small>আধুনিক কৃষি, মৎস্য ও প্রাণিসম্পদ প্রযুক্তি, স্মার্ট সমাধান ও উদ্ভাবন</small>
-                  <p className="mt-2 text-muted fst-italic">Modern agri, fishery & livestock tech, smart solutions & innovations</p>
-                </div>
-              </div>
-
-              {/* Supply Chain Partners */}
-              <div className="col-md-4">
-                <div className="card h-100 p-3 border-start border-3 border-warning bg-light-subtle shadow-sm">
-                  <h5 className="fw-bold"><span className="me-2">🛒</span>সরবরাহ শৃঙ্খল অংশীদার</h5>
-                  <p className="text-muted mb-1">Supply Chain Partners</p>
-                  <small>বীজ, সার, মৎস্য খাদ্য, পশুখাদ্য, ঔষধ ও যন্ত্রপাতি সরবরাহ</small>
-                  <p className="mt-2 text-muted fst-italic">Seeds, fertilizers, fish feed, animal feed, medicines & equipment</p>
-                </div>
-              </div>
-
-              {/* Investors & Sponsors */}
-              <div className="col-md-4">
-                <div className="card h-100 p-3 border-start border-3 border-danger bg-light-subtle shadow-sm">
-                  <h5 className="fw-bold"><span className="me-2">❤️</span>বিনিয়োগকারী ও স্পন্সর</h5>
-                  <p className="text-muted mb-1">Investors & Sponsors</p>
-                  <small>কৃষি, মৎস্য ও প্রাণিসম্পদ উন্নয়নে বিনিয়োগ, প্রশিক্ষণ ও অবকাঠামো অর্থায়ন</small>
-                  <p className="mt-2 text-muted fst-italic">Investments in development, training & infrastructure support</p>
-                </div>
-              </div>
-            </div>
+            {/* Cards for Experts, Coordinators, Innovators, Suppliers, Investors */}
           </div>
 
           {/* Knowledge & Resource Exchange Section */}
           <div className="text-center mt-5">
             <h3 className="fw-bold mb-2">জ্ঞান, প্রযুক্তি ও সহায়তার আদান-প্রদান</h3>
             <p className="text-muted mb-4">Exchange Knowledge, Technology & Support</p>
-
-            <div className="row justify-content-center">
-              <div className="col-md-10">
-                <div className="bg-white p-4 rounded shadow-sm">
-                  <h5 className="fw-bold mb-2"><span className="me-2">📖</span>শিক্ষা ও রিসোর্স কেন্দ্র</h5>
-                  <p className="text-muted mb-2">
-                    কৃষি, মৎস্য ও প্রাণিসম্পদ বিষয়ক শিক্ষামূলক সামগ্রী: ভিডিও টিউটোরিয়াল, সর্বোত্তম চর্চা, প্রযুক্তি গাইড এবং কমিউনিটি অভিজ্ঞতা
-                  </p>
-                  <p className="text-muted fst-italic">
-                    Educational Materials on Agriculture, Fisheries & Livestock: Video Tutorials, Best Practices, Technology Guides & Community Experiences
-                  </p>
-                  <div className="mt-4 d-flex justify-content-center gap-3">
-                    <Link to="/resources" className="btn btn-primary">রিসোর্স দেখুন / Explore Resources</Link>
-                    <Link to="/community" className="btn btn-outline-success">কমিউনিটিতে যোগ দিন / Join Community</Link>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
