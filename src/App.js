@@ -15,6 +15,7 @@ import Resources from './components/Resources';
 import Marketplace from './components/Marketplace/Marketplace_1';
 import ProfilePage from "./components/ProfilePage";
 import OpenHome from "./components/OpenHome";
+import About from "./components/About"; // Add this import
 
 function AppWrapper() {
   return (
@@ -25,11 +26,9 @@ function AppWrapper() {
 }
 
 function App() {
-  // Get supplierView from localStorage
-const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")));
+  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")));
   const [supplierView, setSupplierView] = React.useState(user?.role?.toLowerCase() === "supplier");
 
-  // Optional: যদি user change হয় (login/logout)
   React.useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
@@ -41,12 +40,36 @@ const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")))
         {/* Login + Role Selector */}
         <Route path="/" element={
           <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
+            {/* Website Name at the top */}
+            <div className="position-absolute top-0 start-50 translate-middle-x mt-4">
+              <h1 className="text-green fw-bold">কৃষি দিবানিশি</h1>
+            </div>
+            
             <div className="row w-100 justify-content-center align-items-center">
-              <div className="col-12 col-md-4 mb-3 mb-md-0"><RoleSelector /></div>
-              <div className="col-12 col-md-4"><LoginForm /></div>
+              {/* Green About Button Box */}
+              <div className="col-12 col-md-4 mb-3 mb-md-0">
+                <button 
+                  className="btn btn-green w-100 h-100 d-flex align-items-center justify-content-center about-button"
+                  onClick={() => window.location.href = '/about'}
+                  style={{ 
+                    height: '100%', 
+                    minHeight: '300px' // Adjust to match login box height
+                  }}
+                >
+                  <span className="text-white fw-bold fs-5">আমাদের সম্পর্কে জানুন</span>
+                </button>
+              </div>
+              
+              {/* Login Form */}
+              <div className="col-12 col-md-4">
+                <LoginForm />
+              </div>
             </div>
           </div>
         }/>
+
+        {/* Add About Route */}
+        <Route path="/about" element={<About />} />
 
         {/* Registration */}
         <Route path="/register" element={
@@ -63,11 +86,10 @@ const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")))
         <Route path="/community" element={<Community />} />
 
         {/* Marketplace */}
-      <Route
-        path="/market"
-        element={<Marketplace supplierView={supplierView} />}
-      />
-
+        <Route
+          path="/market"
+          element={<Marketplace supplierView={supplierView} />}
+        />
 
         {/* Login route */}
         <Route path="/login" element={<LoginForm />} />
@@ -78,8 +100,6 @@ const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")))
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" />} />
-
-
       </Routes>
   );
 }
